@@ -158,3 +158,15 @@ DTImage GaussianFilter(const DTImage &image,double sigma)
 
     return DTImage(image.Grid(),channels);
 }
+
+void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output)
+{
+    DTList<double> values = {1.2,1.6,1.9};
+    
+    output.Add(image);
+    output.Add(GaussianFilter(image,1));
+    output.Add(GaussianFilter(image,2));
+    output.Add(GaussianFilter(image,3));
+
+    output.Finish(DTTable({CreateTableColumn("sigma",{0,1,2.0,3}),CreateTableColumn("octave",{5,7.0,7,6})}));
+}

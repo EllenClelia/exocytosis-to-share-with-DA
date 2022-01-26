@@ -27,20 +27,33 @@ int main(int argc,const char *argv[])
         sigma = inputDataFile.ReadNumber("sigma");
     }
 
-    //DTTimer timer;
-    //timer.Start();
-    DTImage output = GaussianFilter(image,sigma);
-
-    //timer.Stop(); // Use timer.Time() to get the elapsed time
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
+
+    DTMutableSet<DTImage> output(outputFile,"Var");
+    DoG(image,sigma,output);
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
-    WriteOne(outputFile,"Var",output);
-    // The structure, to make it easy to open the output file
-    output.WriteStructure(outputFile,"Var");
-    outputFile.Save("Image","Seq_Var");
+    {
+        // Structure information for the set
+        std::string baseName = "SeqInfo_Var";
+        std::string eName = baseName+"_E";
+        std::string pName = baseName+"_P";
 
+        // Structure for parameters
+        outputFile.Save("sigma",pName+"_1N");
+        outputFile.Save("Number",pName+"_1T");
+        outputFile.Save("octave",pName+"_2N");
+        outputFile.Save("Number",pName+"_2T");
+        outputFile.Save(2,pName+"_N");
+
+        // Structure for element
+        outputFile.Save("field",eName+"_1N");
+        outputFile.Save(1,eName+"_N");
+        outputFile.Save("Image",eName);
+
+        outputFile.Save("Image Set","Seq_Var");
+    }
     // To speed up reading.
     outputFile.SaveIndex();
 

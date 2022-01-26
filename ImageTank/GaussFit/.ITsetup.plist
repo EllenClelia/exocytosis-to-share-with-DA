@@ -4,10 +4,6 @@
 <dict>
 	<key>Calling Arguments</key>
 	<string>569b3c9d55a2e700a4894f6735214dd76f52b50f3e54c1db11d15be2c215c411</string>
-	<key>Channel Information</key>
-	<array>
-		<string>field</string>
-	</array>
 	<key>Input</key>
 	<array>
 		<dict>
@@ -36,7 +32,7 @@
 		</dict>
 	</array>
 	<key>Name of Function</key>
-	<string>GaussianFilter</string>
+	<string>DoG</string>
 	<key>Name of Group</key>
 	<string>Group</string>
 	<key>Name of Module</key>
@@ -45,7 +41,26 @@
 	<string>output</string>
 	<key>Name of Project</key>
 	<string>GaussFit</string>
+	<key>Set Channel Information</key>
+	<array>
+		<string>field</string>
+	</array>
+	<key>Set Parameter Information</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>sigma</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>octave</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
 	<key>Variable Type</key>
-	<string>Image</string>
+	<string>Image Set</string>
 </dict>
 </plist>

@@ -114,7 +114,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6351F99B24E212F500ADB7E5 /* GaussFit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "GaussFit"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6351F99B24E212F500ADB7E5 /* GaussFit */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GaussFit; sourceTree = BUILT_PRODUCTS_DIR; };
 		6351F99E24E212F500ADB7E5 /* computation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = computation.cpp; sourceTree = "<group>"; };
 		6351FA0A24E213AD00ADB7E5 /* DTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRandom.h; sourceTree = "<group>"; };
 		6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTRandom.cpp; sourceTree = "<group>"; };
@@ -344,7 +344,7 @@
 			children = (
 				6351F99E24E212F500ADB7E5 /* computation.cpp */,
 			);
-			path = "GaussFit";
+			path = GaussFit;
 			sourceTree = "<group>";
 		};
 		6351F9A524E213AD00ADB7E5 /* DTSource */ = {
@@ -649,8 +649,8 @@
 			);
 			dependencies = (
 			);
-			name = "GaussFit";
-			productName = "GaussFit";
+			name = GaussFit;
+			productName = GaussFit;
 			productReference = 6351F99B24E212F500ADB7E5 /* GaussFit */;
 			productType = "com.apple.product-type.tool";
 		};
@@ -795,7 +795,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -853,7 +853,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;

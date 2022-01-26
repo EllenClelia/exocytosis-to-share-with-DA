@@ -5,6 +5,6 @@
 
 #include "structures.h"
 
-DTImage GaussianFilter(const DTImage &image,double sigma);
+void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output);
 
 #endif /* IT_computation_h */ 

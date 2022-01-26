@@ -6,6 +6,7 @@
 #include "DTDoubleArray.h"
 #include "DTImage.h"
 #include "DTIntArray.h"
+#include "DTSet.h"
 
 
 #endif /* IT_structure_h */ 
