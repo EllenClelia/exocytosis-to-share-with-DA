@@ -161,12 +161,31 @@ DTImage GaussianFilter(const DTImage &image,double sigma)
 
 void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output)
 {
-    DTList<double> values = {1.2,1.6,1.9};
+    int inOctave = 3;
+    int numOctaves = 4;
+    double mult = pow(2,1.0/inOctave);
     
-    output.Add(image);
-    output.Add(GaussianFilter(image,1));
-    output.Add(GaussianFilter(image,2));
-    output.Add(GaussianFilter(image,3));
+    int octaveNumber;
+    int stepNumber;
+    DTMutableDoubleArray sigmaColumn(inOctave*numOctaves);
+    DTMutableDoubleArray octaveColumn(inOctave*numOctaves);
+    int pos = 0;
 
-    output.Finish(DTTable({CreateTableColumn("sigma",{0,1,2.0,3}),CreateTableColumn("octave",{5,7.0,7,6})}));
+    for (octaveNumber=0;octaveNumber<numOctaves;octaveNumber++) {
+        for (stepNumber=0;stepNumber<inOctave;stepNumber++) {
+            // Save the images to the set.
+            sigmaColumn(pos) = sigma;
+            octaveColumn(pos) = octaveNumber+1;
+            output.Add(GaussianFilter(image,sigma));
+            sigma *= mult;
+            pos++;
+        }
+    }
+
+    // Add the meta data
+    DTMutableList<DTTableColumn> columns(2);
+    columns(0) = CreateTableColumn("sigma",sigmaColumn);
+    columns(1) = CreateTableColumn("octave",octaveColumn);
+    DTTable parameterTable(columns);
+    output.Finish(parameterTable);
 }
