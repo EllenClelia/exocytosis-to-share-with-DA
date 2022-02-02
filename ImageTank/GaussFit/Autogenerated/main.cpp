@@ -49,7 +49,9 @@ int main(int argc,const char *argv[])
 
         // Structure for element
         outputFile.Save("field",eName+"_1N");
-        outputFile.Save(1,eName+"_N");
+        outputFile.Save("difference",eName+"_2N");
+        outputFile.Save("median",eName+"_3N");
+        outputFile.Save(3,eName+"_N");
         outputFile.Save("Image",eName);
 
         outputFile.Save("Image Set","Seq_Var");

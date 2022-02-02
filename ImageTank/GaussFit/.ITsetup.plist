@@ -44,6 +44,8 @@
 	<key>Set Channel Information</key>
 	<array>
 		<string>field</string>
+		<string>difference</string>
+		<string>median</string>
 	</array>
 	<key>Set Parameter Information</key>
 	<array>

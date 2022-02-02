@@ -3,6 +3,8 @@
 #include <math.h>
 #include "DTDoubleArrayOperators.h"
 #include "DTUtilities.h"
+#include "DTProgress.h"
+#include "DTFloatArrayOperators.h"
 
 DTImage GaussianFilter(const DTImage &image,double sigma)
 {
@@ -159,6 +161,34 @@ DTImage GaussianFilter(const DTImage &image,double sigma)
     return DTImage(image.Grid(),channels);
 }
 
+DTFloatArray MedianOfStack(const DTFloatArray &stack,ssize_t slices)
+{
+    // Median so far
+    ssize_t m = stack.m();
+    ssize_t n = stack.n();
+    DTMutableFloatArray toReturn(m,n);
+    
+    DTMutableFloatArray list(slices);
+    ssize_t i,j,k;
+    ssize_t half = (slices%2==0 ? slices/2-1 : slices/2);
+    for (j=0;j<n;j++) {
+        for (i=0;i<m;i++) {
+            for (k=0;k<slices;k++) {
+                list(k) = stack(i,j,k);
+            }
+            std::sort(list.Pointer(),list.Pointer()+k);
+            if (slices%2==0) {
+                toReturn(i,j) = (list(half)+list(half)+1)*0.5;
+            }
+            else {
+                toReturn(i,j) = list(half);
+            }
+        }
+    }
+    
+    return toReturn;
+}
+
 void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output)
 {
     int inOctave = 3;
@@ -170,18 +200,50 @@ void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output)
     DTMutableDoubleArray sigmaColumn(inOctave*numOctaves);
     DTMutableDoubleArray octaveColumn(inOctave*numOctaves);
     int pos = 0;
+    
+    DTImage imageToUse = ConvertToFloat(image);
+    
+    DTProgress progress;
+    
+    DTImage current,next;
+    next = GaussianFilter(imageToUse,sigma);
+    
+    DTFloatArray difference;
+    
+    ssize_t m = image.m();
+    ssize_t n = image.n();
+    DTMutableFloatArray stack(m,n,inOctave*numOctaves);
+    
+    DTMutableList<DTImageChannel> outputImageChannels(3);
 
     for (octaveNumber=0;octaveNumber<numOctaves;octaveNumber++) {
         for (stepNumber=0;stepNumber<inOctave;stepNumber++) {
             // Save the images to the set.
+            // Add this to the list (next entry)
+
+            current = next;
+            outputImageChannels(0) = current(0);
+
             sigmaColumn(pos) = sigma;
-            octaveColumn(pos) = octaveNumber+1;
-            output.Add(GaussianFilter(image,sigma));
+            octaveColumn(pos) = (pos/inOctave)+1;
             sigma *= mult;
+            next = GaussianFilter(imageToUse,sigma);
+            
+            difference = next(0).FloatArray()-current(0).FloatArray();
+            CopyIntoSlice(stack,difference,pos);
+            
+            outputImageChannels(1) = DTImageChannel("difference",difference);
+
+            DTFloatArray median = MedianOfStack(stack,pos+1);
+            outputImageChannels(2) = DTImageChannel("median",median);
+
+            DTImage imageToAdd(image.Grid(),outputImageChannels);
+            output.Add(imageToAdd);
+
             pos++;
         }
     }
-
+    
     // Add the meta data
     DTMutableList<DTTableColumn> columns(2);
     columns(0) = CreateTableColumn("sigma",sigmaColumn);
