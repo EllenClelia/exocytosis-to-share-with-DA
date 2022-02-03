@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>569b3c9d55a2e700a4894f6735214dd76f52b50f3e54c1db11d15be2c215c411</string>
+	<string>6fb35124444493ae683066df46673574f94cfb8bd168199471d34fe746654f18</string>
 	<key>Input</key>
 	<array>
 		<dict>
@@ -21,12 +21,46 @@
 			<string>sigma</string>
 			<key>Comment</key>
 			<string></string>
+			<key>Default</key>
+			<string>5</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
 			<string></string>
 			<key>Round</key>
 			<false/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>inOctave</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>3</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>numOctaves</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>3</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

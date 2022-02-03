@@ -46,16 +46,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D3BC9674-A100-4C01-980B-176815CF2883"
+            uuid = "5FD342DE-83C0-4BD6-B50E-07C91F74AE81"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GaussFit/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
-            landmarkName = "DoG(image, sigma, output)"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "DoG(image, sigma, inOctave, numOctaves, output)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

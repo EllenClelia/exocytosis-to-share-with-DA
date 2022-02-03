@@ -189,10 +189,8 @@ DTFloatArray MedianOfStack(const DTFloatArray &stack,ssize_t slices)
     return toReturn;
 }
 
-void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output)
+void DoG(const DTImage &image,double sigma,int inOctave,int numOctaves,DTMutableSet<DTImage> &output)
 {
-    int inOctave = 3;
-    int numOctaves = 4;
     double mult = pow(2,1.0/inOctave);
     
     int octaveNumber;
@@ -222,25 +220,30 @@ void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output)
             // Add this to the list (next entry)
 
             current = next;
-            outputImageChannels(0) = current(0);
 
+            // Save the current smoothing level as the first channel
+            outputImageChannels(0) = current(0); // Channel 1
             sigmaColumn(pos) = sigma;
             octaveColumn(pos) = (pos/inOctave)+1;
+            
+            // Compute the next smoothing level and find the difference
             sigma *= mult;
             next = GaussianFilter(imageToUse,sigma);
-            
-            difference = next(0).FloatArray()-current(0).FloatArray();
+            difference = current(0).FloatArray()-next(0).FloatArray();
+            outputImageChannels(1) = DTImageChannel("difference",difference); // Channel 2
             CopyIntoSlice(stack,difference,pos);
             
-            outputImageChannels(1) = DTImageChannel("difference",difference);
-
+            // Third channel is the median up to this point
             DTFloatArray median = MedianOfStack(stack,pos+1);
             outputImageChannels(2) = DTImageChannel("median",median);
 
+            // Create and save the image as part of the set
             DTImage imageToAdd(image.Grid(),outputImageChannels);
             output.Add(imageToAdd);
 
             pos++;
+            
+            progress.UpdatePercentage(pos/double(inOctave*numOctaves));
         }
     }
     

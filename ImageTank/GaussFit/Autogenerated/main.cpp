@@ -13,6 +13,7 @@ int main(int argc,const char *argv[])
 
     DTImage image;
     double sigma;
+    int inOctave, numOctaves;
 
     {
         // Inside a scope so that the input data file will be closed before the computation is called.
@@ -25,12 +26,14 @@ int main(int argc,const char *argv[])
         variableDataFile = DTDataFile("image.dtbin",DTFile::ReadOnly);
         Read(variableDataFile,"image",image);
         sigma = inputDataFile.ReadNumber("sigma");
+        inOctave = inputDataFile.ReadNumber("inOctave");
+        numOctaves = inputDataFile.ReadNumber("numOctaves");
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
     DTMutableSet<DTImage> output(outputFile,"Var");
-    DoG(image,sigma,output);
+    DoG(image,sigma,inOctave,numOctaves,output);
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 

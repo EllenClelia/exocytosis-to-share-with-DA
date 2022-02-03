@@ -5,6 +5,7 @@
 
 #include "structures.h"
 
-void DoG(const DTImage &image,double sigma,DTMutableSet<DTImage> &output);
+void DoG(const DTImage &image,double sigma,int inOctave,int numOctaves,
+         DTMutableSet<DTImage> &output);
 
 #endif /* IT_computation_h */ 
