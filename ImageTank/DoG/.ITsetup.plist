@@ -4,6 +4,10 @@
 <dict>
 	<key>Calling Arguments</key>
 	<string>6fb35124444493ae683066df46673574f94cfb8bd168199471d34fe746654f18</string>
+	<key>Channel Information</key>
+	<array>
+		<string>median</string>
+	</array>
 	<key>Input</key>
 	<array>
 		<dict>
@@ -38,7 +42,7 @@
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
-			<string>3</string>
+			<string>4</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
@@ -54,7 +58,7 @@
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
-			<string>3</string>
+			<string>4</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
@@ -66,37 +70,16 @@
 		</dict>
 	</array>
 	<key>Name of Function</key>
-	<string>DoG</string>
+	<string>Computation</string>
 	<key>Name of Group</key>
 	<string>Group</string>
 	<key>Name of Module</key>
-	<string>Explore the DoG functionality</string>
+	<string>DoG only the final result</string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>
-	<string>GaussFit</string>
-	<key>Set Channel Information</key>
-	<array>
-		<string>field</string>
-		<string>difference</string>
-		<string>median</string>
-	</array>
-	<key>Set Parameter Information</key>
-	<array>
-		<dict>
-			<key>Name</key>
-			<string>sigma</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>octave</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-	</array>
+	<string>DoG</string>
 	<key>Variable Type</key>
-	<string>Image Set</string>
+	<string>Image</string>
 </dict>
 </plist>
