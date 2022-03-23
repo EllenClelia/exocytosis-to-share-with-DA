@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>c503cd4853e0b66b864fef12123fd8e2a75e2812e07bfe5928a1f1faba564991</string>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>everything</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Image Set</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>spots</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>time</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<false/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>timeback</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>timeforward</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>pixels</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<false/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>Group</string>
+	<key>Name of Module</key>
+	<string>Command Line Utility</string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Regions from sequence</string>
+	<key>Set Channel Information From</key>
+	<string>everything</string>
+	<key>Set Parameter Information</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>time</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>intensity</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Variable Type</key>
+	<string>Image Set</string>
+</dict>
+</plist>
