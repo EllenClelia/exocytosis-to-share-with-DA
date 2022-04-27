@@ -13,7 +13,7 @@ int main(int argc,const char *argv[])
 
     DTSet<DTImage> everything;
     DTTable spots;
-    double time, pixels;
+    double time;
     int timeback, timeforward;
     DTMutableList<std::string> _channelNames;
 
@@ -40,13 +40,12 @@ int main(int argc,const char *argv[])
         time = inputDataFile.ReadNumber("time");
         timeback = inputDataFile.ReadNumber("timeback");
         timeforward = inputDataFile.ReadNumber("timeforward");
-        pixels = inputDataFile.ReadNumber("pixels");
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
     DTMutableSet<DTImage> output(outputFile,"Var");
-    Computation(everything,spots,time,timeback,timeforward,pixels,output);
+    Computation(everything,spots,time,timeback,timeforward,output);
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
@@ -65,7 +64,9 @@ int main(int argc,const char *argv[])
         outputFile.Save("Point2D",pName+"_3T");
         outputFile.Save("ptNumber",pName+"_4N");
         outputFile.Save("Number",pName+"_4T");
-        outputFile.Save(4,pName+"_N");
+        outputFile.Save("centerSpot",pName+"_5N");
+        outputFile.Save("Point2D",pName+"_5T");
+        outputFile.Save(5,pName+"_N");
 
         // Structure for element
         for (int _count=0;_count<_channelNames.Length();_count++) {

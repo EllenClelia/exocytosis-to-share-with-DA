@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>c503cd4853e0b66b864fef12123fd8e2a75e2812e07bfe5928a1f1faba564991</string>
+	<string>33635335640224b11698058d8532a444fca41015e8d77cf31026d33f7251d1bd</string>
 	<key>Input</key>
 	<array>
 		<dict>
@@ -74,22 +74,6 @@
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
-		<dict>
-			<key>Argument</key>
-			<string>pixels</string>
-			<key>Comment</key>
-			<string></string>
-			<key>Default</key>
-			<string>0</string>
-			<key>Display</key>
-			<string></string>
-			<key>Interval</key>
-			<string></string>
-			<key>Round</key>
-			<false/>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
 	</array>
 	<key>Name of Function</key>
 	<string>Computation</string>
@@ -128,6 +112,12 @@
 			<string>ptNumber</string>
 			<key>Type</key>
 			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>centerSpot</string>
+			<key>Type</key>
+			<string>2D Point</string>
 		</dict>
 	</array>
 	<key>Variable Type</key>

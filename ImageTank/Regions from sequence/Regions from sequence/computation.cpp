@@ -5,7 +5,7 @@
 #include "DTUtilities.h"
 
 void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double time,int timeback,
-                 int timeforward,double pixels,DTMutableSet<DTImage> &output)
+                 int timeforward,DTMutableSet<DTImage> &output)
 {
     DTSet<DTImage> withCache = everything.WithCache(timeback+1+timeforward);
     DTTable parameters = withCache.Parameters();
@@ -23,6 +23,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
     DTMutableDoubleArray intensityList(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray centerList(2,howMany*(timeback+1+timeforward));
     DTMutableDoubleArray pointNumber(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray centerSpot(2,howMany*(timeback+1+timeforward));
 
     for (row=0;row<howMany;row++) {
         DTPoint2D p = center(row);
@@ -39,6 +40,17 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
             intensityList(posInOutput) = Maximum(image(0));
             centerList(0,posInOutput) = p.x;
             centerList(1,posInOutput) = p.y;
+            
+            // centerSpot is the brightest spot, using a Gaussian Peak Fit
+            // just like the bead alignment. Uses the p.x as the initial guess
+            // and a reasonable starting width, but finds that spike.
+            centerSpot(0,posInOutput) = p.x;
+            centerSpot(1,posInOutput) = p.y;
+            
+            // This new center spot should be used as the center of the cropping window
+            
+            // compute how to define the brightness of the spot
+            
             posInOutput++;
         }
     }
@@ -55,7 +67,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
         CreateTableColumn("time",timeList),
         CreateTableColumn("intensity",intensityList),
         CreateTableColumn("center",DTPointCollection2D(centerList)),
-        CreateTableColumn("ptNumber",pointNumber)
+        CreateTableColumn("ptNumber",pointNumber),
+        CreateTableColumn("centerSpot",DTPointCollection2D(centerSpot))
     }));
     // At the end, wrap up everything. Can't add entries after that
     output.Finish(DTTable());
