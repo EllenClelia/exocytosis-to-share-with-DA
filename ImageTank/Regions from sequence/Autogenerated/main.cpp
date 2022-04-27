@@ -61,7 +61,11 @@ int main(int argc,const char *argv[])
         outputFile.Save("Number",pName+"_1T");
         outputFile.Save("intensity",pName+"_2N");
         outputFile.Save("Number",pName+"_2T");
-        outputFile.Save(2,pName+"_N");
+        outputFile.Save("center",pName+"_3N");
+        outputFile.Save("Point2D",pName+"_3T");
+        outputFile.Save("ptNumber",pName+"_4N");
+        outputFile.Save("Number",pName+"_4T");
+        outputFile.Save(4,pName+"_N");
 
         // Structure for element
         for (int _count=0;_count<_channelNames.Length();_count++) {

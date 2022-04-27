@@ -117,6 +117,18 @@
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
+		<dict>
+			<key>Name</key>
+			<string>center</string>
+			<key>Type</key>
+			<string>2D Point</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ptNumber</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
 	</array>
 	<key>Variable Type</key>
 	<string>Image Set</string>

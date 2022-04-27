@@ -7,74 +7,56 @@
 void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double time,int timeback,
                  int timeforward,double pixels,DTMutableSet<DTImage> &output)
 {
-    // everything is a set
-    // Path
-    //   DTTableColumnPath2D paths = spots("Path");
-    //   DTPath2D singlePath = paths(0);
-    //   DTPath2D combined = paths.Path();
-    //   DTIntArray starts = paths.StartsOfIntervals();
-    // Center
-    //   DTTableColumnPoint2D pointsColumn = spots("Center");
-    //   DTPointCollection2D Center = pointsColumn.Points();
-    // Area
-    //   DTTableColumnNumber values = spots("Area");
-    //   DTDoubleArray Area = values.DoubleVersion();
-    // Length
-    //   DTTableColumnNumber values = spots("Length");
-    //   DTDoubleArray Length = values.DoubleVersion();
-    // Orientation
-    //   DTTableColumnNumber values = spots("Orientation");
-    //   DTDoubleArray Orientation = values.DoubleVersion();
-    // Closed
-    //   DTTableColumnNumber values = spots("Closed");
-    //   DTDoubleArray Closed = values.DoubleVersion();
-    // ABox
-    //   DTTableColumnPath2D paths = spots("ABox");
-    //   DTPath2D singlePath = paths(0);
-    //   DTPath2D combined = paths.Path();
-    //   DTIntArray starts = paths.StartsOfIntervals();
-    // ABox.width
-    //   DTTableColumnNumber values = spots("ABox.width");
-    //   DTDoubleArray ABoxwidth = values.DoubleVersion();
-    // ABox.height
-    //   DTTableColumnNumber values = spots("ABox.height");
-    //   DTDoubleArray ABoxheight = values.DoubleVersion();
-    // PBox
-    //   DTTableColumnPath2D paths = spots("PBox");
-    //   DTPath2D singlePath = paths(0);
-    //   DTPath2D combined = paths.Path();
-    //   DTIntArray starts = paths.StartsOfIntervals();
-    // PBox.width
-    //   DTTableColumnNumber values = spots("PBox.width");
-    //   DTDoubleArray PBoxwidth = values.DoubleVersion();
-    // PBox.height
-    //   DTTableColumnNumber values = spots("PBox.height");
-    //   DTDoubleArray PBoxheight = values.DoubleVersion();
-    
-    spots.pall();
-
-    output.Add(everything(0));
-    
     DTSet<DTImage> withCache = everything.WithCache(timeback+1+timeforward);
-    DTTable parameters = everything.Parameters();
+    DTTable parameters = withCache.Parameters();
     DTTableColumnNumber timeValues = parameters("t");
     ssize_t where = timeValues.FindClosest(time);
     
-    DTTableColumnPoint2D center = spots("Center");
+    DTTableColumnPoint2D center = spots("center");
+    DTTableColumnNumber width = spots("width");
     
     ssize_t row,howMany = center.NumberOfRows();
+    ssize_t index;
+    
+    ssize_t posInOutput = 0;
+    DTMutableDoubleArray timeList(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray intensityList(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray centerList(2,howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray pointNumber(howMany*(timeback+1+timeforward));
+
     for (row=0;row<howMany;row++) {
-        
+        DTPoint2D p = center(row);
+        double w = width(row);
+        DTRegion2D box = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
+        for (index=where-timeback;index<=where+timeforward;index++) {
+            if (index<0) continue;
+            if (index>=withCache.NumberOfItems()) continue;
+            DTImage image = withCache(index);
+            image = Crop(image,box);
+            output.Add(image);
+            pointNumber(posInOutput) = row;
+            timeList(posInOutput) = index-where;
+            intensityList(posInOutput) = Maximum(image(0));
+            centerList(0,posInOutput) = p.x;
+            centerList(1,posInOutput) = p.y;
+            posInOutput++;
+        }
+    }
+    
+    if (posInOutput!=timeList.Length()) {
+        pointNumber = TruncateSize(pointNumber,posInOutput);
+        timeList = TruncateSize(timeList,posInOutput);
+        intensityList = TruncateSize(intensityList,posInOutput);
+        centerList = TruncateSize(centerList,2*posInOutput);
     }
 
     // Create the parameter table, typically fill along side the Add calls
-    DTMutableList<DTTableColumn> columns(2);
-    DTMutableDoubleArray values(1);
-    values(0) = 5;
-    columns(0) = CreateTableColumn("time",values);
+    output.Finish(DTTable({
+        CreateTableColumn("time",timeList),
+        CreateTableColumn("intensity",intensityList),
+        CreateTableColumn("center",DTPointCollection2D(centerList)),
+        CreateTableColumn("ptNumber",pointNumber)
+    }));
     // At the end, wrap up everything. Can't add entries after that
-    columns(1) = CreateTableColumn("intensity",values);
-    output.Finish(DTTable(columns));
-    // At the end, wrap up everything. Can't add entries after that
-    output.Finish(DTTable(columns));
+    output.Finish(DTTable());
 }
