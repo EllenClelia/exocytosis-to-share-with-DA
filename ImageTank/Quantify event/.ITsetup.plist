@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>6d523abe2ad76498395bc83971d81c9874e3dc9e0d3bc141bf7ab9a9241c7534</string>
+	<key>Group Information</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>average</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>width</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>intensity</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>count</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>histogram</string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>fit</string>
+			<key>Type</key>
+			<string>Function1D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>R2</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>decay</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>shift</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>images</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Image Set</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>Group</string>
+	<key>Name of Module</key>
+	<string>Command Line Utility</string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Quantify event</string>
+	<key>Variable Type</key>
+	<string>Group</string>
+</dict>
+</plist>

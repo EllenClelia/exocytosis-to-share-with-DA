@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "3B520566-45B6-4AA0-8FEA-66F4D5B35CAF"
+   uuid = "2FADD9AA-1D80-4C94-8752-105143B0F3BC"
    type = "1"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "BA81FC1E-3CAF-4ECB-A099-C4A56214746C"
+            uuid = "60D797C5-871D-48D2-8102-257439520440"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../../../../../Applications/ImageTank.app/Contents/Library/DTSource/Support/DTError.cpp"
+            filePath = "../../../../../Programming/DTSource/DTSource/Support/DTError.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "31"
@@ -23,32 +23,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "8244B47C-5FB5-464C-ABAC-2B70E15150F1"
+            uuid = "18BB8D10-A9A0-4EE2-9E18-A0E56DFC29B0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../../../Programming/DTSource/DTSource/Variables/Support/DTSet.h"
+            filePath = "First Filter Pass/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "operator()(index)"
-            landmarkType = "7">
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "Computation(images, fromBkgrnd, tailThreshold, maxDrift)"
+            landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2580DF31-AF73-44DB-BFFC-866801B78FC0"
+            uuid = "2990D2FF-2AD0-4C99-8820-6CDBE590F456"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Sources/Utilities.cpp"
+            filePath = "First Filter Pass/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "GaussianFilter(arr, sigma)"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "Computation(images, fromBkgrnd, tailThreshold, maxDrift)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

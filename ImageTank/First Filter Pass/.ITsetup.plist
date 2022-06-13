@@ -3,59 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>33635335640224b11698058d8532a444fca41015e8d77cf31026d33f7251d1bd</string>
+	<string>265b62e82c4b26237601f98baae28a1664d4046f6ab1bee570daf10c4857bca1</string>
 	<key>Input</key>
 	<array>
 		<dict>
 			<key>Argument</key>
-			<string>everything</string>
+			<string>images</string>
 			<key>Comment</key>
 			<string></string>
 			<key>Display</key>
-			<string></string>
+			<string>Images</string>
 			<key>Type</key>
 			<string>Image Set</string>
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>spots</string>
+			<string>fromBkgrnd</string>
 			<key>Comment</key>
-			<string></string>
-			<key>Display</key>
-			<string></string>
-			<key>Structure</key>
-			<array>
-				<dict>
-					<key>Name</key>
-					<string>center</string>
-					<key>Type</key>
-					<string>Point2D</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>width</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>box</string>
-					<key>Type</key>
-					<string>Region2D</string>
-				</dict>
-			</array>
-			<key>Type</key>
-			<string>Table</string>
-		</dict>
-		<dict>
-			<key>Argument</key>
-			<string>time</string>
-			<key>Comment</key>
-			<string></string>
+			<string>How much it has to rise from background</string>
 			<key>Default</key>
 			<string>0</string>
 			<key>Display</key>
-			<string></string>
+			<string>From Bkgrnd</string>
 			<key>Interval</key>
 			<string></string>
 			<key>Round</key>
@@ -65,33 +34,33 @@
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>timeback</string>
+			<string>tailThreshold</string>
 			<key>Comment</key>
-			<string></string>
+			<string>When to stop tracking</string>
 			<key>Default</key>
 			<string>0</string>
 			<key>Display</key>
-			<string></string>
+			<string>Tail Scale</string>
 			<key>Interval</key>
 			<string></string>
 			<key>Round</key>
-			<true/>
+			<false/>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>timeforward</string>
+			<string>maxDrift</string>
 			<key>Comment</key>
-			<string></string>
+			<string>Maximum Drift</string>
 			<key>Default</key>
 			<string>0</string>
 			<key>Display</key>
-			<string></string>
+			<string>Max Drift</string>
 			<key>Interval</key>
 			<string></string>
 			<key>Round</key>
-			<true/>
+			<false/>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
@@ -101,14 +70,12 @@
 	<key>Name of Group</key>
 	<string>Group</string>
 	<key>Name of Module</key>
-	<string>Command Line Utility</string>
+	<string>Quantify a single spike</string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>
-	<string>Regions from sequence</string>
-	<key>Set Channel Information From</key>
-	<string>everything</string>
-	<key>Set Parameter Information</key>
+	<string>First Filter Pass</string>
+	<key>Table Information</key>
 	<array>
 		<dict>
 			<key>Name</key>
@@ -118,7 +85,43 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>intensity</string>
+			<string>shift</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>background</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>decay</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>R2</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>width</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>flag</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>skip</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
@@ -130,24 +133,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>ptNumber</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>centerSpot</string>
-			<key>Type</key>
-			<string>Point2D</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>average</string>
+			<string>drift</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
 	</array>
 	<key>Variable Type</key>
-	<string>Image Set</string>
+	<string>Table</string>
 </dict>
 </plist>

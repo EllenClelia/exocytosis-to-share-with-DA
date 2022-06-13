@@ -66,7 +66,9 @@ int main(int argc,const char *argv[])
         outputFile.Save("Number",pName+"_4T");
         outputFile.Save("centerSpot",pName+"_5N");
         outputFile.Save("Point2D",pName+"_5T");
-        outputFile.Save(5,pName+"_N");
+        outputFile.Save("average",pName+"_6N");
+        outputFile.Save("Number",pName+"_6T");
+        outputFile.Save(6,pName+"_N");
 
         // Structure for element
         for (int _count=0;_count<_channelNames.Length();_count++) {
