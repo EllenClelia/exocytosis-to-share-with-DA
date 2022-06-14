@@ -114,6 +114,10 @@ DTTable Computation(const DTSet<DTImage> &images,
         if (drift>maxDrift) {
             outputSkip(posInOutput) += 2; // Drifted too far
         }
+        if (startingIndex+1==tailEndsAt) {
+            // Only the first point was above the threshold
+            outputSkip(posInOutput) += 4;
+        }
                                 
         // Ready for the next point
         startsAt = endsAt;

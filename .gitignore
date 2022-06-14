@@ -7,3 +7,6 @@ ImageTank/DoG/DoG.xcodeproj/project.xcworkspace/xcuserdata/david.xcuserdatad/Use
 ImageTank/GaussFit/GaussFit.xcodeproj/project.xcworkspace/xcuserdata/david.xcuserdatad/UserInterfaceState.xcuserstate
 *.xcuserstate
 ImageTank/DoG/DoG.xcodeproj/xcuserdata/ellencleliaoshaughnessy.xcuserdatad/xcschemes/xcschememanagement.plist
+*.xcbkptlist
+ImageTank/First Filter Pass/First Filter Pass.xcodeproj/xcuserdata/ellencleliaoshaughnessy.xcuserdatad/xcschemes/xcschememanagement.plist
+ImageTank/Quantify event/Quantify event.xcodeproj/xcuserdata/ellencleliaoshaughnessy.xcuserdatad/xcschemes/xcschememanagement.plist
