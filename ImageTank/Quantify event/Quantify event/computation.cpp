@@ -8,7 +8,7 @@
 #include "DTFunction1D.h"
 #include "Utilities.h"
 
-Group Computation(const DTSet<DTImage> &images)
+Group Computation(const DTSet<DTImage> &images,int pt)
 {
     // images is a set
     ssize_t images_count = images.NumberOfItems();
@@ -16,13 +16,24 @@ Group Computation(const DTSet<DTImage> &images)
     DTTable images_par = images.Parameters();
     DTTableColumnNumber ptNumber = images_par("ptNumber");
     
-    // Just extract point == 0
-    ssize_t i;
-    for (i=0;i<images_count;i++) {
-        if (ptNumber(i)!=0) break;
+    // Just extract point == pt
+    ssize_t startAt = 0;
+    for (startAt=0;startAt<images_count;startAt++) {
+        if (ptNumber(startAt)>=pt) break;
     }
     
-    QuantifyEvent event = Quantify(images.ExtractRows(DTRange(0,i)));
+    ssize_t i;
+    for (i=startAt;i<images_count;i++) {
+        if (ptNumber(i)!=pt) break;
+    }
+    ssize_t endAt = i;
+    
+    if (startAt==endAt) {
+        // Empty
+        return Group();
+    }
+    
+    QuantifyEvent event = Quantify(images.ExtractRows(DTRange(startAt,endAt-startAt)));
  
     Group toReturn;
     toReturn.average = event.average;

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>6d523abe2ad76498395bc83971d81c9874e3dc9e0d3bc141bf7ab9a9241c7534</string>
+	<string>1853bf2a48022be666c67195f60380b8caea2ea6e62364d9ef2c0445bd401e19</string>
 	<key>Group Information</key>
 	<array>
 		<dict>
@@ -79,6 +79,22 @@
 			<string></string>
 			<key>Type</key>
 			<string>Image Set</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>ptNumber</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string>Point Number</string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
+			<key>Type</key>
+			<string>Number</string>
 		</dict>
 	</array>
 	<key>Name of Function</key>

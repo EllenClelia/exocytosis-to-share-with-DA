@@ -12,20 +12,26 @@ int main(int argc,const char *argv[])
     DTSetArguments(argc,argv);
 
     DTSet<DTImage> images;
+    int ptNumber;
 
     {
         // Inside a scope so that the data files will be closed before the computation starts.
+        DTDataFile inputDataFile("Input.dtbin",DTFile::ReadOnly);
+        if (inputDataFile.IsOpen()==false) {
+            std::cerr << "No input file found. Might have to save input for debugging." << std::endl;
+        }
         DTDataFile variableDataFile;
 
         variableDataFile = DTDataFile("images.dtbin",DTFile::ReadOnly);
         Read(variableDataFile,"images",images);
+        ptNumber = inputDataFile.ReadNumber("ptNumber");
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
     //DTTimer timer;
     //timer.Start();
-    Group output = Computation(images);
+    Group output = Computation(images,ptNumber);
 
     //timer.Stop(); // Use timer.Time() to get the elapsed time
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
