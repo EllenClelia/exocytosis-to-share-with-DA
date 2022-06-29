@@ -3,28 +3,91 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>265b62e82c4b26237601f98baae28a1664d4046f6ab1bee570daf10c4857bca1</string>
+	<string>a9cb11ba9986d51394497ecb609a236ed1e695cfdaf32898ca5d7a55dbcd3661</string>
 	<key>Input</key>
 	<array>
 		<dict>
 			<key>Argument</key>
-			<string>images</string>
+			<string>events</string>
 			<key>Comment</key>
 			<string></string>
 			<key>Display</key>
-			<string>Images</string>
+			<string></string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>time</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>shift</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>skip</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>center</string>
+					<key>Type</key>
+					<string>Point2D</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>R2</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>drift</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>background</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>decay</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>width</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>flag</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
 			<key>Type</key>
-			<string>Image Set</string>
+			<string>Table</string>
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>fromBkgrnd</string>
+			<string>timeDelta</string>
 			<key>Comment</key>
-			<string>How much it has to rise from background</string>
+			<string></string>
 			<key>Default</key>
-			<string>0</string>
+			<string>2</string>
 			<key>Display</key>
-			<string>From Bkgrnd</string>
+			<string></string>
 			<key>Interval</key>
 			<string></string>
 			<key>Round</key>
@@ -34,29 +97,13 @@
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>tailThreshold</string>
+			<string>spaceDelta</string>
 			<key>Comment</key>
-			<string>When to stop tracking</string>
-			<key>Default</key>
-			<string>0</string>
-			<key>Display</key>
-			<string>Tail Scale</string>
-			<key>Interval</key>
 			<string></string>
-			<key>Round</key>
-			<false/>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Argument</key>
-			<string>maxDrift</string>
-			<key>Comment</key>
-			<string>Maximum Drift</string>
 			<key>Default</key>
-			<string>0</string>
+			<string>4</string>
 			<key>Display</key>
-			<string>Max Drift</string>
+			<string></string>
 			<key>Interval</key>
 			<string></string>
 			<key>Round</key>
@@ -70,11 +117,11 @@
 	<key>Name of Group</key>
 	<string>Group</string>
 	<key>Name of Module</key>
-	<string>Quantify a single spike</string>
+	<string>Combine Events</string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>
-	<string>First Filter Pass</string>
+	<string>Combine Events</string>
 	<key>Table Information</key>
 	<array>
 		<dict>

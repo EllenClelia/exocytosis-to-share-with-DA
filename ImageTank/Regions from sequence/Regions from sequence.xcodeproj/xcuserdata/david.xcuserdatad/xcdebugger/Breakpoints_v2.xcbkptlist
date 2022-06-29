@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "41"
             endingLineNumber = "41"
-            landmarkName = "GaussianFilter(arr, sigma)"
+            landmarkName = "GaussianFilter(channel, sigma)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

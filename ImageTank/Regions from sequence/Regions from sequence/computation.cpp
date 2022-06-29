@@ -66,22 +66,28 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
         // Go to time==where, find the maximum of that frame, and use
         // that point as the center of the region instead of the center(row) point
         DTImage rawImage = withCache(where);
-        
+        double dx = rawImage.Grid().dx();
+        double dy = rawImage.Grid().dy();
+        DTRegion2D biggerBox = AddBorder(box,3*dx,3*dy);
+
         // Find the maxima close by the initial guess p
-        DTImage image = Crop(rawImage,box);
+        DTImage image = Crop(rawImage,biggerBox);
         image = ConvertToDouble(image);
         DTImage smooth = GaussianFilter(image,1);
         maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
         p = image.Grid().GridToSpace(maxP);
         box = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
-        
+        biggerBox = AddBorder(box,3*dx,3*dy);
+
         // Do this again, might refine the point.
-        image = Crop(rawImage,box);
+        image = Crop(rawImage,biggerBox);
         image = ConvertToDouble(image);
         smooth = GaussianFilter(image,1);
         maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
         p = image.Grid().GridToSpace(maxP);
         box = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
+        biggerBox = AddBorder(box,3*dx,3*dy);
+
 
         DTPoint2D startingPoint = p;
 
@@ -90,7 +96,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
             if (index>=withCache.NumberOfItems()) continue;
             DTImage image = withCache(index);
             
-            image = Crop(image,box);
+            image = Crop(image,biggerBox);
 
             // Find the local max
             image = ConvertToDouble(image);
@@ -100,6 +106,9 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
             //}
 
             DTImage smooth = GaussianFilter(image,1);
+            
+            // Crop the image with the tight box, previously it was cropped with a slightly padded box.
+            smooth = Crop(smooth,box);
             output.Add(smooth);
 
             maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);

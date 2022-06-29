@@ -135,13 +135,13 @@ DTTable Computation(const DTSet<DTImage> &images,
     return DTTable({
         CreateTableColumn("time",outputTime),
         CreateTableColumn("shift",outputShift),
-        CreateTableColumn("background",outputBackground),
-        CreateTableColumn("decay",outputDecay),
-        CreateTableColumn("R2",outputR2),
-        CreateTableColumn("width",outputWidth),
-        CreateTableColumn("flag",outputFlag),
         CreateTableColumn("skip",outputSkip),
         CreateTableColumn("center",DTPointCollection2D(outputCenter)),
-        CreateTableColumn("drift",outputDrift)
+        CreateTableColumn("R2",outputR2),
+        CreateTableColumn("drift",outputDrift),
+        CreateTableColumn("background",outputBackground),
+        CreateTableColumn("decay",outputDecay),
+        CreateTableColumn("width",outputWidth),
+        CreateTableColumn("flag",outputFlag)
     });
 }
