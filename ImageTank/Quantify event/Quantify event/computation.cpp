@@ -33,7 +33,9 @@ Group Computation(const DTSet<DTImage> &images,int pt)
         return Group();
     }
     
-    QuantifyEvent event = Quantify(images.ExtractRows(DTRange(startAt,endAt-startAt)));
+    DTSet<DTImage> imagesToView = images.ExtractRows(DTRange(startAt,endAt-startAt));
+
+    QuantifyEvent event = Quantify(imagesToView);
  
     Group toReturn;
     toReturn.average = event.average;
@@ -56,6 +58,18 @@ Group Computation(const DTSet<DTImage> &images,int pt)
     toReturn.fit = fitFcn;
     toReturn.R2 = event.R2;
     toReturn.shift = event.shift;
+    
+    // Create the table Drift
+    DTTable eventParameters = imagesToView.Parameters();
+    DTTableColumnNumber time = eventParameters("time");
+    ssize_t startingIndex = time.FindClosest(0)+event.shift;
+    DTTable tail = eventParameters.ExtractRows(DTRange(startingIndex,eventParameters.NumberOfRows()-startingIndex));
+    
+    toReturn.Drift = DTTable({
+        tail("time"),
+        tail("centerSpot")
+    });
+    
     
     return toReturn;
 }

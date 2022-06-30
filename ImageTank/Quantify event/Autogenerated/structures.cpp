@@ -20,6 +20,7 @@ void Group::pinfoIndent(std::string pad) const
     std::cerr << pad << "R2 = " << R2 << std::endl;
     std::cerr << pad << "decay = " << decay << std::endl;
     std::cerr << pad << "shift = " << shift << std::endl;
+    std::cerr << pad << "Drift = "; Drift.pinfo();
 }
 
 void Group::WriteStructure(DTDataStorage &output,std::string name)
@@ -57,7 +58,16 @@ void Group::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("shift",name+"_7N");
     output.Save("Number",name+"_7T");
 
-    output.Save(7,name+"_N");
+    // Structure for "Drift"
+    output.Save("Drift",name+"_8N");
+    output.Save("time",name+"_8T_1N");
+    output.Save("Number",name+"_8T_1T");
+    output.Save("centerSpot",name+"_8T_2N");
+    output.Save("Point2D",name+"_8T_2T");
+    output.Save(2,name+"_8T_N");
+    output.Save("Table",name+"_8T");
+
+    output.Save(8,name+"_N");
     output.Save("Group",name+"_Name");
     output.Save("Group",name);
 }
@@ -71,6 +81,7 @@ void Write(DTDataStorage &output,std::string name,const Group &var)
     output.Save(var.R2,name+"_R2");
     output.Save(var.decay,name+"_decay");
     output.Save(var.shift,name+"_shift");
+    Write(output,name+"_Drift",var.Drift);
     Write(output,name,DTDoubleArray());
 }
 
@@ -90,4 +101,5 @@ void Read(DTDataStorage &input,std::string name,Group &var)
     var.R2 = input.ReadNumber(name+"_R2");
     var.decay = input.ReadNumber(name+"_decay");
     var.shift = input.ReadNumber(name+"_shift");
+    Read(input,name+"_Drift",var.Drift);
 }

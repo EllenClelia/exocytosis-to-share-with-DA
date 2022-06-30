@@ -67,6 +67,31 @@
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>time</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>centerSpot</string>
+					<key>Type</key>
+					<string>Point2D</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>Drift</string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
 	</array>
 	<key>Input</key>
 	<array>

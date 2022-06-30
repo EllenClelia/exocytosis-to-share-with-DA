@@ -112,7 +112,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
             output.Add(smooth);
 
             maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
-            p = image.Grid().GridToSpace(maxP);
+            p = smooth.Grid().GridToSpace(maxP);
             
             pointNumber(posInOutput) = row;
             timeList(posInOutput) = index-where;
