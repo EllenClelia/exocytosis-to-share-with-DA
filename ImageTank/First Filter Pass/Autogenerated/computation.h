@@ -10,6 +10,7 @@
 DTTable Computation(const DTSet<DTImage> &images,
                     double fromBkgrnd, // How much it has to rise from background
                     double tailThreshold, // When to stop tracking
-                    double maxDrift); // Maximum Drift
+                    double maxDrift, // Maximum Drift
+                    int stepsForDrift);
 
 #endif /* IT_computation_h */ 

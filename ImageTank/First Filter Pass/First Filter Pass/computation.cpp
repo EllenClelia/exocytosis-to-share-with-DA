@@ -9,7 +9,8 @@
 DTTable Computation(const DTSet<DTImage> &images,
                     double fromBkgrnd, // How much it has to rise from background
                     double tailThreshold, // When to stop tracking
-                    double maxDrift) // Maximum Drift
+                    double maxDrift, // Maximum Drift
+                    int stepsForDrift)
 {
     // images is a set
     ssize_t images_count = images.NumberOfItems();
@@ -105,7 +106,10 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTPoint2D startAt = centerSpot(startingIndex);
         outputCenter(0,posInOutput) = startAt.x;
         outputCenter(1,posInOutput) = startAt.y;
-        while (tailEndsAt<lengthOfEvent && intensity(tailEndsAt)>info.average+info.width*tailThreshold) {
+        ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
+        while (tailEndsAt<lengthOfEvent &&
+               tailEndsAt<stopSearchingDrift &&
+               intensity(tailEndsAt)>info.average+info.width*tailThreshold) {
             double dist = Distance(startAt,centerSpot(tailEndsAt));
             if (dist>drift) drift = dist;
             tailEndsAt++;
