@@ -106,8 +106,11 @@
 	<string>output</string>
 	<key>Name of Project</key>
 	<string>Regions from sequence</string>
-	<key>Set Channel Information From</key>
-	<string>everything</string>
+	<key>Set Channel Information</key>
+	<array>
+		<string>intensity</string>
+		<string>difference</string>
+	</array>
 	<key>Set Parameter Information</key>
 	<array>
 		<dict>

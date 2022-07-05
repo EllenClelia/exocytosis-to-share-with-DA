@@ -15,7 +15,6 @@ int main(int argc,const char *argv[])
     DTTable spots;
     double time;
     int timeback, timeforward;
-    DTMutableList<std::string> _channelNames;
 
     {
         // Inside a scope so that the data files will be closed before the computation starts.
@@ -27,14 +26,6 @@ int main(int argc,const char *argv[])
 
         variableDataFile = DTDataFile("everything.dtbin",DTFile::ReadOnly);
         Read(variableDataFile,"everything",everything);
-        // Need the channel names for the output structure
-        std::string _cName = "SeqInfo_everything_E_";
-        int _howM = variableDataFile.ReadNumber(_cName+"N");
-        _channelNames = DTMutableList<std::string>(_howM);
-        for (int _count=0;_count<_howM;_count++) {
-            _channelNames(_count) = variableDataFile.ReadString(_cName+DTInt2String(_count+1)+"N");
-        }
-
         variableDataFile = DTDataFile("spots.dtbin",DTFile::ReadOnly);
         Read(variableDataFile,"spots",spots);
         time = inputDataFile.ReadNumber("time");
@@ -71,10 +62,9 @@ int main(int argc,const char *argv[])
         outputFile.Save(6,pName+"_N");
 
         // Structure for element
-        for (int _count=0;_count<_channelNames.Length();_count++) {
-            outputFile.Save(_channelNames(_count),eName+"_"+DTInt2String(_count+1)+"N");
-        }
-        outputFile.Save((int)_channelNames.Length(),eName+"_N");
+        outputFile.Save("intensity",eName+"_1N");
+        outputFile.Save("difference",eName+"_2N");
+        outputFile.Save(2,eName+"_N");
         outputFile.Save("Image",eName);
 
         outputFile.Save("Image Set","Seq_Var");

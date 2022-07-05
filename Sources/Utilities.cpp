@@ -369,6 +369,29 @@ DTFloatArray MedianOfStack(const DTFloatArray &stack,ssize_t slices)
     return toReturn;
 }
 
+DTImage MedianOfImages(const DTList<DTImage> &images)
+{
+    if (images.Length()==0) return DTImage();
+    
+    DTImage firstImage = images(0);
+    ssize_t channelCount = firstImage.Channels().Length();
+    ssize_t m = firstImage.m();
+    ssize_t n = firstImage.n();
+
+    DTMutableList<DTImageChannel> outputChannels(channelCount);
+    
+    DTMutableFloatArray stack(m,n,images.Length());
+    for (ssize_t chNumber=0;chNumber<channelCount;chNumber++) {
+        for (ssize_t imNumber=0;imNumber<images.Length();imNumber++) {
+            CopyIntoSlice(stack,ConvertToFloat(images(imNumber)(chNumber)).FloatArray(),imNumber);
+        }
+        DTFloatArray median = MedianOfStack(stack,stack.o());
+        outputChannels(chNumber) = DTImageChannel(firstImage(chNumber).Name(),median);
+    }
+    
+    return DTImage(firstImage.Grid(),outputChannels);
+}
+
 double ComputeR2(const DTDoubleArray &xValuesList,const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList)
 {
     if (xValuesList.Length()!=yValuesList.Length() || yValuesList.Length()!=fitValuesList.Length()) {
@@ -413,7 +436,7 @@ double ComputeR2(const DTDoubleArray &xValuesList,const DTDoubleArray &yValuesLi
 
 QuantifyEvent Quantify(const DTSet<DTImage> &images)
 {
-    ssize_t images_count = images.NumberOfItems();
+    // ssize_t images_count = images.NumberOfItems();
     DTTable images_par = images.Parameters();
 
     DTTableColumnNumber time = images_par("time");

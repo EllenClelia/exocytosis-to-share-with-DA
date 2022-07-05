@@ -12,6 +12,7 @@
 #include "DTImage.h"
 #include "DTSet.h"
 #include "DTTable.h"
+#include "DTList.h"
 
 DTImage GaussianFilter(const DTImage &image,double sigma);
 DTImageChannel GaussianFilter(const DTImageChannel &channel,double sigma);
@@ -19,6 +20,8 @@ DTFloatArray GaussianFilter(const DTFloatArray &image,double sigma);
 DTDoubleArray GaussianFilter(const DTDoubleArray &image,double sigma);
 
 DTFloatArray MedianOfStack(const DTFloatArray &stack,ssize_t slices);
+DTImage MedianOfImages(const DTList<DTImage> &);
+
 double ComputeR2(const DTDoubleArray &xValuesList,const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList);
 
 // Part of quantifying an event

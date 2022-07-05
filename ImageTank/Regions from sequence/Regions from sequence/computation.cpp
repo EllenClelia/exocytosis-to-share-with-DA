@@ -52,6 +52,11 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
     DTMutableDoubleArray averageValues(howMany*(timeback+1+timeforward));
     double maxV = 0;
     DTPoint2D maxP;
+    
+    DTMutableList<DTImage> smallImages(timeback+timeforward+1);
+    DTMutableList<DTImage> backgroundImages(timeback-1);
+    
+    DTImage backgroundImage;
 
     for (row=0;row<howMany;row++) {
         DTPoint2D p = center(row);
@@ -90,49 +95,77 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
 
 
         DTPoint2D startingPoint = p;
-
+        
+        // Compute all of the raw smooth images
+        ssize_t pos = 0;
         for (index=where-timeback;index<=where+timeforward;index++) {
-            if (index<0) continue;
-            if (index>=withCache.NumberOfItems()) continue;
-            DTImage image = withCache(index);
-            
-            image = Crop(image,biggerBox);
+            if (index>=0 && index<withCache.NumberOfItems()) {
+                
+                DTImage image = withCache(index);
+                
+                image = Crop(image,biggerBox);
+                image = ConvertToDouble(image);
+                DTImage smooth = GaussianFilter(image,1);
+                
+                // Crop the image with the tight box, previously it was cropped with a slightly padded box.
+                smooth = Crop(smooth,box);
+                
+                smallImages(pos++) = smooth;
+            }
+        }
+        
+        // Compute a background image using a median.
+        pos = 0;
+        for (index=where-timeback;index<where-1;index++) {
+            if (index>=0 && index<withCache.NumberOfItems()) {
+                backgroundImages(pos) = smallImages(pos);
+                pos++;
+            }
+        }
+        
+        if (pos<timeback-1) {
+            backgroundImage = MedianOfImages(TruncateSize(backgroundImages,pos));
+        }
+        else {
+            backgroundImage = MedianOfImages(backgroundImages);
+        }
+        
+        pos = 0;
+        for (index=where-timeback;index<=where+timeforward;index++) {
+            if (index>=0 && index<withCache.NumberOfItems()) {
+                DTImage smooth = smallImages(pos);
+                
+                // Subtract the background and put the result into a two channel image
+                DTImage diff = smooth - backgroundImage;
+                
+                // Combine the channels, use different names
+                DTImage combined(diff.Grid(),{ChangeName(smooth(0),"intensity"),ChangeName(diff(0),"difference")});
+                output.Add(combined);
 
-            // Find the local max
-            image = ConvertToDouble(image);
-            //if (index==where) {
-            //    DTDataFile temp("/tmp/test.dtbin",DTFile::NewReadWrite);
-            //    WriteOne(temp,"Test Image",image);
-            //}
-
-            DTImage smooth = GaussianFilter(image,1);
-            
-            // Crop the image with the tight box, previously it was cropped with a slightly padded box.
-            smooth = Crop(smooth,box);
-            output.Add(smooth);
-
-            maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
-            p = smooth.Grid().GridToSpace(maxP);
-            
-            pointNumber(posInOutput) = row;
-            timeList(posInOutput) = index-where;
-            intensityList(posInOutput) = maxV; // Maximum(image(0));
-            centerList(0,posInOutput) = startingPoint.x;
-            centerList(1,posInOutput) = startingPoint.y;
-            
-            // centerSpot is the brightest spot, using a Gaussian Peak Fit
-            // just like the bead alignment. Uses the p.x as the initial guess
-            // and a reasonable starting width, but finds that spike.
-            centerSpot(0,posInOutput) = p.x;
-            centerSpot(1,posInOutput) = p.y;
-            
-            averageValues(posInOutput) = Mean(image(0));
-            
-            // This new center spot should be used as the center of the cropping window
-            
-            // compute how to define the brightness of the spot
-            
-            posInOutput++;
+                maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
+                p = smooth.Grid().GridToSpace(maxP);
+                
+                pointNumber(posInOutput) = row;
+                timeList(posInOutput) = index-where;
+                intensityList(posInOutput) = maxV; // Maximum(image(0));
+                centerList(0,posInOutput) = startingPoint.x;
+                centerList(1,posInOutput) = startingPoint.y;
+                
+                // centerSpot is the brightest spot, using a Gaussian Peak Fit
+                // just like the bead alignment. Uses the p.x as the initial guess
+                // and a reasonable starting width, but finds that spike.
+                centerSpot(0,posInOutput) = p.x;
+                centerSpot(1,posInOutput) = p.y;
+                
+                averageValues(posInOutput) = Mean(image(0));
+                
+                // This new center spot should be used as the center of the cropping window
+                
+                // compute how to define the brightness of the spot
+                
+                posInOutput++;
+                pos++;
+            }
         }
     }
     
