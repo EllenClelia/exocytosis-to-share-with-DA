@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CB63A862876165200DF6880 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CB63A842876165200DF6880 /* Utilities.cpp */; };
 		6351F99F24E212F500ADB7E5 /* computation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351F99E24E212F500ADB7E5 /* computation.cpp */; };
 		6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */; };
 		6351FB1824E213AE00ADB7E5 /* DTArguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0F24E213AD00ADB7E5 /* DTArguments.cpp */; };
@@ -98,7 +99,6 @@
 		6351FB8324E213CC00ADB7E5 /* structures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FB7F24E213CC00ADB7E5 /* structures.cpp */; };
 		6351FB8424E213CC00ADB7E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FB8124E213CC00ADB7E5 /* main.cpp */; };
 		63911740279CCBA000FFBAE7 /* DTRectangularImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6391173F279CCBA000FFBAE7 /* DTRectangularImage.cpp */; };
-		63BADB602848F4390002C8EA /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63BADB5F2848F4390002C8EA /* Utilities.cpp */; };
 		63D14754263A468C002B5B95 /* DTSurfaceValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63D14753263A468C002B5B95 /* DTSurfaceValues.cpp */; };
 		63FF9966274FF272000B62D4 /* DTSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63FF9964274FF272000B62D4 /* DTSet.cpp */; };
 /* End PBXBuildFile section */
@@ -116,6 +116,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2CB63A842876165200DF6880 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
+		2CB63A852876165200DF6880 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		6351F99B24E212F500ADB7E5 /* Quantify event */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Quantify event"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6351F99E24E212F500ADB7E5 /* computation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = computation.cpp; sourceTree = "<group>"; };
 		6351FA0A24E213AD00ADB7E5 /* DTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRandom.h; sourceTree = "<group>"; };
@@ -308,8 +310,6 @@
 		6351FB8224E213CC00ADB7E5 /* structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = structures.h; sourceTree = "<group>"; };
 		6391173E279CCB9F00FFBAE7 /* DTRectangularImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRectangularImage.h; sourceTree = "<group>"; };
 		6391173F279CCBA000FFBAE7 /* DTRectangularImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTRectangularImage.cpp; sourceTree = "<group>"; };
-		63BADB5E2848F4390002C8EA /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		63BADB5F2848F4390002C8EA /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		63D14752263A468C002B5B95 /* DTSurfaceValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSurfaceValues.h; sourceTree = "<group>"; };
 		63D14753263A468C002B5B95 /* DTSurfaceValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSurfaceValues.cpp; sourceTree = "<group>"; };
 		63FF9964274FF272000B62D4 /* DTSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSet.cpp; sourceTree = "<group>"; };
@@ -646,8 +646,8 @@
 		63BADB5D2848F4390002C8EA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				63BADB5E2848F4390002C8EA /* Utilities.h */,
-				63BADB5F2848F4390002C8EA /* Utilities.cpp */,
+				2CB63A842876165200DF6880 /* Utilities.cpp */,
+				2CB63A852876165200DF6880 /* Utilities.h */,
 			);
 			name = Sources;
 			path = ../../../Sources;
@@ -732,7 +732,7 @@
 				6351FB1C24E213AE00ADB7E5 /* DTSaveError.cpp in Sources */,
 				6351FB6224E213AE00ADB7E5 /* DTUCharArray.cpp in Sources */,
 				6351FB3524E213AE00ADB7E5 /* DTPath3DValues.cpp in Sources */,
-				63BADB602848F4390002C8EA /* Utilities.cpp in Sources */,
+				2CB63A862876165200DF6880 /* Utilities.cpp in Sources */,
 				6351FB5B24E213AE00ADB7E5 /* DTBitmap2D.cpp in Sources */,
 				6351FB3624E213AE00ADB7E5 /* DTRegion3D.cpp in Sources */,
 				6351FB5424E213AE00ADB7E5 /* DTStructuredVectorField2D.cpp in Sources */,
