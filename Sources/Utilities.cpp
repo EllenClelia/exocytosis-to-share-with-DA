@@ -19,7 +19,7 @@ DTImage GaussianFilter(const DTImage &image,double sigma)
     DTMutableList<DTImageChannel> returnChannels(channels.Length());
     ssize_t i;
     for (i=0;i<channels.Length();i++) {
-        returnChannels(i) = GaussianFilter(channels(0),sigma);
+        returnChannels(i) = GaussianFilter(channels(i),sigma);
     }
     return DTImage(image.Grid(),returnChannels);
 }
