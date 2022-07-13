@@ -3,6 +3,7 @@
 #ifndef IT_structure_h
 #define IT_structure_h
 
+#include "DTDictionary.h"
 #include "DTDoubleArray.h"
 #include "DTImage.h"
 #include "DTIntArray.h"

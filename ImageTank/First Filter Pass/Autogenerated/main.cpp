@@ -11,6 +11,7 @@ int main(int argc,const char *argv[])
 {
     DTSetArguments(argc,argv);
 
+    DTDictionary parameters;
     DTSet<DTImage> images;
     double fromBkgrnd, tailThreshold, maxDrift;
     int stepsForDrift;
@@ -29,6 +30,7 @@ int main(int argc,const char *argv[])
         tailThreshold = inputDataFile.ReadNumber("tailThreshold");
         maxDrift = inputDataFile.ReadNumber("maxDrift");
         stepsForDrift = inputDataFile.ReadNumber("stepsForDrift");
+        Read(inputDataFile,"parameters",parameters);
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
@@ -39,7 +41,7 @@ int main(int argc,const char *argv[])
                                  fromBkgrnd, // How much it has to rise from background
                                  tailThreshold, // When to stop tracking
                                  maxDrift, // Maximum Drift
-                                 stepsForDrift);
+                                 stepsForDrift,parameters);
 
     //timer.Stop(); // Use timer.Time() to get the elapsed time
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging

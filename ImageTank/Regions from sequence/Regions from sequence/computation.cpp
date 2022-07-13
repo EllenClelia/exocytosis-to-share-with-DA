@@ -29,13 +29,15 @@ DTPoint2D FindLocalMaxima(const DTDoubleArray &values,double &maxV)
     return DTPoint2D(maxI,maxJ);
 }
 
-void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double time,int timeback,
-                 int timeforward,DTMutableSet<DTImage> &output)
+void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
+                 double time,int timeback,int timeforward,
+                 const DTDictionary &parameters,DTMutableSet<DTImage> &output)
 {
     DTSet<DTImage> withCache = everything.WithCache(timeback+1+timeforward);
-    DTTable parameters = withCache.Parameters();
-    DTTableColumnNumber timeValues = parameters("t");
+    DTTable imageParameters = withCache.Parameters();
+    DTTableColumnNumber timeValues = imageParameters("t");
     ssize_t where = timeValues.FindClosest(time);
+    int channel = parameters("channel");
     
     DTTableColumnPoint2D center = spots("center");
     DTTableColumnNumber width = spots("width");
@@ -142,7 +144,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
                 DTImage combined(diff.Grid(),{ChangeName(smooth(0),"intensity"),ChangeName(diff(0),"difference")});
                 output.Add(combined);
 
-                maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
+                maxP = FindLocalMaxima(ConvertToDouble(combined(channel)).DoubleArray(),maxV);
                 p = smooth.Grid().GridToSpace(maxP);
                 
                 pointNumber(posInOutput) = row;
@@ -157,7 +159,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,double ti
                 centerSpot(0,posInOutput) = p.x;
                 centerSpot(1,posInOutput) = p.y;
                 
-                averageValues(posInOutput) = Mean(smooth(0));
+                averageValues(posInOutput) = Mean(combined(channel));
                 
                 // This new center spot should be used as the center of the cropping window
                 

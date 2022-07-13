@@ -11,6 +11,7 @@ int main(int argc,const char *argv[])
 {
     DTSetArguments(argc,argv);
 
+    DTDictionary parameters;
     DTSet<DTImage> everything;
     DTTable spots;
     double time;
@@ -31,12 +32,13 @@ int main(int argc,const char *argv[])
         time = inputDataFile.ReadNumber("time");
         timeback = inputDataFile.ReadNumber("timeback");
         timeforward = inputDataFile.ReadNumber("timeforward");
+        Read(inputDataFile,"parameters",parameters);
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
     DTMutableSet<DTImage> output(outputFile,"Var");
-    Computation(everything,spots,time,timeback,timeforward,output);
+    Computation(everything,spots,time,timeback,timeforward,parameters,output);
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 

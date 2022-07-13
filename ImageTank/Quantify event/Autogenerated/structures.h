@@ -4,6 +4,7 @@
 #define IT_structure_h
 
 #include "DTDataStorage.h"
+#include "DTDictionary.h"
 #include "DTDoubleArray.h"
 #include "DTFunction1D.h"
 #include "DTImage.h"
