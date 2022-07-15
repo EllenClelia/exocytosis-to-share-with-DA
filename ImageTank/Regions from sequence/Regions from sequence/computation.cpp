@@ -176,6 +176,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         timeList = TruncateSize(timeList,posInOutput);
         intensityList = TruncateSize(intensityList,posInOutput);
         centerList = TruncateSize(centerList,2*posInOutput);
+        centerSpot = TruncateSize(centerList,2*posInOutput);
+        averageValues = TruncateSize(averageValues,posInOutput);
     }
 
     // Create the parameter table, typically fill along side the Add calls
