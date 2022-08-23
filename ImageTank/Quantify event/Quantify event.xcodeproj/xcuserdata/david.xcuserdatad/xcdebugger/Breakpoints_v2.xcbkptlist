@@ -64,7 +64,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "595"
             endingLineNumber = "595"
-            landmarkName = "Quantify(images)"
+            landmarkName = "Quantify(images, channel)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "630"
             endingLineNumber = "630"
-            landmarkName = "Quantify(images)"
+            landmarkName = "Quantify(images, channel)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
