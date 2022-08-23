@@ -25,6 +25,7 @@ struct Group {
     double decay;
     double shift;
     DTTable Drift;
+    DTTable Piecewise_Fit;
 
     void pinfo(void) const;
     void pinfoIndent(std::string) const;

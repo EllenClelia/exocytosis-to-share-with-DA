@@ -71,6 +71,8 @@ Group Computation(const DTSet<DTImage> &images,int pt)
     });
     
     
+    toReturn.Piecewise_Fit = event.piecewiseFitResults;
+
     return toReturn;
 }
 

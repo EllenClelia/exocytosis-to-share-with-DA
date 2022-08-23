@@ -22,7 +22,7 @@ DTDoubleArray GaussianFilter(const DTDoubleArray &image,double sigma);
 DTFloatArray MedianOfStack(const DTFloatArray &stack,ssize_t slices);
 DTImage MedianOfImages(const DTList<DTImage> &);
 
-double ComputeR2(const DTDoubleArray &xValuesList,const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList);
+double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList);
 
 // Part of quantifying an event
 struct QuantifyEvent {
@@ -37,7 +37,8 @@ struct QuantifyEvent {
     
     double R2;
     DTTable histogram;
-    
+  
+    DTTable piecewiseFitResults;
 };
 QuantifyEvent Quantify(const DTSet<DTImage> &);
 

@@ -92,6 +92,55 @@
 			<key>Type</key>
 			<string>Table</string>
 		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>shift</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>base</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>spike</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>decay</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>R2</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>Piecewise Fit</string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
 	</array>
 	<key>Input</key>
 	<array>
@@ -127,7 +176,7 @@
 	<key>Name of Group</key>
 	<string>Group</string>
 	<key>Name of Module</key>
-	<string>Command Line Utility</string>
+	<string>Quantify single event</string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>

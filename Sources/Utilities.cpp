@@ -392,9 +392,9 @@ DTImage MedianOfImages(const DTList<DTImage> &images)
     return DTImage(firstImage.Grid(),outputChannels);
 }
 
-double ComputeR2(const DTDoubleArray &xValuesList,const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList)
+double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList)
 {
-    if (xValuesList.Length()!=yValuesList.Length() || yValuesList.Length()!=fitValuesList.Length()) {
+    if (yValuesList.Length()!=fitValuesList.Length()) {
         DTErrorMessage("ComputeR2","Sizes don't match");
         return NAN;
     }
@@ -403,7 +403,7 @@ double ComputeR2(const DTDoubleArray &xValuesList,const DTDoubleArray &yValuesLi
     double temp;
     int residualCount = 0;
     ssize_t i;
-    ssize_t howManyEntries = xValuesList.Length();
+    ssize_t howManyEntries = yValuesList.Length();
     for (i=0;i<howManyEntries;i++) {
         temp = yValuesList(i) - fitValuesList(i);
         if (isfinite(temp)) {
@@ -587,7 +587,45 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images)
     // Compute the values
     DTDoubleArray fitValues = fitFcn(tVal);
     
-    toReturn.R2 = ComputeR2(tVal,yval,fitValues);
+    toReturn.R2 = ComputeR2(yval,fitValues);
+    
+    
+    // Compute the piecewise fits
+    double startingLevel = av+bv;
+    double startingDecay = cv;
+
+    int shiftLevel = 0;
+    int howManyShifts = 10-shift;
+    DTMutableDoubleArray shiftList(howManyShifts);
+    DTMutableDoubleArray baseList(howManyShifts);
+    DTMutableDoubleArray spikeList(howManyShifts);
+    DTMutableDoubleArray decayList(howManyShifts);
+    DTMutableDoubleArray R2List(howManyShifts);
+    
+    for (shiftLevel=shift;shiftLevel<howManyShifts;shiftLevel++) {
+        DTFunction combo = IfFunction(x<shiftLevel,a+b,a+b*exp(-c*(x-shiftLevel)));
+        
+        guesses("a") = av;
+        guesses("b") = bv;
+        guesses("c") = cv;
+        
+        fitFcn = FunctionFit(combo,yval,knownConstants,guesses);
+        fitValues = fitFcn(xval);
+        
+        shiftList(shiftLevel-shift) = shiftLevel;
+        baseList(shiftLevel-shift) = guesses("a");
+        spikeList(shiftLevel-shift) = guesses("b");
+        decayList(shiftLevel-shift) = guesses("c");
+        R2List(shiftLevel-shift) = ComputeR2(yval,fitValues);
+    }
+
+    
+    toReturn.piecewiseFitResults = DTTable({
+        CreateTableColumn("shift",shiftList),
+        CreateTableColumn("base",baseList),
+        CreateTableColumn("spike",spikeList),
+        CreateTableColumn("decay",decayList),
+        CreateTableColumn("R2",R2List)});
 
     return toReturn;
 }
