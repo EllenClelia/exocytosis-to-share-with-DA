@@ -434,7 +434,7 @@ double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValues
     return R2;
 }
 
-QuantifyEvent Quantify(const DTSet<DTImage> &images)
+QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
 {
     // ssize_t images_count = images.NumberOfItems();
     DTTable images_par = images.Parameters();
@@ -476,26 +476,29 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images)
     }
     double width = sqrt(sumSq/(locOrigin-1));
     
-    ssize_t maxBin = mean*10+100;
+    ssize_t firstBin = -3000;
+    ssize_t lastBin = 3000+mean*10;
+    ssize_t maxBin = lastBin-firstBin+1;
     DTMutableDoubleArray bins(maxBin);
     bins = 0;
     for (i=0;i<locOrigin-1;i++) {
         DTImage single = images(i);
-        DTDoubleArray values = ConvertToDouble(single)(0).DoubleArray();
+        DTDoubleArray values = ConvertToDouble(single)(channel).DoubleArray();
         ssize_t ij,len = values.Length();
         for (ij=0;ij<len;ij++) {
             double v = values(ij);
             int binNumber = int(round(v));
-            if (0<=binNumber && binNumber<maxBin) {
-                bins(binNumber)++;
+            if (firstBin<=binNumber && binNumber<=lastBin) {
+                bins(binNumber-firstBin)++;
             }
         }
     }
     
-    int minNonZero = 0;
+    ssize_t minNonZero = 0;
     while (minNonZero<maxBin && bins(minNonZero)==0) minNonZero++;
-    int maxNonZero = int(maxBin)-1;
+    ssize_t maxNonZero = int(maxBin)-1;
     while (maxNonZero>=0 && bins(maxNonZero)==0) maxNonZero--;
+    if (minNonZero+firstBin>0) minNonZero = -firstBin;
     
     // Compute the standard deviation
     sum = 0;
@@ -503,10 +506,12 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images)
     int totalCount = 0;
     // Average from before is going to work, in fact a little more accurate.
     // Compute the standard error
+    ssize_t ival;
     for (i=minNonZero;i<=maxNonZero;i++) {
         // Should really do
         // sum (i-val)^2 bins(i) times
-        sumSq += bins(i)*(i-mean)*(i-mean);
+        ival = i+firstBin;
+        sumSq += bins(i)*(ival-mean)*(ival-mean);
         totalCount += bins(i);
     }
     width = sqrt(sumSq/totalCount);
@@ -515,7 +520,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images)
     DTMutableDoubleArray countList(maxNonZero-minNonZero+1);
     int pos = 0;
     for (i=minNonZero;i<=maxNonZero;i++) {
-        intensityList(pos) = i;
+        intensityList(pos) = i+firstBin;
         countList(pos) = bins(i);
         pos++;
     }

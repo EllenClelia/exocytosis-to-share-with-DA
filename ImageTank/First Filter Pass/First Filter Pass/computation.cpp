@@ -10,7 +10,7 @@ DTTable Computation(const DTSet<DTImage> &images,
                     double fromBkgrnd, // How much it has to rise from background
                     double tailThreshold, // When to stop tracking
                     double maxDrift, // Maximum Drift
-                    int stepsForDrift)
+                    int stepsForDrift,const DTDictionary &parameters)
 {
     // images is a set
     ssize_t images_count = images.NumberOfItems();
@@ -18,6 +18,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     
     DTTableColumnNumber T = images_par("T");
     DTTableColumnNumber ptNumber = images_par("ptNumber");
+    int channel = parameters("channel");
 
     // Know that the T column is sorted in increasing order
     // inside that the ptNumber is increasing
@@ -67,7 +68,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTSet<DTImage> event = images.ExtractRows(DTRange(startsAt,endsAt-startsAt));
         // DTSet<DTImage> subTable = images.ExtractRows(DTRange(80,100));
 
-        QuantifyEvent info = Quantify(event);
+        QuantifyEvent info = Quantify(event,channel);
         
         // See if the previous time value has a bigger intensity. In which case go back a step.
         

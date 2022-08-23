@@ -40,7 +40,7 @@ struct QuantifyEvent {
   
     DTTable piecewiseFitResults;
 };
-QuantifyEvent Quantify(const DTSet<DTImage> &);
+QuantifyEvent Quantify(const DTSet<DTImage> &,int channel);
 
 //DTTable
 
