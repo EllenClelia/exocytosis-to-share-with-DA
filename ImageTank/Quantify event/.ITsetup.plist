@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>1853bf2a48022be666c67195f60380b8caea2ea6e62364d9ef2c0445bd401e19</string>
+	<string>a9d247662afd95ef23b81ba66fa2843487a57aa3bdd650a8a900f08e111fd240</string>
 	<key>Group Information</key>
 	<array>
 		<dict>
@@ -169,6 +169,16 @@
 			<true/>
 			<key>Type</key>
 			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>parameters</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Dictionary</string>
 		</dict>
 	</array>
 	<key>Name of Function</key>

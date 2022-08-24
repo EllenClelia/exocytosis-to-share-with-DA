@@ -365,7 +365,7 @@
 				6351FAE824E213AD00ADB7E5 /* DTSource.h */,
 			);
 			name = DTSource;
-			path = /Users/david/Programming/DTSource/DTSource;
+			path = /Applications/ImageTank.app/Contents/Library/DTSource;
 			sourceTree = "<absolute>";
 		};
 		6351FA0924E213AD00ADB7E5 /* Utilities */ = {

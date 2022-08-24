@@ -7,6 +7,7 @@
 
 #include "DTProgress.h"
 
-Group Computation(const DTSet<DTImage> &images,int ptNumber);
+Group Computation(const DTSet<DTImage> &images,int ptNumber,
+                  const DTDictionary &parameters);
 
 #endif /* IT_computation_h */ 

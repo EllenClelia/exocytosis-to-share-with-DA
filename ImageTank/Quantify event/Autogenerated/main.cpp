@@ -11,6 +11,7 @@ int main(int argc,const char *argv[])
 {
     DTSetArguments(argc,argv);
 
+    DTDictionary parameters;
     DTSet<DTImage> images;
     int ptNumber;
 
@@ -25,13 +26,14 @@ int main(int argc,const char *argv[])
         variableDataFile = DTDataFile("images.dtbin",DTFile::ReadOnly);
         Read(variableDataFile,"images",images);
         ptNumber = inputDataFile.ReadNumber("ptNumber");
+        Read(inputDataFile,"parameters",parameters);
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
     //DTTimer timer;
     //timer.Start();
-    Group output = Computation(images,ptNumber);
+    Group output = Computation(images,ptNumber,parameters);
 
     //timer.Stop(); // Use timer.Time() to get the elapsed time
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
