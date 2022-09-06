@@ -49,9 +49,12 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputCenter = NAN;
     outputDrift = NAN;
 
+    DTProgress progress;
+    
     // Loop through each event
     ssize_t startsAt = 0;
     while (startsAt<images_count) {
+        progress.UpdatePercentage(startsAt/double(images_count));
         
         int ptN = ptNumber(startsAt);
         double Tval = T(startsAt);

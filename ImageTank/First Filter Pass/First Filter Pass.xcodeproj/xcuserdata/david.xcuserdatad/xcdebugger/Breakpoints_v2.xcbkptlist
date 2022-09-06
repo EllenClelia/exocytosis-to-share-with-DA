@@ -23,32 +23,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "18BB8D10-A9A0-4EE2-9E18-A0E56DFC29B0"
+            uuid = "28F74D5E-E947-4BA0-889E-3252102B7B64"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "First Filter Pass/computation.cpp"
+            filePath = "../../../../../../../Applications/ImageTank.app/Contents/Library/DTSource/Support/DTError.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "Computation(images, fromBkgrnd, tailThreshold, maxDrift, stepsForDrift)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2990D2FF-2AD0-4C99-8820-6CDBE590F456"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "First Filter Pass/computation.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
-            landmarkName = "Computation(images, fromBkgrnd, tailThreshold, maxDrift, stepsForDrift)"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "DTErrorMessage(msg)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

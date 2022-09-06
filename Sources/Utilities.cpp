@@ -596,18 +596,23 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     
     
     // Compute the piecewise fits
-    double startingLevel = av+bv;
-    double startingDecay = cv;
-
-    int shiftLevel = 0;
-    int howManyShifts = 10-shift;
+    
+    // First a slight hack. The xval list before was initially shifted by "shift"
+    // This llows the function fit to use "a + b*exp(-cx)" instead of "a + b*exp(-c*(x-shift))
+    // However for the piecewise function we want to vary the shift, so the x values should be
+    // changed back to the x values relative to the starting frame.
+    xval += shift;
+    knownConstants("x") = xval; // Technically not needed since the xval is shared, but makes it more explicit.
+    
+    int maximumShift = std::min(20,howFar+shift-7);
+    int howManyShifts = maximumShift-shift;
     DTMutableDoubleArray shiftList(howManyShifts);
     DTMutableDoubleArray baseList(howManyShifts);
     DTMutableDoubleArray spikeList(howManyShifts);
     DTMutableDoubleArray decayList(howManyShifts);
     DTMutableDoubleArray R2List(howManyShifts);
     
-    for (shiftLevel=shift;shiftLevel<howManyShifts;shiftLevel++) {
+    for (int shiftLevel=shift;shiftLevel<maximumShift;shiftLevel++) {
         DTFunction combo = IfFunction(x<shiftLevel,a+b,a+b*exp(-c*(x-shiftLevel)));
         
         guesses("a") = av;

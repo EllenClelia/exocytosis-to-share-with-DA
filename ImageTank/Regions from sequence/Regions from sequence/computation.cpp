@@ -77,10 +77,6 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         double dy = rawImage.Grid().dy();
         DTRegion2D biggerBox = AddBorder(box,3*dx,3*dy);
 
-        This should be changed so that it computes the background at this point
-        and does not move it twice.
-        see time value 215 in v6
-        
         // Find the maxima close by the initial guess p
         DTImage image = Crop(rawImage,biggerBox);
         image = ConvertToDouble(image);
