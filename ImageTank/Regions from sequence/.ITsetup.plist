@@ -44,6 +44,8 @@
 					<string>Region2D</string>
 				</dict>
 			</array>
+			<key>Trim Table</key>
+			<string>NO</string>
 			<key>Type</key>
 			<string>Table</string>
 		</dict>

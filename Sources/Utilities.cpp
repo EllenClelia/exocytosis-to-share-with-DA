@@ -561,10 +561,16 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     tVal = TruncateSize(tVal,pos);
     yval = TruncateSize(yval,pos);
 
-    // The x is known and a,b,c are unknown guesses.  You can have multiple known arguments, and they can be arrays or single numbers.
     DTMutableDictionary knownConstants;
-    knownConstants("x") = xval;
     DTMutableDictionary guesses;
+    DTFunction1D fitFcn;
+    DTDoubleArray fitValues;
+
+    /*
+    // don't do this fit, the piecewise fit handles this
+    
+    // The x is known and a,b,c are unknown guesses.  You can have multiple known arguments, and they can be arrays or single numbers.
+    knownConstants("x") = xval;
     guesses("a") = mean;
     guesses("b") = yval(0)-mean;
     guesses("c") = 1;
@@ -575,7 +581,6 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     double cv = guesses("c");
     
     DTFunction1D xv = DTFunction1D::x();
-    DTFunction1D fitFcn;
     if (shift==0) {
         fitFcn = av + bv*exp(-cv*xv);
     }
@@ -593,7 +598,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     DTDoubleArray fitValues = fitFcn(tVal);
     
     toReturn.R2 = ComputeR2(yval,fitValues);
-    
+    */
     
     // Compute the piecewise fits
     
@@ -612,10 +617,14 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     DTMutableDoubleArray decayList(howManyShifts);
     DTMutableDoubleArray R2List(howManyShifts);
     
+    double av = mean;
+    double bv = yval(0)-mean;
+    double cv = 1.0;
+    
     for (int shiftLevel=shift;shiftLevel<maximumShift;shiftLevel++) {
-        DTFunction combo = IfFunction(x<shiftLevel,a+b,a+b*exp(-c*(x-shiftLevel)));
+        DTFunction combo = IfFunction(x<shiftLevel,a*a+b,a*a+b*exp(-c*(x-shiftLevel)));
         
-        guesses("a") = av;
+        guesses("a") = sqrt(fabs(av));
         guesses("b") = bv;
         guesses("c") = cv;
         
@@ -623,12 +632,29 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
         fitValues = fitFcn(xval);
         
         shiftList(shiftLevel-shift) = shiftLevel;
-        baseList(shiftLevel-shift) = guesses("a");
+        baseList(shiftLevel-shift) = pow(guesses("a"),2.0);
         spikeList(shiftLevel-shift) = guesses("b");
         decayList(shiftLevel-shift) = guesses("c");
         R2List(shiftLevel-shift) = ComputeR2(yval,fitValues);
     }
-
+    
+    // Find the best  R2 value
+    double bestR = 0.0;
+    ssize_t bestRindex = 0;
+    for (i=0;i<R2List.Length();i++) {
+        if (R2List(i)>bestR) {
+            bestR = R2List(i);
+            bestRindex = i;
+        }
+    }
+    
+    //The returned fit, quality decay etc is the result of the best piecewise fit
+    //not the original fit.
+    toReturn.decay = decayList(bestRindex);
+    toReturn.base = baseList(bestRindex);
+    toReturn.spike = spikeList(bestRindex);
+    toReturn.R2 = bestR;
+    toReturn.shift = shiftList(bestRindex);
     
     toReturn.piecewiseFitResults = DTTable({
         CreateTableColumn("shift",shiftList),
@@ -639,4 +665,3 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
 
     return toReturn;
 }
-

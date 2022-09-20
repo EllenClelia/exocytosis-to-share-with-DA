@@ -29,7 +29,7 @@ struct QuantifyEvent {
     double average;
     double width;
     
-    // fit with a + b*exp(-c*t)
+    // fit with a + b*exp(-c*(t-shift)) for x>shift, just the constant a+b before.
     int shift;
     double base;
     double spike;

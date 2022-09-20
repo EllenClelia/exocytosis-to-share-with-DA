@@ -36,8 +36,13 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     DTSet<DTImage> withCache = everything.WithCache(timeback+1+timeforward);
     DTTable imageParameters = withCache.Parameters();
     DTTableColumnNumber timeValues = imageParameters("t");
-    ssize_t where = timeValues.FindClosest(time);
     int channel = parameters("channel");
+    
+    DTTableColumnNumber timeColumn;
+    bool timeColumnExists = spots.Contains("time");
+    if (timeColumnExists) {
+        timeColumn = spots("time");
+    }
     
     DTTableColumnPoint2D center = spots("center");
     DTTableColumnNumber width = spots("width");
@@ -59,8 +64,17 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     DTMutableList<DTImage> backgroundImages(timeback-1);
     
     DTImage backgroundImage;
+    
+    bool widerBackground = ((parameters.GetNumber("background",0))==1);
 
+    DTProgress progress;
     for (row=0;row<howMany;row++) {
+        progress.UpdatePercentage(row/double(howMany));
+
+        if (timeColumnExists) {
+            time = timeColumn(row);
+        }
+        ssize_t where = timeValues.FindClosest(time);
         DTPoint2D p = center(row);
         // The center value is not a good initial guess
         // Need to correct that by taking a window around the current center
@@ -68,49 +82,62 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         // and use that for the back/forward points - Crop(image,box) a few lines below
         
         double w = width(row);
-        DTRegion2D box = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
-
-        // Go to time==where, find the maximum of that frame, and use
-        // that point as the center of the region instead of the center(row) point
-        DTImage rawImage = withCache(where);
-        double dx = rawImage.Grid().dx();
-        double dy = rawImage.Grid().dy();
-        DTRegion2D biggerBox = AddBorder(box,3*dx,3*dy);
-
-        // Find the maxima close by the initial guess p
-        DTImage image = Crop(rawImage,biggerBox);
-        image = ConvertToDouble(image);
-        DTImage smooth = GaussianFilter(image,1);
-        maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
-        p = image.Grid().GridToSpace(maxP);
-        box = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
-        biggerBox = AddBorder(box,3*dx,3*dy);
-
-        // Do this again, might refine the point.
-        image = Crop(rawImage,biggerBox);
-        image = ConvertToDouble(image);
-        smooth = GaussianFilter(image,1);
-        maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
-        p = image.Grid().GridToSpace(maxP);
-        box = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
-        biggerBox = AddBorder(box,3*dx,3*dy);
-
+        DTRegion2D finalBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2); // The final image that is saved
+        DTRegion2D backgroundBox; // The image where I compute the smoothing and background. The finalBox needs to live inside this box
+        
+        if (widerBackground) {
+            // New method. Take a bigger box
+            backgroundBox = DTRegion2D(p.x-w,p.x+w,p.y-w,p.y+w);
+        }
+        else {
+            // Previous version (<9/15/2022)
+            
+            // Go to time==where, find the maximum of that frame, and use
+            // that point as the center of the region instead of the center(row) point
+            DTImage rawImage = withCache(where);
+            double dx = rawImage.Grid().dx();
+            double dy = rawImage.Grid().dy();
+            backgroundBox = AddBorder(finalBox,3*dx,3*dy);
+            
+            // Find the maxima close by the initial guess p
+            DTImage image = Crop(rawImage,backgroundBox);
+            image = ConvertToDouble(image);
+            DTImage smooth = GaussianFilter(image,1);
+            maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
+            p = image.Grid().GridToSpace(maxP);
+            finalBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
+            backgroundBox = AddBorder(finalBox,3*dx,3*dy);
+            
+            // Do this again, might refine the point.
+            image = Crop(rawImage,backgroundBox);
+            image = ConvertToDouble(image);
+            smooth = GaussianFilter(image,1);
+            maxP = FindLocalMaxima(smooth(0).DoubleArray(),maxV);
+            p = image.Grid().GridToSpace(maxP);
+            finalBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2);
+            backgroundBox = AddBorder(finalBox,3*dx,3*dy);
+        }
 
         DTPoint2D startingPoint = p;
         
         // Compute all of the raw smooth images
         ssize_t pos = 0;
+        ssize_t posOfWhere = 0;
         for (index=where-timeback;index<=where+timeforward;index++) {
             if (index>=0 && index<withCache.NumberOfItems()) {
                 
                 DTImage image = withCache(index);
                 
-                image = Crop(image,biggerBox);
+                image = Crop(image,backgroundBox);
                 image = ConvertToDouble(image);
                 DTImage smooth = GaussianFilter(image,1);
                 
                 // Crop the image with the tight box, previously it was cropped with a slightly padded box.
-                smooth = Crop(smooth,box);
+                // smooth = Crop(smooth,box);
+                
+                if (index==where) { // Need to know where the starting image is in the sequence.
+                    posOfWhere = pos;
+                }
                 
                 smallImages(pos++) = smooth;
             }
@@ -134,6 +161,27 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         
         // The center
         
+        //In the new method
+        //Find the maxima of this image inside the middle of the big box
+        //for either channel 0 or channel 1 depending on if I want the background removed.
+        if (widerBackground) {
+            // Need to tweak the finalBox so that it is centered around the maxima at where
+            DTImage startingImage = smallImages(posOfWhere);
+            DTImage diff = startingImage - backgroundImage;
+            DTImage combined(diff.Grid(),{ChangeName(startingImage(0),"intensity"),ChangeName(diff(0),"difference")});
+            
+            //DTDataFile temp("/tmp/test.dtbin",DTFile::NewReadWrite);
+            //WriteOne(temp, "Combined", combined);
+
+            combined = Crop(combined,finalBox);
+            //WriteOne(temp, "Cropped", combined);
+            
+            maxP = FindLocalMaxima(ConvertToDouble(combined(channel)).DoubleArray(),maxV);
+            p = combined.Grid().GridToSpace(maxP);
+            startingPoint = p;
+            finalBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2); // The final image that is saved
+        }
+        
         pos = 0;
         for (index=where-timeback;index<=where+timeforward;index++) {
             if (index>=0 && index<withCache.NumberOfItems()) {
@@ -144,6 +192,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 
                 // Combine the channels, use different names
                 DTImage combined(diff.Grid(),{ChangeName(smooth(0),"intensity"),ChangeName(diff(0),"difference")});
+                combined = Crop(combined,finalBox);
                 output.Add(combined);
 
                 maxP = FindLocalMaxima(ConvertToDouble(combined(channel)).DoubleArray(),maxV);

@@ -44,17 +44,14 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     toReturn.decay = event.decay;
     toReturn.width = event.width;
     toReturn.histogram = event.histogram;
-    DTFunction1D xv = DTFunction1D::x();
+    DTFunction xv = DTFunction::Constant("x");
     double shift = event.shift;
     DTFunction1D fitFcn;
     if (shift==0) {
         fitFcn = event.base + event.spike*exp(-event.decay*xv);
     }
-    else if (shift>0) {
-        fitFcn = event.base + event.spike*exp(-event.decay*(xv-shift));
-    }
     else {
-        fitFcn = event.base + event.spike*exp(-event.decay*(xv+(-shift)));
+        fitFcn = IfFunction(xv<shift,DTFunction::Value(event.base+event.spike),event.base+event.spike*exp(-event.decay*(xv-shift)));
     }
     
     toReturn.fit = fitFcn;
