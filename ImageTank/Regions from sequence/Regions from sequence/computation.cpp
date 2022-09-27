@@ -200,7 +200,12 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 centerSpot(0,posInOutput) = p.x;
                 centerSpot(1,posInOutput) = p.y;
                 
-                averageValues(posInOutput) = Mean(combined(channel));
+                if (analyzeSmooth) {
+                    averageValues(posInOutput) = Mean(combinedSmooth(channel));
+                }
+                else {
+                    averageValues(posInOutput) = Mean(combinedRaw(channel));
+                }
                 
                 // This new center spot should be used as the center of the cropping window
                 
