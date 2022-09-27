@@ -665,3 +665,124 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
 
     return toReturn;
 }
+
+bool EvaluateGaussianPeak(const DTDictionary &constants,DTMutableDoubleArray &returnArray);
+
+LocalPeak FindGaussianPeak(const DTImage &image,int channel)
+{
+    // Find the maximum point in the center.
+    // Need a buffer around it to find the optimal center using a least squares fit
+    DTDoubleArray values = ConvertToDouble(image(channel)).DoubleArray();
+    
+    ssize_t maxI=-1,maxJ=-1;
+    ssize_t i,j;
+    ssize_t m = values.m();
+    ssize_t n = values.n();
+    int bdry = 3;
+    double maxV = -INFINITY;
+    double minV = INFINITY;
+    for (j=bdry;j<n-bdry;j++) {
+        for (i=bdry;i<m-bdry;i++) {
+            if (values(i,j)>maxV) {
+                maxI = i;
+                maxJ = j;
+                maxV = values(i,j);
+            }
+            if (values(i,j)<minV) {
+                minV = values(i,j);
+            }
+        }
+    }
+    
+    DTMutableDictionary guesses;
+    guesses("x0") = maxI;
+    guesses("y0") = maxJ;
+    guesses("scale") = maxV-minV;
+    guesses("base") = minV;
+    guesses("radius") = 5;
+
+    DTMutableDictionary knownConstants;
+
+    DTDictionary returned = FunctionFit(EvaluateGaussianPeak,values,knownConstants,guesses);
+
+    LocalPeak toReturn;
+    
+    toReturn.center = image.Grid().GridToSpace(DTPoint2D(returned("x0"),returned("y0")));
+    toReturn.base = returned("base");
+    toReturn.height = toReturn.base + returned("scale");
+    toReturn.width = returned("radius");
+    toReturn.worked = (returned("LM::Status")==1);
+    
+    return toReturn;
+}
+
+bool EvaluateGaussianPeak(const DTDictionary &constants,DTMutableDoubleArray &returnArray)
+{
+    // Function form is
+    
+    // Base + scale*exp(-((x-xC)^2+(y-yC)^2)/2radius^2);
+    int m = (int)returnArray.m();
+    int n = (int)returnArray.n();
+    
+    double base = constants("base");
+    double scale = constants("scale");
+    double x0 = constants("x0");
+    double y0 = constants("y0");
+    double radius = constants("radius");
+    
+    int i,j,ij;
+    double x,y,arg;
+    double C = 1.0/(2*radius*radius);
+    ij = 0;
+    double *returnArrayD = returnArray.Pointer();
+    for (j=0;j<n;j++) {
+        y = (j-y0);
+        for (i=0;i<m;i++) {
+            x = (i-x0);
+            arg = -(x*x+y*y)*C;
+            returnArrayD[ij] = base + scale*exp(arg);
+            ij++;
+        }
+    }
+    
+    return true;
+}
+
+LocalPeak FindMaximumPeak(const DTImage &image,int channel)
+{
+    double maxV = 0.0;
+    DTPoint2D maxP = FindLocalMaxima(ConvertToDouble(image(channel)).DoubleArray(),maxV);
+    
+    LocalPeak toReturn;
+    toReturn.center = image.Grid().GridToSpace(maxP);
+    toReturn.height = maxV;
+    toReturn.base = 0.0;
+    toReturn.width = 0.0;
+    toReturn.worked = true;
+
+    return toReturn;
+}
+
+DTPoint2D FindLocalMaxima(const DTDoubleArray &values,double &maxV)
+{
+    // Find the maximum point in the center.
+    // Need a buffer around it to find the optimal center using a least squares fit
+    ssize_t maxI=-1,maxJ=-1;
+    maxV = 0;
+    ssize_t i,j;
+    ssize_t m = values.m();
+    ssize_t n = values.n();
+    int bdry = 3;
+    for (j=bdry;j<n-bdry;j++) {
+        for (i=bdry;i<m-bdry;i++) {
+            if (values(i,j)>maxV) {
+                maxI = i;
+                maxJ = j;
+                maxV = values(i,j);
+            }
+        }
+    }
+
+    return DTPoint2D(maxI,maxJ);
+}
+

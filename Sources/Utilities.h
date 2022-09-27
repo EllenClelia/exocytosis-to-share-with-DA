@@ -44,4 +44,20 @@ QuantifyEvent Quantify(const DTSet<DTImage> &,int channel);
 
 //DTTable
 
+// Find a local maxima from an image using a peak fit.
+struct LocalPeak
+{
+    DTPoint2D center;
+    double height;
+    double base;
+    double width;
+    bool worked;
+};
+
+LocalPeak FindGaussianPeak(const DTImage &image,int channel);
+LocalPeak FindMaximumPeak(const DTImage &image,int channel);
+
+DTPoint2D FindLocalMaxima(const DTDoubleArray &values,double &maxV);
+
+
 #endif /* Utilities_hpp */

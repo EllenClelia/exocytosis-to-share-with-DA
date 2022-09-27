@@ -94,8 +94,8 @@
             filePath = "Regions from sequence/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
             landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
             landmarkType = "9">
          </BreakpointContent>
@@ -126,8 +126,8 @@
             filePath = "Regions from sequence/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
             landmarkType = "9">
          </BreakpointContent>
@@ -151,15 +151,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1DC5723E-395A-45DD-B912-CEFCE792DE1D"
+            uuid = "ABB33418-F3FF-40ED-97B1-A555D8D9CC55"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Regions from sequence/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
             landmarkType = "9">
          </BreakpointContent>
@@ -167,15 +167,64 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EE9F01F6-907F-450B-9A37-62174AF179CB"
+            uuid = "063108DF-852C-404B-9C8A-4426A273C25F"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Regions from sequence/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EC7A38DE-9248-4408-B3E7-658CB8F7BE6E"
+            shouldBeEnabled = "Yes"
+            condition = "pos==40"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Regions from sequence/computation.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "28A6C3A3-7C12-4831-B0E0-C7182927C1BD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Regions from sequence/computation.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
+            landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7AF57467-839B-4836-B280-730DBB63A615"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Regions from sequence/computation.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "167"
+            endingLineNumber = "167"
             landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
             landmarkType = "9">
          </BreakpointContent>
