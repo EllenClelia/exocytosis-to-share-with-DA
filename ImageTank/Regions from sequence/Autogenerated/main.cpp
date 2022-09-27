@@ -51,17 +51,19 @@ int main(int argc,const char *argv[])
         // Structure for parameters
         outputFile.Save("time",pName+"_1N");
         outputFile.Save("Number",pName+"_1T");
-        outputFile.Save("intensity",pName+"_2N");
+        outputFile.Save("fitworked",pName+"_2N");
         outputFile.Save("Number",pName+"_2T");
-        outputFile.Save("center",pName+"_3N");
-        outputFile.Save("Point2D",pName+"_3T");
-        outputFile.Save("ptNumber",pName+"_4N");
-        outputFile.Save("Number",pName+"_4T");
-        outputFile.Save("centerSpot",pName+"_5N");
-        outputFile.Save("Point2D",pName+"_5T");
-        outputFile.Save("average",pName+"_6N");
-        outputFile.Save("Number",pName+"_6T");
-        outputFile.Save(6,pName+"_N");
+        outputFile.Save("intensity",pName+"_3N");
+        outputFile.Save("Number",pName+"_3T");
+        outputFile.Save("center",pName+"_4N");
+        outputFile.Save("Point2D",pName+"_4T");
+        outputFile.Save("ptNumber",pName+"_5N");
+        outputFile.Save("Number",pName+"_5T");
+        outputFile.Save("centerSpot",pName+"_6N");
+        outputFile.Save("Point2D",pName+"_6T");
+        outputFile.Save("average",pName+"_7N");
+        outputFile.Save("Number",pName+"_7T");
+        outputFile.Save(7,pName+"_N");
 
         // Structure for element
         outputFile.Save("intensity",eName+"_1N");

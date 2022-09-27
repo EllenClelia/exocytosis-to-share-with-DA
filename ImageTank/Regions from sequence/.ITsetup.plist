@@ -133,6 +133,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
+			<string>fitworked</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>intensity</string>
 			<key>Type</key>
 			<string>Number</string>
