@@ -64,9 +64,15 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     ssize_t startingIndex = time.FindClosest(0)+event.shift;
     DTTable tail = eventParameters.ExtractRows(DTRange(startingIndex,eventParameters.NumberOfRows()-startingIndex));
     
+    // The drift should only be the points until the first failure
+    DTTableColumnNumber failure = tail("failure");
+    int firstFailure = 1;
+    while (firstFailure<tail.NumberOfRows() && failure(firstFailure)==0) firstFailure++;
+    DTTable driftPortion = tail.ExtractRows(DTRange(0,firstFailure));
+    
     toReturn.Drift = DTTable({
-        tail("time"),
-        tail("centerSpot")
+        driftPortion("time"),
+        driftPortion("centerSpot")
     });
     
     

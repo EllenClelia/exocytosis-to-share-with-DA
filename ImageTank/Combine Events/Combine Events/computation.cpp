@@ -39,3 +39,4 @@ DTTable Computation(const DTTable &events,double timeDelta,double spaceDelta)
     
     return events.ExtractRows(selectRows);
  }
+

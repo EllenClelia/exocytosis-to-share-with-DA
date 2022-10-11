@@ -132,6 +132,10 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
             peak = FindMaximumPeak(combined,channel);
         }
         p = peak.center;
+        if (peak.failureMode!=0) {
+            // Don't trust this center, skip over the point.
+            continue;
+        }
         
         startingPoint = p;
         finalBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2); // The final image that is saved
@@ -231,7 +235,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         R2list = TruncateSize(R2list,posInOutput);
         intensityList = TruncateSize(intensityList,posInOutput);
         centerList = TruncateSize(centerList,2*posInOutput);
-        centerSpot = TruncateSize(centerList,2*posInOutput);
+        centerSpot = TruncateSize(centerSpot,2*posInOutput);
         averageValues = TruncateSize(averageValues,posInOutput);
     }
 
