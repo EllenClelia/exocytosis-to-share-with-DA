@@ -51,7 +51,11 @@ struct LocalPeak
     double height;
     double base;
     double width;
-    bool worked;
+    int failureMode;
+    double R2; // The R2 value for the fit, globally speaking
+    // 0 means everything is ok,
+    // 1 means optimization failed
+    // 2 means went out of bounds
 };
 
 LocalPeak FindGaussianPeak(const DTImage &image,int channel);

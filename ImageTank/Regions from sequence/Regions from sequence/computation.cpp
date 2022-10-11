@@ -29,7 +29,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     
     ssize_t posInOutput = 0;
     DTMutableDoubleArray timeList(howMany*(timeback+1+timeforward));
-    DTMutableDoubleArray fitWorked(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray failureMode(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray R2list(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray intensityList(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray centerList(2,howMany*(timeback+1+timeforward));
     DTMutableDoubleArray pointNumber(howMany*(timeback+1+timeforward));
@@ -161,22 +162,27 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 if (peakFit) {
                     if (analyzeSmooth) {
                         peak = FindGaussianPeak(combinedSmooth,channel);
-                        if (peak.worked==false) {
+                        if (peak.failureMode) {
                             //DTDataFile temp("/tmp/test.dtbin",DTFile::NewReadWrite);
                             //WriteOne(temp, "Combined", combinedSmooth);
-                            peak = FindMaximumPeak(combinedSmooth,channel);
-                            peak.worked = false;
+                            if (peak.failureMode==1) {
+                                // The optimized failed, so fall back to max
+                                int failureWas = peak.failureMode;
+                                peak = FindMaximumPeak(combinedSmooth,channel);
+                                peak.failureMode = failureWas;
+                            }
                         }
                     }
                     else {
                         peak = FindGaussianPeak(combinedRaw,channel);
-                        if (peak.worked==false) {
+                        if (peak.failureMode) {
                             peak = FindMaximumPeak(combinedSmooth,channel);
-                            peak.worked = false;
                         }
-                        if (peak.worked==false) {
+                        if (peak.failureMode==1) {
+                            // The optimized failed, so fall back to max
+                            int failureWas = peak.failureMode;
                             peak = FindMaximumPeak(combinedSmooth,channel);
-                            peak.worked = false;
+                            peak.failureMode = failureWas;
                         }
                     }
                 }
@@ -192,7 +198,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 
                 pointNumber(posInOutput) = row;
                 timeList(posInOutput) = index-where;
-                fitWorked(posInOutput) = peak.worked;
+                failureMode(posInOutput) = peak.failureMode;
+                R2list(posInOutput) = peak.R2;
                 intensityList(posInOutput) = peak.height;
                 centerList(0,posInOutput) = startingPoint.x;
                 centerList(1,posInOutput) = startingPoint.y;
@@ -200,7 +207,12 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 centerSpot(0,posInOutput) = p.x;
                 centerSpot(1,posInOutput) = p.y;
                 
-                averageValues(posInOutput) = Mean(combined(channel));
+                if (saveSmooth) {
+                    averageValues(posInOutput) = Mean(combinedSmooth(channel));
+                }
+                else {
+                    averageValues(posInOutput) = Mean(combinedRaw(channel));
+                }
                 
                 // This new center spot should be used as the center of the cropping window
                 
@@ -215,7 +227,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     if (posInOutput!=timeList.Length()) {
         pointNumber = TruncateSize(pointNumber,posInOutput);
         timeList = TruncateSize(timeList,posInOutput);
-        fitWorked = TruncateSize(fitWorked,posInOutput);
+        failureMode = TruncateSize(failureMode,posInOutput);
+        R2list = TruncateSize(R2list,posInOutput);
         intensityList = TruncateSize(intensityList,posInOutput);
         centerList = TruncateSize(centerList,2*posInOutput);
         centerSpot = TruncateSize(centerList,2*posInOutput);
@@ -225,7 +238,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     // Create the parameter table, typically fill along side the Add calls
     output.Finish(DTTable({
         CreateTableColumn("time",timeList),
-        CreateTableColumn("fitworked",fitWorked),
+        CreateTableColumn("failure",failureMode),
+        CreateTableColumn("R2",R2list),
         CreateTableColumn("intensity",intensityList),
         CreateTableColumn("center",DTPointCollection2D(centerList)),
         CreateTableColumn("ptNumber",pointNumber),

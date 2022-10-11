@@ -436,13 +436,16 @@ double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValues
 
 QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
 {
+    //DTSet<DTImage> imagesToView = images.ExtractRows("ptNumber",[](double v) {return (v==0);});
+    
     // ssize_t images_count = images.NumberOfItems();
     DTTable images_par = images.Parameters();
 
     DTTableColumnNumber time = images_par("time");
     DTTableColumnNumber average = images_par("average");
     DTTableColumnNumber intensity = images_par("intensity");
-    
+    DTTableColumnNumber failure = images_par("failure");
+
     ssize_t locOrigin = time.FindClosest(0);
     int shift = 0;
     
@@ -551,10 +554,13 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     for (int i=0;i<rowCount;i++) {
         double t = time(i);
         if (t>=shift && t<=howFar+shift) {
-            xval(pos) = t-shift;
-            tVal(pos) = t;
-            yval(pos) = intensity(i);
-            pos++;
+            if (failure(i)==0) {
+                // Only include points that are coming from a valid fit
+                xval(pos) = t-shift;
+                tVal(pos) = t;
+                yval(pos) = intensity(i);
+                pos++;
+            }
         }
     }
     xval = TruncateSize(xval,pos);
@@ -711,7 +717,33 @@ LocalPeak FindGaussianPeak(const DTImage &image,int channel)
     toReturn.base = returned("base");
     toReturn.height = toReturn.base + returned("scale");
     toReturn.width = returned("radius");
-    toReturn.worked = (returned("LM::Status")==1);
+    toReturn.failureMode = 0;
+    
+    DTMutableDoubleArray fitValues(values.m(),values.n());
+    EvaluateGaussianPeak(returned,fitValues);
+    toReturn.R2 = ComputeR2(values,fitValues);
+    
+    if (returned("LM::Status")==1) {
+        // Might still fail if it is outside of the domain
+        if (BoundingBox(image.Grid()).PointLiesInside(toReturn.center)==false) {
+            // Went outside the domain
+            toReturn.failureMode = 2;
+        }
+        else if (toReturn.height<toReturn.base) {
+            toReturn.failureMode = 5; // Inverted peak
+        }
+        else if (toReturn.width>m) {
+            // Too wide by far
+            toReturn.failureMode = 4;
+        }
+        else if (toReturn.base<minV - (maxV-minV)) {
+            //
+            toReturn.failureMode = 3;
+        }
+    }
+    else {
+        toReturn.failureMode = 1; // Convergence failed
+    }
     
     return toReturn;
 }
@@ -758,7 +790,8 @@ LocalPeak FindMaximumPeak(const DTImage &image,int channel)
     toReturn.height = maxV;
     toReturn.base = 0.0;
     toReturn.width = 0.0;
-    toReturn.worked = true;
+    toReturn.failureMode = 0;
+    toReturn.R2 = 0;
 
     return toReturn;
 }
