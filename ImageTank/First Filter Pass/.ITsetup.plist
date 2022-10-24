@@ -117,7 +117,7 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>skip</string>
+			<string>flag</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
@@ -154,12 +154,6 @@
 		<dict>
 			<key>Name</key>
 			<string>width</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>flag</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

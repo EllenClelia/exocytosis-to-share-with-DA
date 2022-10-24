@@ -450,17 +450,19 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     int shift = 0;
     
     // Check to see if the value before or after is larger. If so, use that
-    if (intensity(locOrigin-1)>intensity(locOrigin+1)) {
-        // Larger before
-        if (intensity(locOrigin-1)>intensity(locOrigin)) {
-            locOrigin--;
-            shift--;
+    if (locOrigin+1<images_par.NumberOfRows()) {
+        if (intensity(locOrigin-1)>intensity(locOrigin+1)) {
+            // Larger before the next frame after
+            if (intensity(locOrigin-1)>intensity(locOrigin)) {
+                locOrigin--;
+                shift--;
+            }
         }
-    }
-    else {
-        if (intensity(locOrigin+1)>intensity(locOrigin)) {
-            locOrigin++;
-            shift++;
+        else {
+            if (intensity(locOrigin+1)>intensity(locOrigin)) {
+                locOrigin++;
+                shift++;
+            }
         }
     }
 

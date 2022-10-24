@@ -28,12 +28,11 @@ DTTable Computation(const DTSet<DTImage> &images,
     ssize_t outputLineLength = images_count/20; // Don't know how many, but this is a safe upper bound
     DTMutableDoubleArray outputTime(outputLineLength);
     DTMutableDoubleArray outputShift(outputLineLength);
+    DTMutableDoubleArray outputFlag(outputLineLength);
     DTMutableDoubleArray outputDecay(outputLineLength);
     DTMutableDoubleArray outputR2(outputLineLength);
     DTMutableDoubleArray outputBackground(outputLineLength);
     DTMutableDoubleArray outputWidth(outputLineLength);
-    DTMutableDoubleArray outputSkip(outputLineLength);
-    DTMutableDoubleArray outputFlag(outputLineLength);
     DTMutableDoubleArray outputCenter(2,outputLineLength);
     DTMutableDoubleArray outputDrift(outputLineLength);
     ssize_t posInOutput = 0;
@@ -44,7 +43,6 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputR2 = NAN;
     outputBackground = NAN;
     outputWidth = NAN;
-    outputSkip = 0;
     outputFlag = 0;
     outputCenter = NAN;
     outputDrift = NAN;
@@ -87,21 +85,21 @@ DTTable Computation(const DTSet<DTImage> &images,
         // Find time==0, i.e. the starting point
         DTTableColumnNumber time = eventParameters("time");
         DTTableColumnNumber average = eventParameters("average");
+        DTTableColumnNumber failure = eventParameters("failure");
         DTTableColumnNumber intensity = eventParameters("intensity");
         DTTableColumnPoint2D centerSpot = eventParameters("centerSpot");
-        ssize_t startingIndex = time.FindClosest(0)+info.shift;
+        ssize_t startingIndex = time.FindClosest(0); // +info.shift; Start where the event starts, not where the decay starts
         
         double valueAtStart = intensity(startingIndex);
-        double valueAtNext = intensity(startingIndex+1);
-        
-        if (valueAtNext>valueAtStart) {
-            // Still going up, need to look at this further
-            outputFlag(posInOutput) += 1;
-        }
+        // double valueAtNext = intensity(startingIndex+1);
+        //if (valueAtNext>valueAtStart) {
+        //    // Still going up, need to look at this further
+        //    outputFlag(posInOutput) += 1;
+        //}
         
         // Make sure that the initial spike is high enough from the background
         if (valueAtStart<info.average + info.width*fromBkgrnd) {
-            outputSkip(posInOutput) += 1; // Didn't rise high enough from the background
+            outputFlag(posInOutput) += 1; // Didn't rise high enough from the background
         }
         
         // Find when the spike goes below the tail intensity. Also check how much movement happened
@@ -113,18 +111,19 @@ DTTable Computation(const DTSet<DTImage> &images,
         ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
         while (tailEndsAt<lengthOfEvent &&
                tailEndsAt<stopSearchingDrift &&
-               intensity(tailEndsAt)>info.average+info.width*tailThreshold) {
+               intensity(tailEndsAt)>info.average+info.width*tailThreshold &&
+               failure(tailEndsAt)==0) {
             double dist = Distance(startAt,centerSpot(tailEndsAt));
             if (dist>drift) drift = dist;
             tailEndsAt++;
         }
         outputDrift(posInOutput) = drift;
         if (drift>maxDrift) {
-            outputSkip(posInOutput) += 2; // Drifted too far
+            outputFlag(posInOutput) += 2; // Drifted too far
         }
         if (startingIndex+1==tailEndsAt) {
             // Only the first point was above the threshold
-            outputSkip(posInOutput) += 4;
+            outputFlag(posInOutput) += 4;
         }
                                 
         // Ready for the next point
@@ -139,7 +138,6 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputR2 = TruncateSize(outputR2,posInOutput);
     outputBackground = TruncateSize(outputBackground,posInOutput);
     outputWidth = TruncateSize(outputWidth,posInOutput);
-    outputSkip = TruncateSize(outputSkip,posInOutput);
     outputFlag = TruncateSize(outputFlag,posInOutput);
     outputCenter = TruncateSize(outputCenter,2*posInOutput);
     outputDrift = TruncateSize(outputDrift,posInOutput);
@@ -147,13 +145,12 @@ DTTable Computation(const DTSet<DTImage> &images,
     return DTTable({
         CreateTableColumn("time",outputTime),
         CreateTableColumn("shift",outputShift),
-        CreateTableColumn("skip",outputSkip),
+        CreateTableColumn("flag",outputFlag),
         CreateTableColumn("center",DTPointCollection2D(outputCenter)),
         CreateTableColumn("R2",outputR2),
         CreateTableColumn("drift",outputDrift),
         CreateTableColumn("background",outputBackground),
         CreateTableColumn("decay",outputDecay),
-        CreateTableColumn("width",outputWidth),
-        CreateTableColumn("flag",outputFlag)
+        CreateTableColumn("width",outputWidth)
     });
 }
