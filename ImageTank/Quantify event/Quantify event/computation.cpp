@@ -41,18 +41,16 @@ Group Computation(const DTSet<DTImage> &images,int pt,
  
     Group toReturn;
     toReturn.average = event.average;
+    toReturn.delay = event.delay;
     toReturn.decay = event.decay;
     toReturn.width = event.width;
     toReturn.histogram = event.histogram;
     DTFunction xv = DTFunction::Constant("x");
     double shift = event.shift;
     DTFunction1D fitFcn;
-    if (shift==0) {
-        fitFcn = event.base + event.spike*exp(-event.decay*xv);
-    }
-    else {
-        fitFcn = IfFunction(xv<shift,DTFunction::Value(event.base+event.spike),event.base+event.spike*exp(-event.decay*(xv-shift)));
-    }
+    
+    double kinkAt = event.shift+event.delay;
+    fitFcn = IfFunction(xv<kinkAt,DTFunction::Value(event.base+event.spike),event.base+event.spike*exp(-event.decay*(xv-kinkAt)));
     
     toReturn.fit = fitFcn;
     toReturn.R2 = event.R2;
@@ -61,7 +59,7 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     // Create the table Drift
     DTTable eventParameters = imagesToView.Parameters();
     DTTableColumnNumber time = eventParameters("time");
-    ssize_t startingIndex = time.FindClosest(0)+event.shift;
+    ssize_t startingIndex = time.FindClosest(event.shift);
     DTTable tail = eventParameters.ExtractRows(DTRange(startingIndex,eventParameters.NumberOfRows()-startingIndex));
     
     // The drift should only be the points until the first failure

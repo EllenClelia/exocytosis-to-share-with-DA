@@ -451,18 +451,33 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     
     // Check to see if the value before or after is larger. If so, use that
     if (locOrigin+1<images_par.NumberOfRows()) {
-        if (intensity(locOrigin-1)>intensity(locOrigin+1)) {
-            // Larger before the next frame after
-            if (intensity(locOrigin-1)>intensity(locOrigin)) {
+        // Might want to move the focus one point to the left or right.
+        // Move it to the left if the initial screening was too late -> shift<0
+        // move it to the right if the initial screening picked it up too early -> shift>0
+        
+        double sizeScale = std::max(intensity(locOrigin),intensity(locOrigin+1))-average(0);
+
+        // if (intensity(locOrigin-1)>intensity(locOrigin+1)) {
+        if (intensity(locOrigin-1)>sizeScale*0.8+average(0)) {
+            // Large before the start
+            //if (intensity(locOrigin-1)>intensity(locOrigin)) {
                 locOrigin--;
                 shift--;
-            }
+            //}
+        }
+        else if (intensity(locOrigin+1)-intensity(locOrigin)>0.6*sizeScale) {
+            // Next value is much larger
+            locOrigin++;
+            shift++;
         }
         else {
+            /*
+             Does the decay handle this for me?
             if (intensity(locOrigin+1)>intensity(locOrigin)) {
                 locOrigin++;
                 shift++;
             }
+             */
         }
     }
 
@@ -544,7 +559,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     DTFunction b = DTFunction::Constant("b");
     DTFunction c = DTFunction::Constant("c");
     DTFunction x = DTFunction::Constant("x");
-    DTFunction foo = a + b*exp(-c*x);
+    //DTFunction foo = a + b*exp(-c*x);
 
     // Create the fitting data
     ssize_t rowCount = images_par.NumberOfRows();
@@ -619,7 +634,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     
     int maximumShift = std::min(20,howFar+shift-7);
     int howManyShifts = maximumShift-shift;
-    DTMutableDoubleArray shiftList(howManyShifts);
+    DTMutableDoubleArray kinkList(howManyShifts);
     DTMutableDoubleArray baseList(howManyShifts);
     DTMutableDoubleArray spikeList(howManyShifts);
     DTMutableDoubleArray decayList(howManyShifts);
@@ -629,8 +644,8 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     double bv = yval(0)-mean;
     double cv = 1.0;
     
-    for (int shiftLevel=shift;shiftLevel<maximumShift;shiftLevel++) {
-        DTFunction combo = IfFunction(x<shiftLevel,a*a+b,a*a+b*exp(-c*(x-shiftLevel)));
+    for (int kink=shift;kink<maximumShift;kink++) { // use delay, and then kink = shift + delay
+        DTFunction combo = IfFunction(x<kink,a*a+b,a*a+b*exp(-c*(x-kink)));
         
         guesses("a") = sqrt(fabs(av));
         guesses("b") = bv;
@@ -639,11 +654,11 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
         fitFcn = FunctionFit(combo,yval,knownConstants,guesses);
         fitValues = fitFcn(xval);
         
-        shiftList(shiftLevel-shift) = shiftLevel;
-        baseList(shiftLevel-shift) = pow(guesses("a"),2.0);
-        spikeList(shiftLevel-shift) = guesses("b");
-        decayList(shiftLevel-shift) = guesses("c");
-        R2List(shiftLevel-shift) = ComputeR2(yval,fitValues);
+        kinkList(kink-shift) = kink; // shift+delay
+        baseList(kink-shift) = pow(guesses("a"),2.0);
+        spikeList(kink-shift) = guesses("b");
+        decayList(kink-shift) = guesses("c");
+        R2List(kink-shift) = ComputeR2(yval,fitValues);
     }
     
     // Find the best  R2 value
@@ -658,14 +673,14 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     
     //The returned fit, quality decay etc is the result of the best piecewise fit
     //not the original fit.
+    toReturn.delay = kinkList(bestRindex)-shift;
     toReturn.decay = decayList(bestRindex);
     toReturn.base = baseList(bestRindex);
     toReturn.spike = spikeList(bestRindex);
     toReturn.R2 = bestR;
-    toReturn.shift = shiftList(bestRindex);
     
     toReturn.piecewiseFitResults = DTTable({
-        CreateTableColumn("shift",shiftList),
+        CreateTableColumn("kink",kinkList),
         CreateTableColumn("base",baseList),
         CreateTableColumn("spike",spikeList),
         CreateTableColumn("decay",decayList),
@@ -733,6 +748,9 @@ LocalPeak FindGaussianPeak(const DTImage &image,int channel)
         }
         else if (toReturn.height<toReturn.base) {
             toReturn.failureMode = 5; // Inverted peak
+        }
+        else if (toReturn.R2<0.5) {
+            toReturn.failureMode = 6; // Bad fit for a gaussian.
         }
         else if (toReturn.width>m) {
             // Too wide by far

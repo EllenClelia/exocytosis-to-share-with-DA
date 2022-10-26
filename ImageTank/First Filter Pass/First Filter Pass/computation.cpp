@@ -29,6 +29,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     DTMutableDoubleArray outputTime(outputLineLength);
     DTMutableDoubleArray outputShift(outputLineLength);
     DTMutableDoubleArray outputFlag(outputLineLength);
+    DTMutableDoubleArray outputDelay(outputLineLength);
     DTMutableDoubleArray outputDecay(outputLineLength);
     DTMutableDoubleArray outputR2(outputLineLength);
     DTMutableDoubleArray outputBackground(outputLineLength);
@@ -62,9 +63,6 @@ DTTable Computation(const DTSet<DTImage> &images,
         }
         ssize_t endsAt = i;
         
-        outputTime(posInOutput) = Tval;
-        outputShift(posInOutput) = 0;
-        
         // startsAt<=i<endsAt is one event.
         DTSet<DTImage> event = images.ExtractRows(DTRange(startsAt,endsAt-startsAt));
         // DTSet<DTImage> subTable = images.ExtractRows(DTRange(80,100));
@@ -72,10 +70,12 @@ DTTable Computation(const DTSet<DTImage> &images,
         QuantifyEvent info = Quantify(event,channel);
         
         // See if the previous time value has a bigger intensity. In which case go back a step.
+        outputTime(posInOutput) = Tval;
         
         outputBackground(posInOutput) = info.average;
         outputWidth(posInOutput) = info.width;
         outputShift(posInOutput) = info.shift;
+        outputDelay(posInOutput) = info.delay;
         outputDecay(posInOutput) = info.decay;
         outputR2(posInOutput) = info.R2;
 
@@ -88,7 +88,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTTableColumnNumber failure = eventParameters("failure");
         DTTableColumnNumber intensity = eventParameters("intensity");
         DTTableColumnPoint2D centerSpot = eventParameters("centerSpot");
-        ssize_t startingIndex = time.FindClosest(0); // +info.shift; Start where the event starts, not where the decay starts
+        ssize_t startingIndex = time.FindClosest(info.shift); // Start where the event starts, not where the decay starts
         
         double valueAtStart = intensity(startingIndex);
         // double valueAtNext = intensity(startingIndex+1);
@@ -134,6 +134,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     
     outputTime = TruncateSize(outputTime,posInOutput);
     outputShift = TruncateSize(outputShift,posInOutput);
+    outputDelay = TruncateSize(outputDelay,posInOutput);
     outputDecay = TruncateSize(outputDecay,posInOutput);
     outputR2 = TruncateSize(outputR2,posInOutput);
     outputBackground = TruncateSize(outputBackground,posInOutput);
@@ -150,6 +151,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         CreateTableColumn("R2",outputR2),
         CreateTableColumn("drift",outputDrift),
         CreateTableColumn("background",outputBackground),
+        CreateTableColumn("delay",outputDelay),
         CreateTableColumn("decay",outputDecay),
         CreateTableColumn("width",outputWidth)
     });

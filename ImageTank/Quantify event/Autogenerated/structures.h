@@ -23,6 +23,7 @@ struct Group {
     DTTable histogram;
     DTFunction1D fit;
     double R2;
+    double delay;
     double decay;
     double shift;
     DTTable Drift;
