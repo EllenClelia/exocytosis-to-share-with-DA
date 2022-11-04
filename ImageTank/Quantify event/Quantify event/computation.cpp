@@ -13,7 +13,7 @@ Group Computation(const DTSet<DTImage> &images,int pt,
 {
     // images is a set
     ssize_t images_count = images.NumberOfItems();
-    int channel = parameters("channel");
+    // int channel = parameters("channel");
     
     DTTable images_par = images.Parameters();
     DTTableColumnNumber ptNumber = images_par("ptNumber");
@@ -37,7 +37,7 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     
     DTSet<DTImage> imagesToView = images.ExtractRows(DTRange(startAt,endAt-startAt));
 
-    QuantifyEvent event = Quantify(imagesToView,channel);
+    QuantifyEvent event = Quantify(imagesToView,parameters);
  
     Group toReturn;
     toReturn.average = event.average;

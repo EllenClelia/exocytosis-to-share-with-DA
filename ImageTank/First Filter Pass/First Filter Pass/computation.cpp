@@ -18,7 +18,9 @@ DTTable Computation(const DTSet<DTImage> &images,
     
     DTTableColumnNumber T = images_par("T");
     DTTableColumnNumber ptNumber = images_par("ptNumber");
-    int channel = parameters("channel");
+    // int channel = parameters("channel");
+    bool useAverage = parameters("useAverage");
+    int howManyRequiredAboveThresholdForDecay = parameters("Points Above Baseline for threshold");
 
     // Know that the T column is sorted in increasing order
     // inside that the ptNumber is increasing
@@ -67,7 +69,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTSet<DTImage> event = images.ExtractRows(DTRange(startsAt,endsAt-startsAt));
         // DTSet<DTImage> subTable = images.ExtractRows(DTRange(80,100));
 
-        QuantifyEvent info = Quantify(event,channel);
+        QuantifyEvent info = Quantify(event,parameters);
         
         // See if the previous time value has a bigger intensity. In which case go back a step.
         outputTime(posInOutput) = Tval;
@@ -86,12 +88,20 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTTableColumnNumber time = eventParameters("time");
         DTTableColumnNumber average = eventParameters("average");
         DTTableColumnNumber failure = eventParameters("failure");
-        DTTableColumnNumber intensity = eventParameters("intensity");
+        DTTableColumnNumber intensityToUse;
+        if (useAverage) {
+            intensityToUse = eventParameters("average");
+        }
+        else {
+            intensityToUse = eventParameters("intensity");
+        }
+        DTTableColumnNumber fittedIntensity = eventParameters("intensity");
+
         DTTableColumnPoint2D centerSpot = eventParameters("centerSpot");
         ssize_t startingIndex = time.FindClosest(info.shift); // Start where the event starts, not where the decay starts
         
-        double valueAtStart = intensity(startingIndex);
-        // double valueAtNext = intensity(startingIndex+1);
+        double valueAtStart = intensityToUse(startingIndex);
+        // double valueAtNext = intensityToUse(startingIndex+1);
         //if (valueAtNext>valueAtStart) {
         //    // Still going up, need to look at this further
         //    outputFlag(posInOutput) += 1;
@@ -102,28 +112,46 @@ DTTable Computation(const DTSet<DTImage> &images,
             outputFlag(posInOutput) += 1; // Didn't rise high enough from the background
         }
         
-        // Find when the spike goes below the tail intensity. Also check how much movement happened
+        // Find when the spike goes below the tail intensityToUse. Also check how much movement happened
         double drift = 0;
-        ssize_t tailEndsAt = startingIndex;
         DTPoint2D startAt = centerSpot(startingIndex);
         outputCenter(0,posInOutput) = startAt.x;
         outputCenter(1,posInOutput) = startAt.y;
+        
+        // Find the drift
         ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
-        while (tailEndsAt<lengthOfEvent &&
-               tailEndsAt<stopSearchingDrift &&
-               intensity(tailEndsAt)>info.average+info.width*tailThreshold &&
-               failure(tailEndsAt)==0) {
-            double dist = Distance(startAt,centerSpot(tailEndsAt));
+        ssize_t lookAtPoint = startingIndex;
+        while (lookAtPoint<lengthOfEvent &&
+               lookAtPoint<stopSearchingDrift &&
+               failure(lookAtPoint)==0 //&&
+               /*intensityToUse(lookAtPoint)>info.average+info.width*tailThreshold */) {
+            // The center point is still valid, and intensity is still large enough, check the drift.
+            double dist = Distance(startAt,centerSpot(lookAtPoint));
             if (dist>drift) drift = dist;
-            tailEndsAt++;
+            lookAtPoint++;
         }
         outputDrift(posInOutput) = drift;
         if (drift>maxDrift) {
             outputFlag(posInOutput) += 2; // Drifted too far
         }
-        if (startingIndex+1==tailEndsAt) {
+        
+        // See if the intensity decays too fast
+        ssize_t tailEndsAt = startingIndex;
+        while (tailEndsAt<lengthOfEvent &&
+               tailEndsAt<stopSearchingDrift &&
+               (useAverage || failure(tailEndsAt)==0) &&
+               intensityToUse(tailEndsAt)>info.average+info.width*tailThreshold) {
+            tailEndsAt++;
+        }
+        
+        if (tailEndsAt<=startingIndex+howManyRequiredAboveThresholdForDecay) {
             // Only the first point was above the threshold
             outputFlag(posInOutput) += 4;
+        }
+        
+        if (failure(startingIndex)!=0) {
+            // Require at least the first point to look like a peak.
+            outputFlag(posInOutput) += 8;
         }
                                 
         // Ready for the next point

@@ -59,6 +59,12 @@
 				</dict>
 				<dict>
 					<key>Name</key>
+					<string>delay</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
 					<string>decay</string>
 					<key>Type</key>
 					<string>Number</string>
@@ -157,6 +163,12 @@
 		<dict>
 			<key>Name</key>
 			<string>background</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>delay</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

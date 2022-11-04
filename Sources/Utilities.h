@@ -13,6 +13,7 @@
 #include "DTSet.h"
 #include "DTTable.h"
 #include "DTList.h"
+#include "DTDictionary.h"
 
 DTImage GaussianFilter(const DTImage &image,double sigma);
 DTImageChannel GaussianFilter(const DTImageChannel &channel,double sigma);
@@ -41,7 +42,8 @@ struct QuantifyEvent {
   
     DTTable piecewiseFitResults;
 };
-QuantifyEvent Quantify(const DTSet<DTImage> &,int channel);
+
+QuantifyEvent Quantify(const DTSet<DTImage> &,const DTDictionary &parameters);
 
 //DTTable
 
@@ -59,7 +61,7 @@ struct LocalPeak
     // 2 means went out of bounds
 };
 
-LocalPeak FindGaussianPeak(const DTImage &image,int channel);
+LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &);
 LocalPeak FindMaximumPeak(const DTImage &image,int channel);
 
 DTPoint2D FindLocalMaxima(const DTDoubleArray &values,double &maxV);

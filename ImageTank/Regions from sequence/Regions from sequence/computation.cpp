@@ -126,7 +126,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         //WriteOne(temp, "Cropped", combined);
         
         if (peakFit) {
-            peak = FindGaussianPeak(combined,channel);
+            peak = FindGaussianPeak(combined,parameters);
         }
         else {
             peak = FindMaximumPeak(combined,channel);
@@ -165,7 +165,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
 
                 if (peakFit) {
                     if (analyzeSmooth) {
-                        peak = FindGaussianPeak(combinedSmooth,channel);
+                        peak = FindGaussianPeak(combinedSmooth,parameters);
                         if (peak.failureMode) {
                             //DTDataFile temp("/tmp/test.dtbin",DTFile::NewReadWrite);
                             //WriteOne(temp, "Combined", combinedSmooth);
@@ -178,7 +178,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                         }
                     }
                     else {
-                        peak = FindGaussianPeak(combinedRaw,channel);
+                        peak = FindGaussianPeak(combinedRaw,parameters);
                         if (peak.failureMode) {
                             peak = FindMaximumPeak(combinedSmooth,channel);
                         }

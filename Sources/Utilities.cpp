@@ -434,16 +434,25 @@ double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValues
     return R2;
 }
 
-QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
+QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &parameters)
 {
     //DTSet<DTImage> imagesToView = images.ExtractRows("ptNumber",[](double v) {return (v==0);});
     
     // ssize_t images_count = images.NumberOfItems();
     DTTable images_par = images.Parameters();
 
+    bool useAverage = parameters("useAverage");
+    int channel = parameters("channel");
+    
     DTTableColumnNumber time = images_par("time");
     DTTableColumnNumber average = images_par("average");
-    DTTableColumnNumber intensity = images_par("intensity");
+    DTTableColumnNumber intensity;
+    if (useAverage) {
+        intensity = images_par("average");
+    }
+    else {
+        intensity = images_par("intensity");
+    }
     DTTableColumnNumber failure = images_par("failure");
 
     ssize_t locOrigin = time.FindClosest(0);
@@ -494,65 +503,74 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
         double val = average(i);
         sumSq = (val-mean)*(val-mean);
     }
-    double width = sqrt(sumSq/(locOrigin-1));
+    double width;
     
-    ssize_t firstBin = -3000;
-    ssize_t lastBin = 3000+mean*10;
-    ssize_t maxBin = lastBin-firstBin+1;
-    DTMutableDoubleArray bins(maxBin);
-    bins = 0;
-    for (i=0;i<locOrigin-1;i++) {
-        DTImage single = images(i);
-        DTDoubleArray values = ConvertToDouble(single)(channel).DoubleArray();
-        ssize_t ij,len = values.Length();
-        for (ij=0;ij<len;ij++) {
-            double v = values(ij);
-            int binNumber = int(round(v));
-            if (firstBin<=binNumber && binNumber<=lastBin) {
-                bins(binNumber-firstBin)++;
+    QuantifyEvent toReturn;
+
+    if (useAverage) {
+        width = sqrt(sumSq/(locOrigin-1)); // standard deviation of the avarage
+        toReturn.width = width;
+    }
+    else {
+        // Compute the standard deviation of the image values
+        ssize_t firstBin = -3000;
+        ssize_t lastBin = 3000+mean*10;
+        ssize_t maxBin = lastBin-firstBin+1;
+        DTMutableDoubleArray bins(maxBin);
+        bins = 0;
+        for (i=0;i<locOrigin-1;i++) {
+            DTImage single = images(i);
+            DTDoubleArray values = ConvertToDouble(single)(channel).DoubleArray();
+            ssize_t ij,len = values.Length();
+            for (ij=0;ij<len;ij++) {
+                double v = values(ij);
+                int binNumber = int(round(v));
+                if (firstBin<=binNumber && binNumber<=lastBin) {
+                    bins(binNumber-firstBin)++;
+                }
             }
         }
+        
+        ssize_t minNonZero = 0;
+        while (minNonZero<maxBin && bins(minNonZero)==0) minNonZero++;
+        ssize_t maxNonZero = int(maxBin)-1;
+        while (maxNonZero>=0 && bins(maxNonZero)==0) maxNonZero--;
+        if (minNonZero+firstBin>0) minNonZero = -firstBin;
+        
+        // Compute the standard deviation
+        sum = 0;
+        sumSq = 0.0;
+        int totalCount = 0;
+        // Average from before is going to work, in fact a little more accurate.
+        // Compute the standard error
+        ssize_t ival;
+        for (i=minNonZero;i<=maxNonZero;i++) {
+            // Should really do
+            // sum (i-val)^2 bins(i) times
+            ival = i+firstBin;
+            sumSq += bins(i)*(ival-mean)*(ival-mean);
+            totalCount += bins(i);
+        }
+        width = sqrt(sumSq/totalCount);
+        
+        DTMutableDoubleArray intensityList(maxNonZero-minNonZero+1);
+        DTMutableDoubleArray countList(maxNonZero-minNonZero+1);
+        int pos = 0;
+        for (i=minNonZero;i<=maxNonZero;i++) {
+            intensityList(pos) = i+firstBin;
+            countList(pos) = bins(i);
+            pos++;
+        }
+        
+        toReturn.histogram = DTTable({
+            CreateTableColumn("intensity",intensityList),
+            CreateTableColumn("count",countList)
+        });
+        toReturn.width = width;
     }
-    
-    ssize_t minNonZero = 0;
-    while (minNonZero<maxBin && bins(minNonZero)==0) minNonZero++;
-    ssize_t maxNonZero = int(maxBin)-1;
-    while (maxNonZero>=0 && bins(maxNonZero)==0) maxNonZero--;
-    if (minNonZero+firstBin>0) minNonZero = -firstBin;
-    
-    // Compute the standard deviation
-    sum = 0;
-    sumSq = 0.0;
-    int totalCount = 0;
-    // Average from before is going to work, in fact a little more accurate.
-    // Compute the standard error
-    ssize_t ival;
-    for (i=minNonZero;i<=maxNonZero;i++) {
-        // Should really do
-        // sum (i-val)^2 bins(i) times
-        ival = i+firstBin;
-        sumSq += bins(i)*(ival-mean)*(ival-mean);
-        totalCount += bins(i);
-    }
-    width = sqrt(sumSq/totalCount);
 
-    DTMutableDoubleArray intensityList(maxNonZero-minNonZero+1);
-    DTMutableDoubleArray countList(maxNonZero-minNonZero+1);
-    int pos = 0;
-    for (i=minNonZero;i<=maxNonZero;i++) {
-        intensityList(pos) = i+firstBin;
-        countList(pos) = bins(i);
-        pos++;
-    }
-
-    QuantifyEvent toReturn;
     toReturn.shift = shift;
     toReturn.average = mean;
-    toReturn.width = width;
-    toReturn.histogram = DTTable({
-        CreateTableColumn("intensity",intensityList),
-        CreateTableColumn("count",countList)
-    });
     
     // Fit with a + b*exp(-c*x)
     DTFunction a = DTFunction::Constant("a");
@@ -564,25 +582,45 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
     // Create the fitting data
     ssize_t rowCount = images_par.NumberOfRows();
     
-    int howFar = 20;
+    int howFar = int(rowCount); // 20;
+    double scaleForMin = parameters.GetNumber("minIntensityForFit",2.0);
+    double minIntensityValueForFit = mean+scaleForMin*width;
 
     DTMutableDoubleArray xval(rowCount), tVal(rowCount), yval(rowCount);
-    pos = 0;
+    int pos = 0;
     for (int i=0;i<rowCount;i++) {
         double t = time(i);
         if (t>=shift && t<=howFar+shift) {
-            if (failure(i)==0) {
+            if (useAverage || failure(i)==0) {
                 // Only include points that are coming from a valid fit
-                xval(pos) = t-shift;
-                tVal(pos) = t;
-                yval(pos) = intensity(i);
-                pos++;
+                
+                // Don't include intensity values that are too low
+                if (intensity(i)>minIntensityValueForFit) {
+                    xval(pos) = t-shift;
+                    tVal(pos) = t;
+                    yval(pos) = intensity(i);
+                    pos++;
+                }
             }
         }
     }
     xval = TruncateSize(xval,pos);
     tVal = TruncateSize(tVal,pos);
     yval = TruncateSize(yval,pos);
+    
+    if (pos==0) {
+        // Failed, don't want an error message to propagate to IT.
+        toReturn.average = NAN;
+        toReturn.width = NAN;
+        toReturn.shift = 0;
+        toReturn.delay = 0;
+        toReturn.base = NAN;
+        toReturn.spike = NAN;
+        toReturn.decay = NAN;
+        toReturn.R2 = NAN;
+
+        return toReturn;
+    }
 
     DTMutableDictionary knownConstants;
     DTMutableDictionary guesses;
@@ -691,8 +729,10 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,int channel)
 
 bool EvaluateGaussianPeak(const DTDictionary &constants,DTMutableDoubleArray &returnArray);
 
-LocalPeak FindGaussianPeak(const DTImage &image,int channel)
+LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
 {
+    int channel = parameters("channel");
+    
     // Find the maximum point in the center.
     // Need a buffer around it to find the optimal center using a least squares fit
     DTDoubleArray values = ConvertToDouble(image(channel)).DoubleArray();
@@ -740,23 +780,25 @@ LocalPeak FindGaussianPeak(const DTImage &image,int channel)
     EvaluateGaussianPeak(returned,fitValues);
     toReturn.R2 = ComputeR2(values,fitValues);
     
+    double R2threshold = parameters("R2 for Peak");
     if (returned("LM::Status")==1) {
         // Might still fail if it is outside of the domain
         if (BoundingBox(image.Grid()).PointLiesInside(toReturn.center)==false) {
             // Went outside the domain
+            toReturn.height = maxV;
             toReturn.failureMode = 2;
         }
         else if (toReturn.height<toReturn.base) {
             toReturn.failureMode = 5; // Inverted peak
         }
-        else if (toReturn.R2<0.5) {
+        else if (toReturn.R2<R2threshold) {
             toReturn.failureMode = 6; // Bad fit for a gaussian.
         }
         else if (toReturn.width>m) {
             // Too wide by far
             toReturn.failureMode = 4;
         }
-        else if (toReturn.base<minV - (maxV-minV)) {
+        else if (toReturn.base<minV - 3*(maxV-minV)) {
             //
             toReturn.failureMode = 3;
         }
