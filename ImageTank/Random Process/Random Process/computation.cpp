@@ -34,7 +34,7 @@ DTTable Realization(const DTMask2D &region,
     double t;
     ssize_t i,j,ij;
     double x,y;
-    double val, product = m*n;
+    double val;
     for (ssize_t pos=0;pos<length;pos++) {
         // Random in space
         while (1) {
