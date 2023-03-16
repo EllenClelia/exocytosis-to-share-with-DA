@@ -8,6 +8,10 @@ DTImage Computation(DTPoint2D origin,double h,int m,int n,double radius,
                     const DTTable &points)
 {
     // point
+    if (h<=0) {
+        DTErrorMessage("The step size needs to be positive");
+        return DTImage();
+    }
     DTTableColumnPoint2D pointsColumn = points("point");
     DTPointCollection2D point = pointsColumn.Points();
     
