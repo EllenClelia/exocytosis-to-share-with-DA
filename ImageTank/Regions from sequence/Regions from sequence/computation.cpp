@@ -85,6 +85,13 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 }
                 
                 DTImage image = withCache(index);
+                if (image.Grid().dx()==1) {
+                    static bool warned = false;
+                    if (warned==false) {
+                        DTErrorMessage("The image grid has step size 1");
+                        warned = true;
+                    }
+                }
                 
                 image = Crop(image,backgroundBox);
                 image = ConvertToDouble(image);
