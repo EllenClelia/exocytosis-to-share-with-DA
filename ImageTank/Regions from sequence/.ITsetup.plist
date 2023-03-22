@@ -23,6 +23,8 @@
 			<string></string>
 			<key>Display</key>
 			<string></string>
+			<key>Gear Menu</key>
+			<string>Region from image series</string>
 			<key>Structure</key>
 			<array>
 				<dict>

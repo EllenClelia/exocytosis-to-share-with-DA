@@ -7,12 +7,16 @@
 	<key>Input</key>
 	<array>
 		<dict>
+			<key>Allow Empty</key>
+			<string>YES</string>
 			<key>Argument</key>
 			<string>region</string>
 			<key>Comment</key>
 			<string></string>
 			<key>Display</key>
 			<string></string>
+			<key>Gear Menu</key>
+			<string>Ripley realizations inside mask</string>
 			<key>Type</key>
 			<string>Mask2D</string>
 		</dict>
