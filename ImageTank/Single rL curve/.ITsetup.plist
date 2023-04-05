@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>37d15fa4bdfba92e02304ff404c6e352a7215529d9d8acab093b61f4c1e572aa</string>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>mask</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Mask2D</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>points</string>
+			<key>Column Name</key>
+			<string>point</string>
+			<key>Column Type</key>
+			<integer>5</integer>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Single Column</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>rCount</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>rRange</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>1D Region</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>Group</string>
+	<key>Name of Module</key>
+	<string>Command Line Utility</string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Single rL curve</string>
+	<key>Variable Type</key>
+	<string>Path2D</string>
+</dict>
+</plist>
