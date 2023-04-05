@@ -123,8 +123,10 @@ DTTable Computation(const DTSet<DTImage> &images,
         ssize_t lookAtPoint = startingIndex;
         while (lookAtPoint<lengthOfEvent &&
                lookAtPoint<stopSearchingDrift &&
-               failure(lookAtPoint)==0 //&&
-               /*intensityToUse(lookAtPoint)>info.average+info.width*tailThreshold */) {
+               failure(lookAtPoint)==0 &&
+               // The next line was commented out before April 5th 2023
+               // it was put back in because when the intensity dips too low the drift is messed up.
+               intensityToUse(lookAtPoint)>info.average+info.width*tailThreshold) {
             // The center point is still valid, and intensity is still large enough, check the drift.
             double dist = Distance(startAt,centerSpot(lookAtPoint));
             if (dist>drift) drift = dist;
