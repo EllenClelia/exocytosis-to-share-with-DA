@@ -141,7 +141,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         p = peak.center;
         if (peak.failureMode!=0) {
             // Don't trust this center, skip over the point.
-            continue;
+            // continue;
         }
         
         startingPoint = p;
