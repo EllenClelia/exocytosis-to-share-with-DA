@@ -671,6 +671,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     knownConstants("x") = xval; // Technically not needed since the xval is shared, but makes it more explicit.
     
     int maximumShift = std::min(20,howFar+shift-7);
+    if (maximumShift<shift) maximumShift = shift;
     int howManyShifts = maximumShift-shift;
     DTMutableDoubleArray kinkList(howManyShifts);
     DTMutableDoubleArray baseList(howManyShifts);
@@ -711,11 +712,20 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     
     //The returned fit, quality decay etc is the result of the best piecewise fit
     //not the original fit.
-    toReturn.delay = kinkList(bestRindex)-shift;
-    toReturn.decay = decayList(bestRindex);
-    toReturn.base = baseList(bestRindex);
-    toReturn.spike = spikeList(bestRindex);
-    toReturn.R2 = bestR;
+    if (bestRindex<kinkList.Length()) {
+        toReturn.delay = kinkList(bestRindex)-shift;
+        toReturn.decay = decayList(bestRindex);
+        toReturn.base = baseList(bestRindex);
+        toReturn.spike = spikeList(bestRindex);
+        toReturn.R2 = bestR;
+    }
+    else {
+        toReturn.delay = NAN;
+        toReturn.decay = NAN;
+        toReturn.base = NAN;
+        toReturn.spike = NAN;
+        toReturn.R2 = NAN;
+    }
     
     toReturn.piecewiseFitResults = DTTable({
         CreateTableColumn("kink",kinkList),

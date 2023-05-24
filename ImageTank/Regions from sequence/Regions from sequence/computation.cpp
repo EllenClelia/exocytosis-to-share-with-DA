@@ -30,6 +30,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     ssize_t posInOutput = 0;
     DTMutableDoubleArray timeList(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray failureMode(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray failureAtStart(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray R2list(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray intensityList(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray centerList(2,howMany*(timeback+1+timeforward));
@@ -143,6 +144,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
             // Don't trust this center, skip over the point.
             // continue;
         }
+        int startFailure = peak.failureMode;
         
         startingPoint = p;
         finalBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2); // The final image that is saved
@@ -210,6 +212,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 pointNumber(posInOutput) = row;
                 timeList(posInOutput) = index-where;
                 failureMode(posInOutput) = peak.failureMode;
+                failureAtStart(posInOutput) = startFailure;
                 R2list(posInOutput) = peak.R2;
                 intensityList(posInOutput) = peak.height;
                 centerList(0,posInOutput) = startingPoint.x;
@@ -239,6 +242,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         pointNumber = TruncateSize(pointNumber,posInOutput);
         timeList = TruncateSize(timeList,posInOutput);
         failureMode = TruncateSize(failureMode,posInOutput);
+        failureAtStart = TruncateSize(failureAtStart,posInOutput);
         R2list = TruncateSize(R2list,posInOutput);
         intensityList = TruncateSize(intensityList,posInOutput);
         centerList = TruncateSize(centerList,2*posInOutput);
@@ -250,6 +254,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     output.Finish(DTTable({
         CreateTableColumn("time",timeList),
         CreateTableColumn("failure",failureMode),
+        CreateTableColumn("failureAtStart",failureAtStart),
         CreateTableColumn("R2",R2list),
         CreateTableColumn("intensity",intensityList),
         CreateTableColumn("center",DTPointCollection2D(centerList)),

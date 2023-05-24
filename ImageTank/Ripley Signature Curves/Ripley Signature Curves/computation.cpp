@@ -43,10 +43,11 @@ DTDoubleArray ComputeL(const DTTable &points,
     // that is distances(totalLength-1)>=range.minV + (maxCount-1)*dr
     // that is (distances(totalLength-1)-range.minV)/dr+1 >= maxCount
     
+    ssize_t distLength = distances.Length();
     for (i=1;i<rCount;i++) {
         double until = rList(i);
         double untilSquared = until*until;
-        while (distances(pos)<untilSquared) {
+        while (pos<distLength && distances(pos)<untilSquared) {
             pos++;
         }
         values(i) = pos;

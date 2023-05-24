@@ -52,6 +52,9 @@ DTTable Computation(const DTSet<DTImage> &images,
 
     DTProgress progress;
     
+    DTMutableList<DTPoint2D> tempPoints(100);
+    int posInTempPoints;
+    
     // Loop through each event
     ssize_t startsAt = 0;
     while (startsAt<images_count) {
@@ -112,26 +115,78 @@ DTTable Computation(const DTSet<DTImage> &images,
             outputFlag(posInOutput) += 1; // Didn't rise high enough from the background
         }
         
-        // Find when the spike goes below the tail intensityToUse. Also check how much movement happened
-        double drift = 0;
         DTPoint2D startAt = centerSpot(startingIndex);
         outputCenter(0,posInOutput) = startAt.x;
         outputCenter(1,posInOutput) = startAt.y;
         
+
+        // On 5/18/23, changed the drift to be the biggest distance between points
+        // around startingIndex where failure(ptIndex)==0.
+        // Do that by first computing that point list, and then find the maximum
+        // pairwise distance beween the points.
+        posInTempPoints = 0;
+        
+        DTMutableList<DTPoint2D> tempPoints(100);
+        ssize_t lookAtPoint = startingIndex;
+        if (failure(lookAtPoint)==0 && failure(lookAtPoint-1)==0) {
+            lookAtPoint--;
+            while (lookAtPoint>=0 && failure(lookAtPoint)==0) {
+                tempPoints(posInTempPoints++) = centerSpot(lookAtPoint);
+                lookAtPoint--;
+            }
+        }
+        // Forwards
+        ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
+        lookAtPoint = startingIndex;
+        while (lookAtPoint<lengthOfEvent && lookAtPoint<stopSearchingDrift && failure(lookAtPoint)==0) {
+            tempPoints(posInTempPoints++) = centerSpot(lookAtPoint);
+            lookAtPoint++;
+        }
+        // Pairwise distance
+        double drift = 0;
+        for (int firstPt=0;firstPt<posInTempPoints;firstPt++) {
+            for (int secondPt=firstPt+1;secondPt<posInTempPoints;secondPt++) {
+                double dist = Distance(tempPoints(firstPt),tempPoints(secondPt));
+                if (dist>drift) drift = dist;
+            }
+        }
+        
+        /*
+         Before 5/18/23 we computed the distance from the centerSpot(startingIndex)
+        // Find when the spike goes below the tail intensityToUse. Also check how much movement happened
+        double drift = 0;
         // Find the drift
         ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
         ssize_t lookAtPoint = startingIndex;
+        
+        // Compute the drift from previous values
+        if (failure(lookAtPoint)==0 && failure(lookAtPoint-1)==0) {
+            // The forward drift calculation fails in the first two steps of the next loop
+            // Check to see if there was a valid point before it.
+            ssize_t check = lookAtPoint-1;
+            while (check>=0 && failure(check)==0) {
+                double dist = Distance(startAt,centerSpot(check));
+                if (dist>drift) drift = dist;
+                check--;
+            }
+        }
+
         while (lookAtPoint<lengthOfEvent &&
                lookAtPoint<stopSearchingDrift &&
-               failure(lookAtPoint)==0 &&
+               failure(lookAtPoint)==0
                // The next line was commented out before April 5th 2023
                // it was put back in because when the intensity dips too low the drift is messed up.
-               intensityToUse(lookAtPoint)>info.average+info.width*tailThreshold) {
+               // On May 18th 23 we commented this out again
+               // intensityToUse(lookAtPoint)>info.average+info.width*tailThreshold
+               ) {
             // The center point is still valid, and intensity is still large enough, check the drift.
             double dist = Distance(startAt,centerSpot(lookAtPoint));
             if (dist>drift) drift = dist;
             lookAtPoint++;
         }
+         
+         */
+        
         outputDrift(posInOutput) = drift;
         if (drift>maxDrift) {
             outputFlag(posInOutput) += 2; // Drifted too far

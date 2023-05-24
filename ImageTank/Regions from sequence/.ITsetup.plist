@@ -141,6 +141,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
+			<string>failureAtStart</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>R2</string>
 			<key>Type</key>
 			<string>Number</string>

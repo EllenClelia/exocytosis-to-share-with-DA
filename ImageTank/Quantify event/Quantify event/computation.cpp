@@ -60,10 +60,13 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     DTTable eventParameters = imagesToView.Parameters();
     DTTableColumnNumber time = eventParameters("time");
     ssize_t startingIndex = time.FindClosest(event.shift);
+    // The drift calculation can start before the startingIndex
+    DTTableColumnNumber failure = eventParameters("failure");
+    while (startingIndex-1>=0 && failure(startingIndex-1)==0) startingIndex--;
     DTTable tail = eventParameters.ExtractRows(DTRange(startingIndex,eventParameters.NumberOfRows()-startingIndex));
     
     // The drift should only be the points until the first failure
-    DTTableColumnNumber failure = tail("failure");
+    failure = tail("failure");
     int firstFailure = 1;
     while (firstFailure<tail.NumberOfRows() && failure(firstFailure)==0) firstFailure++;
     DTTable driftPortion = tail.ExtractRows(DTRange(0,firstFailure));
