@@ -55,6 +55,8 @@ DTTable Computation(const DTSet<DTImage> &images,
     DTMutableList<DTPoint2D> tempPoints(100);
     int posInTempPoints;
     
+    bool checkDriftBefore = parameters.GetNumber("drift",0);
+    
     // Loop through each event
     ssize_t startsAt = 0;
     while (startsAt<images_count) {
@@ -128,13 +130,16 @@ DTTable Computation(const DTSet<DTImage> &images,
         
         DTMutableList<DTPoint2D> tempPoints(100);
         ssize_t lookAtPoint = startingIndex;
-        if (failure(lookAtPoint)==0 && failure(lookAtPoint-1)==0) {
-            lookAtPoint--;
-            while (lookAtPoint>=0 && failure(lookAtPoint)==0) {
-                tempPoints(posInTempPoints++) = centerSpot(lookAtPoint);
+        if (checkDriftBefore) {
+            if (failure(lookAtPoint)==0 && failure(lookAtPoint-1)==0) {
                 lookAtPoint--;
+                while (lookAtPoint>=0 && failure(lookAtPoint)==0) {
+                    tempPoints(posInTempPoints++) = centerSpot(lookAtPoint);
+                    lookAtPoint--;
+                }
             }
         }
+        
         // Forwards
         ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
         lookAtPoint = startingIndex;
