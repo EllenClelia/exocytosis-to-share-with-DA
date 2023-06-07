@@ -85,7 +85,9 @@ void Group::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("Number",name+"_10T_4T");
     output.Save("R2",name+"_10T_5N");
     output.Save("Number",name+"_10T_5T");
-    output.Save(5,name+"_10T_N");
+    output.Save("RMSE",name+"_10T_6N");
+    output.Save("Number",name+"_10T_6T");
+    output.Save(6,name+"_10T_N");
     output.Save("Table",name+"_10T");
 
     output.Save(10,name+"_N");

@@ -392,6 +392,29 @@ DTImage MedianOfImages(const DTList<DTImage> &images)
     return DTImage(firstImage.Grid(),outputChannels);
 }
 
+double ComputeRMSE(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList)
+{
+    if (yValuesList.Length()!=fitValuesList.Length()) {
+        DTErrorMessage("ComputeR2","Sizes don't match");
+        return NAN;
+    }
+    
+    double SSerr = 0.0;
+    double temp;
+    int residualCount = 0;
+    ssize_t i;
+    ssize_t howManyEntries = yValuesList.Length();
+    for (i=0;i<howManyEntries;i++) {
+        temp = yValuesList(i) - fitValuesList(i);
+        if (isfinite(temp)) {
+            residualCount++;
+            SSerr += temp*temp;
+        }
+    }
+    
+    return sqrt(SSerr/howManyEntries);
+}
+
 double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList)
 {
     if (yValuesList.Length()!=fitValuesList.Length()) {
@@ -673,12 +696,30 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     int maximumShift = std::min(20,howFar+shift-7);
     if (maximumShift<shift) maximumShift = shift;
     int howManyShifts = maximumShift-shift;
+    
+    if (howManyShifts<=1) {
+        toReturn.average = NAN;
+        toReturn.width = NAN;
+        toReturn.shift = 0;
+        toReturn.delay = 0;
+        toReturn.base = NAN;
+        toReturn.spike = NAN;
+        toReturn.decay = NAN;
+        toReturn.R2 = NAN;
+
+        return toReturn;
+    }
+    //if (howManyShifts==1) {
+    //    DTErrorMessage("Only one point - look at this case");
+    //}
+    
     DTMutableDoubleArray kinkList(howManyShifts);
     DTMutableDoubleArray baseList(howManyShifts);
     DTMutableDoubleArray spikeList(howManyShifts);
     DTMutableDoubleArray decayList(howManyShifts);
     DTMutableDoubleArray R2List(howManyShifts);
-    
+    DTMutableDoubleArray RMSEList(howManyShifts);
+
     double av = mean;
     double bv = yval(0)-mean;
     double cv = 1.0;
@@ -698,9 +739,12 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         spikeList(kink-shift) = guesses("b");
         decayList(kink-shift) = guesses("c");
         R2List(kink-shift) = ComputeR2(yval,fitValues);
+        RMSEList(kink-shift) = ComputeRMSE(yval,fitValues);
     }
     
-    // Find the best  R2 value
+    // Find the best R2 value. A long kink will reduce the R2 and that is a reasonable
+    // penalty, but a large flat portion after the decay portion will also lower R2
+    // and that might be a problem since that fit is considered worse.
     double bestR = 0.0;
     ssize_t bestRindex = 0;
     for (i=0;i<R2List.Length();i++) {
@@ -710,13 +754,57 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         }
     }
     
+    // To find the best fit, look at what minimizes the residual.
+    double bestRMSE = INFINITY;
+    // Find the best RMSE value, i.e. the smallest
+    ssize_t bestRMSEindex = 0;
+    for (i=0;i<RMSEList.Length();i++) {
+        if (RMSEList(i)<bestRMSE) {
+            bestRMSE = RMSEList(i);
+            bestRMSEindex = i;
+        }
+    }
+    
+    ssize_t indexForKink = bestRMSEindex; // used to be bestRindex
+    
+    // Compute the R2 value for this fit. The R^2 for the fit should not include
+    // the values before the kink.
+    int kink = kinkList(indexForKink);
+    DTFunction combo = IfFunction(x<kink,a*a+b,a*a+b*exp(-c*(x-kink)));
+    guesses("a") = sqrt(fabs(av));
+    guesses("b") = bv;
+    guesses("c") = cv;
+    fitFcn = FunctionFit(combo,yval,knownConstants,guesses);
+    DTDoubleArray fitValuesForR2 = fitFcn(xval);
+    // Trim away the flat part before the kink if there is any
+    DTDoubleArray yvalForR2 = yval;
+
+    // Compute the R^2 for values that happen at and after where the kink is.
+    // Since the x values might have missing indices
+    int startAt = 0;
+    for (startAt=0;startAt<xval.Length();startAt++) {
+        if (xval(startAt)>=kink) break;
+    }
+    // startAt = 0; // Include the flat part before the kink.
+    if (startAt>0) {
+        // Strip out the part before the kink
+        fitValuesForR2 = ExtractRows(fitValuesForR2,DTRange(startAt,yvalForR2.Length()-startAt));
+        yvalForR2      = ExtractRows(yvalForR2,     DTRange(startAt,yvalForR2.Length()-startAt));
+    }
+    bestR = ComputeR2(yvalForR2,fitValuesForR2);
+    
+    //fitValuesForR2 = ExtractRows(fitValuesForR2,DTRange(startAt,fitValuesForR2.Length()-startAt));
+    //yvalForR2 = ExtractRows(yvalForR2,DTRange(startAt,yvalForR2.Length()-startAt));
+    //bestR = ComputeR2(yvalForR2,fitValuesForR2);
+
     //The returned fit, quality decay etc is the result of the best piecewise fit
     //not the original fit.
-    if (bestRindex<kinkList.Length()) {
-        toReturn.delay = kinkList(bestRindex)-shift;
-        toReturn.decay = decayList(bestRindex);
-        toReturn.base = baseList(bestRindex);
-        toReturn.spike = spikeList(bestRindex);
+    // if (startAt<kinkList.Length()) {
+    if (yvalForR2.Length()>0) {
+        toReturn.delay = kinkList(indexForKink)-shift;
+        toReturn.decay = decayList(indexForKink);
+        toReturn.base = baseList(indexForKink);
+        toReturn.spike = spikeList(indexForKink);
         toReturn.R2 = bestR;
     }
     else {
@@ -732,7 +820,8 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         CreateTableColumn("base",baseList),
         CreateTableColumn("spike",spikeList),
         CreateTableColumn("decay",decayList),
-        CreateTableColumn("R2",R2List)});
+        CreateTableColumn("R2",R2List),
+        CreateTableColumn("RMSE",RMSEList)});
 
     return toReturn;
 }

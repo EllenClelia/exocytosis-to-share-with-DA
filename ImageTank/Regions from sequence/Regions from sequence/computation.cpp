@@ -140,14 +140,20 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
             peak = FindMaximumPeak(combined,channel);
         }
         p = peak.center;
-        if (peak.failureMode!=0) {
-            // Don't trust this center, skip over the point.
-            // continue;
-        }
-        int startFailure = peak.failureMode;
         
         startingPoint = p;
         finalBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2); // The final image that is saved
+
+        if (peak.failureMode!=0) {
+            // Don't trust this center, skip over the point.
+            // For now we want to see it, will filter it later, but
+            // if it is completely empty then should skip that.
+            if (Crop(startingImage,finalBox).IsEmpty()) {
+                continue;
+            }
+            // continue;
+        }
+        int startFailure = peak.failureMode;
         
         pos = 0;
         for (index=where-timeback;index<=where+timeforward;index++) {

@@ -24,6 +24,7 @@ DTFloatArray MedianOfStack(const DTFloatArray &stack,ssize_t slices);
 DTImage MedianOfImages(const DTList<DTImage> &);
 
 double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList);
+double ComputeRMSE(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList);
 
 // Part of quantifying an event
 struct QuantifyEvent {

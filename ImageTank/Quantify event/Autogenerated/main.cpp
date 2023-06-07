@@ -39,10 +39,6 @@ int main(int argc,const char *argv[])
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
     WriteOne(outputFile,"Var",output);
-    // The structure, to make it easy to open the output file
-    Group::WriteStructure(outputFile,"SeqInfo_Var");
-    outputFile.Save("Group","Seq_Var");
-
     // To speed up reading.
     outputFile.SaveIndex();
 

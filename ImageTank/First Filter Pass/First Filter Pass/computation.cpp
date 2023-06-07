@@ -56,6 +56,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     int posInTempPoints;
     
     bool checkDriftBefore = parameters.GetNumber("drift",0);
+    int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow drift failures",0);
     
     // Loop through each event
     ssize_t startsAt = 0;
@@ -143,9 +144,31 @@ DTTable Computation(const DTSet<DTImage> &images,
         // Forwards
         ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
         lookAtPoint = startingIndex;
-        while (lookAtPoint<lengthOfEvent && lookAtPoint<stopSearchingDrift && failure(lookAtPoint)==0) {
-            tempPoints(posInTempPoints++) = centerSpot(lookAtPoint);
-            lookAtPoint++;
+        if (howManyFailuresToAllowInDrift==0) {
+            while (lookAtPoint<lengthOfEvent && lookAtPoint<stopSearchingDrift && failure(lookAtPoint)==0) {
+                tempPoints(posInTempPoints++) = centerSpot(lookAtPoint);
+                lookAtPoint++;
+            }
+        }
+        else {
+            // Allow up to howManyFailuresToAllowInDrift failures before we stop looking
+            int howManyFailedSoFar = 0;
+            while (lookAtPoint<lengthOfEvent &&
+                   lookAtPoint<stopSearchingDrift) {
+                if (failure(lookAtPoint)!=0) {
+                    howManyFailedSoFar++;
+                    if (howManyFailedSoFar>howManyFailuresToAllowInDrift) {
+                        // Too many failed
+                        break;
+                    }
+                    else {
+                        lookAtPoint++;
+                        continue;
+                    }
+                }
+                tempPoints(posInTempPoints++) = centerSpot(lookAtPoint);
+                lookAtPoint++;
+            }
         }
         // Pairwise distance
         double drift = 0;

@@ -62,15 +62,53 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     ssize_t startingIndex = time.FindClosest(event.shift);
     // The drift calculation can start before the startingIndex
     DTTableColumnNumber failure = eventParameters("failure");
-    while (startingIndex-1>=0 && failure(startingIndex-1)==0) startingIndex--;
-    DTTable tail = eventParameters.ExtractRows(DTRange(startingIndex,eventParameters.NumberOfRows()-startingIndex));
     
-    // The drift should only be the points until the first failure
-    failure = tail("failure");
-    int firstFailure = 1;
-    while (firstFailure<tail.NumberOfRows() && failure(firstFailure)==0) firstFailure++;
-    DTTable driftPortion = tail.ExtractRows(DTRange(0,firstFailure));
+    int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow drift failures",0);
+    bool checkDriftBefore = parameters.GetNumber("drift",0);
     
+    DTTable driftPortion;
+    if (howManyFailuresToAllowInDrift==0) {
+        if (checkDriftBefore) {
+            while (startingIndex-1>=0 && failure(startingIndex-1)==0) startingIndex--;
+        }
+        DTTable tail = eventParameters.ExtractRows(DTRange(startingIndex,eventParameters.NumberOfRows()-startingIndex));
+
+        // The drift should only be the points until the first failure
+        failure = tail("failure");
+        int firstFailure = 1;
+        while (firstFailure<tail.NumberOfRows() && failure(firstFailure)==0) firstFailure++;
+        driftPortion = tail.ExtractRows(DTRange(0,firstFailure));
+    }
+    else {
+        // Extract a subset of the eventParameters as follows:
+        // if checkDriftBefore==true, then go back until I have a point that fails.
+        // Go forward in time until I reach the end or have more than "howManyFailuresToAllowInDrift" failure points.
+        DTMutableIntArray whichToTake(eventParameters.NumberOfRows());
+        int posInWhichToTake = 0;
+        int startAt = int(startingIndex);
+        while (startingIndex-1>=0 && failure(startAt-1)==0) {
+            startAt--;
+        }
+        while (startAt<startingIndex) {
+            whichToTake(posInWhichToTake++) = startAt;
+            startAt++;
+        }
+        
+        int howManyFailedSoFar = 0;
+        int check = int(startingIndex);
+        while (check<failure.NumberOfRows() && howManyFailedSoFar<=howManyFailuresToAllowInDrift) {
+            if (failure(check)==0) {
+                whichToTake(posInWhichToTake++) = check;
+            }
+            else {
+                howManyFailedSoFar++;
+            }
+            check++;
+        }
+        whichToTake = TruncateSize(whichToTake,posInWhichToTake);
+        driftPortion = eventParameters.ExtractRows(whichToTake);
+    }
+        
     toReturn.Drift = DTTable({
         driftPortion("time"),
         driftPortion("centerSpot")

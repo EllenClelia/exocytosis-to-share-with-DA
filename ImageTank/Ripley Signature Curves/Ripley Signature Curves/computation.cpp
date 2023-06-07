@@ -82,12 +82,12 @@ DTDoubleArray FindP(const DTDoubleArray &pdfArray,double p,const DTMesh2DGrid &g
                 if (pdfArray(i,j)<=p && p<pdfArray(i,j+1)) {
                     // Find where the value would be p exactly
                     breakAt = j + (p-pdfArray(i,j))/(pdfArray(i,j+1)-pdfArray(i,j));
-                    breakAt = origin + h*breakAt;
                     break;
                 }
             }
-            toReturn(i) = breakAt;
         }
+        breakAt = origin + h*breakAt;
+        toReturn(i) = breakAt;
     }
     
     return toReturn;
