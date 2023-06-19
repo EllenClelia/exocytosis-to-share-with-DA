@@ -12,6 +12,7 @@
 #include "DTDictionary.h"
 #include "DTFunctionFit.h"
 #include "DTFunction1D.h"
+#include "DTDoubleArrayOperators.h"
 
 DTImage GaussianFilter(const DTImage &image,double sigma)
 {
@@ -457,6 +458,58 @@ double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValues
     return R2;
 }
 
+DTTable Prune(const DTTable &table)
+{
+    double switchBelow = 1.0/2.0;
+    double switchAbove = 2.0/3.0;
+
+    // time
+    DTTableColumnNumber timeValues = table("time");
+    DTDoubleArray time = timeValues.DoubleVersion();
+    DTTableColumnNumber intensityValues = table("value");
+    DTDoubleArray value = intensityValues.DoubleVersion();
+    
+    ssize_t i,howMany = time.Length();
+    
+    DTMutableDoubleArray newValues(howMany);
+    newValues(0) = std::max(value(0),value(1));
+    for (i=1;i<howMany-1;i++) {
+        newValues(i) = std::max(std::max(value(i-1),value(i)),value(i+1));
+    }
+    newValues(howMany-1) = std::max(value(howMany-2),value(howMany-1));
+    
+    // Look for time = 0
+    ssize_t startPosition = timeValues.FindClosest(0);
+    double vmax = newValues(startPosition);
+
+    // Find the maximum
+    for (i=startPosition;i<howMany;i++) {
+        if (newValues(i)>vmax) {
+            vmax = newValues(i);
+        }
+        else if (newValues(i)<vmax*switchBelow) {
+            break;
+        }
+    }
+    
+    double minValue = NAN;
+    double stopAbove = vmax*switchAbove;
+    if (i<howMany) {
+        minValue = newValues(i);
+        while (i<howMany) {
+            if (newValues(i)>stopAbove || (newValues(i)-minValue)>0.3*(vmax-minValue)) {
+                break;
+            }
+            else if (newValues(i)<minValue) {
+                minValue = newValues(i);
+            }
+            i++;
+        }
+    }
+    
+    return table.ExtractRows(DTRange(0,i));
+}
+
 QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &parameters)
 {
     //DTSet<DTImage> imagesToView = images.ExtractRows("ptNumber",[](double v) {return (v==0);});
@@ -609,7 +662,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     double scaleForMin = parameters.GetNumber("minIntensityForFit",2.0);
     double minIntensityValueForFit = mean+scaleForMin*width;
 
-    DTMutableDoubleArray xval(rowCount), tVal(rowCount), yval(rowCount);
+    DTMutableDoubleArray xvalTemp(rowCount), tValTemp(rowCount), yvalTemp(rowCount);
     int pos = 0;
     for (int i=0;i<rowCount;i++) {
         double t = time(i);
@@ -619,18 +672,29 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
                 
                 // Don't include intensity values that are too low
                 if (intensity(i)>minIntensityValueForFit) {
-                    xval(pos) = t-shift;
-                    tVal(pos) = t;
-                    yval(pos) = intensity(i);
+                    xvalTemp(pos) = t-shift;
+                    tValTemp(pos) = t;
+                    yvalTemp(pos) = intensity(i);
                     pos++;
                 }
             }
         }
     }
-    xval = TruncateSize(xval,pos);
-    tVal = TruncateSize(tVal,pos);
-    yval = TruncateSize(yval,pos);
+    DTDoubleArray xval = TruncateSize(xvalTemp,pos);
+    DTDoubleArray tVal = TruncateSize(tValTemp,pos);
+    DTDoubleArray yval = TruncateSize(yvalTemp,pos);
     
+    /*
+    DTTable combine({CreateTableColumn("x",xval),CreateTableColumn("t",xval),CreateTableColumn("y",xval)});
+    combine = Prune(combine);
+    DTTableColumnNumber numCol = combine("x");
+    xval = numCol.DoubleVersion();
+    numCol = combine("t");
+    tval = numCol.DoubleVersion();
+    numCol = combine("y");
+    yval = numCol.DoubleVersion();
+     */
+
     if (pos==0) {
         // Failed, don't want an error message to propagate to IT.
         toReturn.average = NAN;
@@ -690,7 +754,8 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     // This llows the function fit to use "a + b*exp(-cx)" instead of "a + b*exp(-c*(x-shift))
     // However for the piecewise function we want to vary the shift, so the x values should be
     // changed back to the x values relative to the starting frame.
-    xval += shift;
+    // xval += shift;
+    xval = xval + shift; // Isn't this just tval?
     knownConstants("x") = xval; // Technically not needed since the xval is shared, but makes it more explicit.
     
     int maximumShift = std::min(20,howFar+shift-7);
@@ -871,7 +936,7 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
     
     toReturn.center = image.Grid().GridToSpace(DTPoint2D(returned("x0"),returned("y0")));
     toReturn.base = returned("base");
-    toReturn.height = toReturn.base + returned("scale");
+    toReturn.height = toReturn.base + double(returned("scale"));
     toReturn.width = returned("radius");
     toReturn.failureMode = 0;
     

@@ -78,8 +78,8 @@
             filePath = "../../Sources/Utilities.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "566"
-            endingLineNumber = "566"
+            startingLineNumber = "619"
+            endingLineNumber = "619"
             landmarkName = "Quantify(images, parameters)"
             landmarkType = "9">
          </BreakpointContent>
