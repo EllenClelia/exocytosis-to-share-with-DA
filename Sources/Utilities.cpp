@@ -661,24 +661,31 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     int howFar = int(rowCount); // 20;
     double scaleForMin = parameters.GetNumber("minIntensityForFit",2.0);
     double minIntensityValueForFit = mean+scaleForMin*width;
+    double allowIntensityFailures = parameters.GetNumber("Allow intensity failures",INFINITY);
+    bool includePlateau = parameters.GetNumber("Include Plateau",0);
 
     DTMutableDoubleArray xvalTemp(rowCount), tValTemp(rowCount), yvalTemp(rowCount);
     int pos = 0;
-    for (int i=0;i<rowCount;i++) {
+    int howManyIntensityFailures = 0;
+    while (i<rowCount && time(i)<shift) i++; // Find the first index
+    while (i<rowCount && time(i)<=howFar+shift) {
         double t = time(i);
-        if (t>=shift && t<=howFar+shift) {
-            if (useAverage || failure(i)==0) {
-                // Only include points that are coming from a valid fit
-                
-                // Don't include intensity values that are too low
-                if (intensity(i)>minIntensityValueForFit) {
-                    xvalTemp(pos) = t-shift;
-                    tValTemp(pos) = t;
-                    yvalTemp(pos) = intensity(i);
-                    pos++;
-                }
+        if (useAverage || failure(i)==0) {
+            // Only include points that are coming from a valid fit
+            
+            // Don't include intensity values that are too low
+            if (intensity(i)>minIntensityValueForFit) {
+                xvalTemp(pos) = t-shift;
+                tValTemp(pos) = t;
+                yvalTemp(pos) = intensity(i);
+                pos++;
+            }
+            else {
+                howManyIntensityFailures++;
+                if (howManyIntensityFailures>allowIntensityFailures) break;
             }
         }
+        i++;
     }
     DTDoubleArray xval = TruncateSize(xvalTemp,pos);
     DTDoubleArray tVal = TruncateSize(tValTemp,pos);
@@ -851,7 +858,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         if (xval(startAt)>=kink) break;
     }
     // startAt = 0; // Include the flat part before the kink.
-    if (startAt>0) {
+    if (startAt>0 && includePlateau==false) {
         // Strip out the part before the kink
         fitValuesForR2 = ExtractRows(fitValuesForR2,DTRange(startAt,yvalForR2.Length()-startAt));
         yvalForR2      = ExtractRows(yvalForR2,     DTRange(startAt,yvalForR2.Length()-startAt));

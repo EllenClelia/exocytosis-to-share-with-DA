@@ -86,7 +86,7 @@ Group Computation(const DTSet<DTImage> &images,int pt,
         DTMutableIntArray whichToTake(eventParameters.NumberOfRows());
         int posInWhichToTake = 0;
         int startAt = int(startingIndex);
-        while (startingIndex-1>=0 && failure(startAt-1)==0) {
+        while (startAt-1>=0 && failure(startAt-1)==0) {
             startAt--;
         }
         while (startAt<startingIndex) {
