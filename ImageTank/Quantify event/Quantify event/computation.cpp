@@ -86,8 +86,8 @@ Group Computation(const DTSet<DTImage> &images,int pt,
         DTMutableIntArray whichToTake(eventParameters.NumberOfRows());
         int posInWhichToTake = 0;
         int startAt = int(startingIndex);
-        while (startAt-1>=0 && failure(startAt-1)==0) {
-            startAt--;
+        if (checkDriftBefore) {
+            while (startAt-1>=0 && failure(startAt-1)==0) startAt--;
         }
         while (startAt<startingIndex) {
             whichToTake(posInWhichToTake++) = startAt;
@@ -114,6 +114,7 @@ Group Computation(const DTSet<DTImage> &images,int pt,
         driftPortion("centerSpot")
     });
     
+    toReturn.pointsUsedForFit = event.pointsUsedForFit;
     
     toReturn.Piecewise_Fit = event.piecewiseFitResults;
 

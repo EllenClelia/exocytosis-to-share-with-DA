@@ -159,6 +159,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
+			<string>width</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>center</string>
 			<key>Type</key>
 			<string>Point2D</string>

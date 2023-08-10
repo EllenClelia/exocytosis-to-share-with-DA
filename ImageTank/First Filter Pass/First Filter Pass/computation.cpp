@@ -29,6 +29,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     
     ssize_t outputLineLength = images_count/20; // Don't know how many, but this is a safe upper bound
     DTMutableDoubleArray outputTime(outputLineLength);
+    DTMutableDoubleArray outputPointNumber(outputLineLength);
     DTMutableDoubleArray outputShift(outputLineLength);
     DTMutableDoubleArray outputFlag(outputLineLength);
     DTMutableDoubleArray outputDelay(outputLineLength);
@@ -41,6 +42,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     ssize_t posInOutput = 0;
     
     outputTime = NAN;
+    outputPointNumber = NAN;
     outputShift = NAN;
     outputDecay = NAN;
     outputR2 = NAN;
@@ -79,6 +81,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         
         // See if the previous time value has a bigger intensity. In which case go back a step.
         outputTime(posInOutput) = Tval;
+        outputPointNumber(posInOutput) = ptN;
         
         outputBackground(posInOutput) = info.average;
         outputWidth(posInOutput) = info.width;
@@ -246,6 +249,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     }
     
     outputTime = TruncateSize(outputTime,posInOutput);
+    outputPointNumber = TruncateSize(outputPointNumber,posInOutput);
     outputShift = TruncateSize(outputShift,posInOutput);
     outputDelay = TruncateSize(outputDelay,posInOutput);
     outputDecay = TruncateSize(outputDecay,posInOutput);
@@ -258,6 +262,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     
     return DTTable({
         CreateTableColumn("time",outputTime),
+        CreateTableColumn("ptNumber",outputPointNumber),
         CreateTableColumn("shift",outputShift),
         CreateTableColumn("flag",outputFlag),
         CreateTableColumn("center",DTPointCollection2D(outputCenter)),

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2CC6036828D1198E0034687D /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC6036728D1198E0034687D /* Utilities.cpp */; };
+		2CC127C22A40A89500AFBEC2 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CC127C12A40A89500AFBEC2 /* Utilities.cpp */; };
 		6351F99F24E212F500ADB7E5 /* computation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351F99E24E212F500ADB7E5 /* computation.cpp */; };
 		6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */; };
 		6351FB1824E213AE00ADB7E5 /* DTArguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0F24E213AD00ADB7E5 /* DTArguments.cpp */; };
@@ -117,7 +117,7 @@
 
 /* Begin PBXFileReference section */
 		2C93DF9628B56D3A008A221E /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		2CC6036728D1198E0034687D /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
+		2CC127C12A40A89500AFBEC2 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		6351F99B24E212F500ADB7E5 /* Quantify event */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Quantify event"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6351F99E24E212F500ADB7E5 /* computation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = computation.cpp; sourceTree = "<group>"; };
 		6351FA0A24E213AD00ADB7E5 /* DTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRandom.h; sourceTree = "<group>"; };
@@ -646,7 +646,7 @@
 		63BADB5D2848F4390002C8EA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				2CC6036728D1198E0034687D /* Utilities.cpp */,
+				2CC127C12A40A89500AFBEC2 /* Utilities.cpp */,
 				2C93DF9628B56D3A008A221E /* Utilities.h */,
 			);
 			name = Sources;
@@ -732,7 +732,6 @@
 				6351FB1C24E213AE00ADB7E5 /* DTSaveError.cpp in Sources */,
 				6351FB6224E213AE00ADB7E5 /* DTUCharArray.cpp in Sources */,
 				6351FB3524E213AE00ADB7E5 /* DTPath3DValues.cpp in Sources */,
-				2CC6036828D1198E0034687D /* Utilities.cpp in Sources */,
 				6351FB5B24E213AE00ADB7E5 /* DTBitmap2D.cpp in Sources */,
 				6351FB3624E213AE00ADB7E5 /* DTRegion3D.cpp in Sources */,
 				6351FB5424E213AE00ADB7E5 /* DTStructuredVectorField2D.cpp in Sources */,
@@ -785,6 +784,7 @@
 				6351FB4024E213AE00ADB7E5 /* DTFunctionFit.cpp in Sources */,
 				6351FB3E24E213AE00ADB7E5 /* DTMask.cpp in Sources */,
 				6351FB1F24E213AE00ADB7E5 /* DTStringList.cpp in Sources */,
+				2CC127C22A40A89500AFBEC2 /* Utilities.cpp in Sources */,
 				6351FB1924E213AE00ADB7E5 /* DTUtilities.cpp in Sources */,
 				6351FB5224E213AE00ADB7E5 /* DTImage.cpp in Sources */,
 				6351FB5E24E213AE00ADB7E5 /* DTRegion1D.cpp in Sources */,

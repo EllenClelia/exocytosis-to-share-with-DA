@@ -13,69 +13,6 @@
 			<string></string>
 			<key>Display</key>
 			<string></string>
-			<key>Structure</key>
-			<array>
-				<dict>
-					<key>Name</key>
-					<string>time</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>shift</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>flag</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>center</string>
-					<key>Type</key>
-					<string>Point2D</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>R2</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>drift</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>background</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>delay</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>decay</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>width</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-			</array>
 			<key>Type</key>
 			<string>Table</string>
 		</dict>
@@ -127,6 +64,12 @@
 		<dict>
 			<key>Name</key>
 			<string>time</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ptNumber</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

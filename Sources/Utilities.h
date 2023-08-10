@@ -42,6 +42,8 @@ struct QuantifyEvent {
     DTTable histogram;
   
     DTTable piecewiseFitResults;
+    
+    DTTable pointsUsedForFit;
 };
 
 QuantifyEvent Quantify(const DTSet<DTImage> &,const DTDictionary &parameters);

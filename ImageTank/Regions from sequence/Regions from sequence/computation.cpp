@@ -33,6 +33,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     DTMutableDoubleArray failureAtStart(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray R2list(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray intensityList(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray widthList(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray centerList(2,howMany*(timeback+1+timeforward));
     DTMutableDoubleArray pointNumber(howMany*(timeback+1+timeforward));
     DTMutableDoubleArray centerSpot(2,howMany*(timeback+1+timeforward));
@@ -116,6 +117,11 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         }
         else {
             backgroundImage = MedianOfImages(backgroundImages);
+        }
+        
+        if (backgroundImage.IsEmpty()) {
+            // At the beginning.
+            continue;
         }
         
         // The center
@@ -221,6 +227,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 failureAtStart(posInOutput) = startFailure;
                 R2list(posInOutput) = peak.R2;
                 intensityList(posInOutput) = peak.height;
+                widthList(posInOutput) = peak.width;
                 centerList(0,posInOutput) = startingPoint.x;
                 centerList(1,posInOutput) = startingPoint.y;
                 
@@ -251,6 +258,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         failureAtStart = TruncateSize(failureAtStart,posInOutput);
         R2list = TruncateSize(R2list,posInOutput);
         intensityList = TruncateSize(intensityList,posInOutput);
+        widthList = TruncateSize(widthList,posInOutput);
         centerList = TruncateSize(centerList,2*posInOutput);
         centerSpot = TruncateSize(centerSpot,2*posInOutput);
         averageValues = TruncateSize(averageValues,posInOutput);
@@ -263,6 +271,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         CreateTableColumn("failureAtStart",failureAtStart),
         CreateTableColumn("R2",R2list),
         CreateTableColumn("intensity",intensityList),
+        CreateTableColumn("width",widthList),
         CreateTableColumn("center",DTPointCollection2D(centerList)),
         CreateTableColumn("ptNumber",pointNumber),
         CreateTableColumn("centerSpot",DTPointCollection2D(centerSpot)),

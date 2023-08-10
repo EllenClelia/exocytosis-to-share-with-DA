@@ -28,6 +28,7 @@ struct Group {
     double shift;
     DTTable Drift;
     DTTable Piecewise_Fit;
+    DTTable pointsUsedForFit;
 
     void pinfo(void) const;
     void pinfoIndent(std::string) const;

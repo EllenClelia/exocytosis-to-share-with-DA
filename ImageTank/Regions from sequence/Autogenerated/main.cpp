@@ -59,15 +59,17 @@ int main(int argc,const char *argv[])
         outputFile.Save("Number",pName+"_4T");
         outputFile.Save("intensity",pName+"_5N");
         outputFile.Save("Number",pName+"_5T");
-        outputFile.Save("center",pName+"_6N");
-        outputFile.Save("Point2D",pName+"_6T");
-        outputFile.Save("ptNumber",pName+"_7N");
-        outputFile.Save("Number",pName+"_7T");
-        outputFile.Save("centerSpot",pName+"_8N");
-        outputFile.Save("Point2D",pName+"_8T");
-        outputFile.Save("average",pName+"_9N");
-        outputFile.Save("Number",pName+"_9T");
-        outputFile.Save(9,pName+"_N");
+        outputFile.Save("width",pName+"_6N");
+        outputFile.Save("Number",pName+"_6T");
+        outputFile.Save("center",pName+"_7N");
+        outputFile.Save("Point2D",pName+"_7T");
+        outputFile.Save("ptNumber",pName+"_8N");
+        outputFile.Save("Number",pName+"_8T");
+        outputFile.Save("centerSpot",pName+"_9N");
+        outputFile.Save("Point2D",pName+"_9T");
+        outputFile.Save("average",pName+"_10N");
+        outputFile.Save("Number",pName+"_10T");
+        outputFile.Save(10,pName+"_N");
 
         // Structure for element
         outputFile.Save("intensity",eName+"_1N");

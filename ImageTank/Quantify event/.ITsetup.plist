@@ -155,6 +155,39 @@
 			<key>Type</key>
 			<string>Table</string>
 		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>x</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>t</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Column</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>y</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>pointsUsedForFit</string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
 	</array>
 	<key>Input</key>
 	<array>

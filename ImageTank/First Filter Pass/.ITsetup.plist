@@ -111,6 +111,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
+			<string>ptNumber</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>shift</string>
 			<key>Type</key>
 			<string>Number</string>

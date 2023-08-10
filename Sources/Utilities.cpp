@@ -462,11 +462,13 @@ DTTable Prune(const DTTable &table)
 {
     double switchBelow = 1.0/2.0;
     double switchAbove = 2.0/3.0;
+    
+    if (table.NumberOfRows()<2) return table;
 
     // time
-    DTTableColumnNumber timeValues = table("time");
+    DTTableColumnNumber timeValues = table("t");
     DTDoubleArray time = timeValues.DoubleVersion();
-    DTTableColumnNumber intensityValues = table("value");
+    DTTableColumnNumber intensityValues = table("y");
     DTDoubleArray value = intensityValues.DoubleVersion();
     
     ssize_t i,howMany = time.Length();
@@ -661,13 +663,18 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     int howFar = int(rowCount); // 20;
     double scaleForMin = parameters.GetNumber("minIntensityForFit",2.0);
     double minIntensityValueForFit = mean+scaleForMin*width;
-    double allowIntensityFailures = parameters.GetNumber("Allow intensity failures",INFINITY);
+    int allowIntensityFailures = parameters.GetNumber("Allow intensity failures",100);
+    bool includeIntensityFailures = int(parameters.GetNumber("Include intensity failures",false));
     bool includePlateau = parameters.GetNumber("Include Plateau",0);
 
-    DTMutableDoubleArray xvalTemp(rowCount), tValTemp(rowCount), yvalTemp(rowCount);
+    DTMutableDoubleArray xvalTemp(rowCount), tvalTemp(rowCount), yvalTemp(rowCount);
     int pos = 0;
     int howManyIntensityFailures = 0;
     while (i<rowCount && time(i)<shift) i++; // Find the first index
+
+    DTMutableIntArray skippedOver(allowIntensityFailures);
+    int posInSkippedOver = 0;
+    
     while (i<rowCount && time(i)<=howFar+shift) {
         double t = time(i);
         if (useAverage || failure(i)==0) {
@@ -675,32 +682,45 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
             
             // Don't include intensity values that are too low
             if (intensity(i)>minIntensityValueForFit) {
+                if (posInSkippedOver>0 && includeIntensityFailures) {
+                    // These entries were skipped over, but now need to be included
+                    for (int tempI=0;tempI<posInSkippedOver;tempI++) {
+                        int whichI = skippedOver(tempI);
+                        xvalTemp(pos) = time(whichI)-shift;
+                        tvalTemp(pos) = time(whichI);
+                        yvalTemp(pos) = intensity(whichI);
+                        pos++;
+                    }
+                    posInSkippedOver = 0;
+                }
+                
                 xvalTemp(pos) = t-shift;
-                tValTemp(pos) = t;
+                tvalTemp(pos) = t;
                 yvalTemp(pos) = intensity(i);
                 pos++;
             }
             else {
                 howManyIntensityFailures++;
                 if (howManyIntensityFailures>allowIntensityFailures) break;
+                skippedOver(posInSkippedOver++) = int(i);
             }
         }
         i++;
     }
     DTDoubleArray xval = TruncateSize(xvalTemp,pos);
-    DTDoubleArray tVal = TruncateSize(tValTemp,pos);
+    DTDoubleArray tval = TruncateSize(tvalTemp,pos);
     DTDoubleArray yval = TruncateSize(yvalTemp,pos);
     
-    /*
-    DTTable combine({CreateTableColumn("x",xval),CreateTableColumn("t",xval),CreateTableColumn("y",xval)});
-    combine = Prune(combine);
-    DTTableColumnNumber numCol = combine("x");
+    DTTable tableUsedForFit({CreateTableColumn("x",xval),CreateTableColumn("t",tval),CreateTableColumn("y",yval)});
+    tableUsedForFit = Prune(tableUsedForFit);
+    DTTableColumnNumber numCol = tableUsedForFit("x");
     xval = numCol.DoubleVersion();
-    numCol = combine("t");
+    numCol = tableUsedForFit("t");
     tval = numCol.DoubleVersion();
-    numCol = combine("y");
+    numCol = tableUsedForFit("y");
     yval = numCol.DoubleVersion();
-     */
+    
+    toReturn.pointsUsedForFit = tableUsedForFit;
 
     if (pos==0) {
         // Failed, don't want an error message to propagate to IT.
@@ -937,6 +957,8 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
 
     DTMutableDictionary knownConstants;
 
+    // Function form is
+    // base + scale*exp(-((x-x0)^2+(y-y0)^2)/(2radius^2));
     DTDictionary returned = FunctionFit(EvaluateGaussianPeak,values,knownConstants,guesses);
 
     LocalPeak toReturn;
@@ -944,7 +966,7 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
     toReturn.center = image.Grid().GridToSpace(DTPoint2D(returned("x0"),returned("y0")));
     toReturn.base = returned("base");
     toReturn.height = toReturn.base + double(returned("scale"));
-    toReturn.width = returned("radius");
+    toReturn.width = fabs(returned("radius"));
     toReturn.failureMode = 0;
     
     DTMutableDoubleArray fitValues(values.m(),values.n());

@@ -23,6 +23,7 @@ void Group::pinfoIndent(std::string pad) const
     std::cerr << pad << "shift = " << shift << std::endl;
     std::cerr << pad << "Drift = "; Drift.pinfo();
     std::cerr << pad << "Piecewise_Fit = "; Piecewise_Fit.pinfo();
+    std::cerr << pad << "pointsUsedForFit = "; pointsUsedForFit.pinfo();
 }
 
 void Group::WriteStructure(DTDataStorage &output,std::string name)
@@ -90,7 +91,18 @@ void Group::WriteStructure(DTDataStorage &output,std::string name)
     output.Save(6,name+"_10T_N");
     output.Save("Table",name+"_10T");
 
-    output.Save(10,name+"_N");
+    // Structure for "pointsUsedForFit"
+    output.Save("pointsUsedForFit",name+"_11N");
+    output.Save("x",name+"_11T_1N");
+    output.Save("Number",name+"_11T_1T");
+    output.Save("t",name+"_11T_2N");
+    output.Save("Number",name+"_11T_2T");
+    output.Save("y",name+"_11T_3N");
+    output.Save("Number",name+"_11T_3T");
+    output.Save(3,name+"_11T_N");
+    output.Save("Table",name+"_11T");
+
+    output.Save(11,name+"_N");
     output.Save("Group",name+"_Name");
     output.Save("Group",name);
 }
@@ -107,6 +119,7 @@ void Write(DTDataStorage &output,std::string name,const Group &var)
     output.Save(var.shift,name+"_shift");
     Write(output,name+"_Drift",var.Drift);
     Write(output,name+"_Piecewise Fit",var.Piecewise_Fit);
+    Write(output,name+"_pointsUsedForFit",var.pointsUsedForFit);
     Write(output,name,DTDoubleArray());
 }
 
@@ -129,4 +142,5 @@ void Read(DTDataStorage &input,std::string name,Group &var)
     var.shift = input.ReadNumber(name+"_shift");
     Read(input,name+"_Drift",var.Drift);
     Read(input,name+"_Piecewise Fit",var.Piecewise_Fit);
+    Read(input,name+"_pointsUsedForFit",var.pointsUsedForFit);
 }
