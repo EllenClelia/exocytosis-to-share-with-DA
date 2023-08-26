@@ -1,0 +1,907 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		63371B0529E3B10500BC795D /* DTMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63371B0329E3B10500BC795D /* DTMatrix.cpp */; };
+		6351F99F24E212F500ADB7E5 /* computation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351F99E24E212F500ADB7E5 /* computation.cpp */; };
+		6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */; };
+		6351FB1824E213AE00ADB7E5 /* DTArguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0F24E213AD00ADB7E5 /* DTArguments.cpp */; };
+		6351FB1924E213AE00ADB7E5 /* DTUtilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA1224E213AD00ADB7E5 /* DTUtilities.cpp */; };
+		6351FB1A24E213AE00ADB7E5 /* DTDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA1424E213AD00ADB7E5 /* DTDictionary.cpp */; };
+		6351FB1B24E213AE00ADB7E5 /* DTThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA1824E213AD00ADB7E5 /* DTThread.cpp */; };
+		6351FB1C24E213AE00ADB7E5 /* DTSaveError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA1A24E213AD00ADB7E5 /* DTSaveError.cpp */; };
+		6351FB1D24E213AE00ADB7E5 /* DTError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA1D24E213AD00ADB7E5 /* DTError.cpp */; };
+		6351FB1E24E213AE00ADB7E5 /* DTProgress.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA1E24E213AD00ADB7E5 /* DTProgress.cpp */; };
+		6351FB1F24E213AE00ADB7E5 /* DTStringList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA2124E213AD00ADB7E5 /* DTStringList.cpp */; };
+		6351FB2124E213AE00ADB7E5 /* DTTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA2724E213AD00ADB7E5 /* DTTable.cpp */; };
+		6351FB2524E213AE00ADB7E5 /* DTPlane3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA2E24E213AD00ADB7E5 /* DTPlane3D.cpp */; };
+		6351FB2624E213AE00ADB7E5 /* DTSurface3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA3224E213AD00ADB7E5 /* DTSurface3D.cpp */; };
+		6351FB2724E213AE00ADB7E5 /* DTPath3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA3424E213AD00ADB7E5 /* DTPath3D.cpp */; };
+		6351FB2924E213AE00ADB7E5 /* DTStructuredGrid3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA3924E213AD00ADB7E5 /* DTStructuredGrid3D.cpp */; };
+		6351FB2A24E213AE00ADB7E5 /* DTPoint3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA3B24E213AD00ADB7E5 /* DTPoint3D.cpp */; };
+		6351FB2D24E213AE00ADB7E5 /* DTPointCollection3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA3F24E213AD00ADB7E5 /* DTPointCollection3D.cpp */; };
+		6351FB2E24E213AE00ADB7E5 /* DTCoordinatePlane3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA4024E213AD00ADB7E5 /* DTCoordinatePlane3D.cpp */; };
+		6351FB3224E213AE00ADB7E5 /* DTImage3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA4A24E213AD00ADB7E5 /* DTImage3D.cpp */; };
+		6351FB3324E213AE00ADB7E5 /* DTMesh3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA4C24E213AD00ADB7E5 /* DTMesh3D.cpp */; };
+		6351FB3424E213AE00ADB7E5 /* DTFunction3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA4D24E213AD00ADB7E5 /* DTFunction3D.cpp */; };
+		6351FB3624E213AE00ADB7E5 /* DTRegion3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA4F24E213AD00ADB7E5 /* DTRegion3D.cpp */; };
+		6351FB3724E213AE00ADB7E5 /* DTTransform3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA5124E213AD00ADB7E5 /* DTTransform3D.cpp */; };
+		6351FB3824E213AE00ADB7E5 /* DTShiftScale3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA5424E213AD00ADB7E5 /* DTShiftScale3D.cpp */; };
+		6351FB3A24E213AE00ADB7E5 /* DTMesh3DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA5624E213AD00ADB7E5 /* DTMesh3DGrid.cpp */; };
+		6351FB3D24E213AE00ADB7E5 /* DTStructuredMesh3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA6024E213AD00ADB7E5 /* DTStructuredMesh3D.cpp */; };
+		6351FB3E24E213AE00ADB7E5 /* DTMask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA6524E213AD00ADB7E5 /* DTMask.cpp */; };
+		6351FB3F24E213AE00ADB7E5 /* DTFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA6724E213AD00ADB7E5 /* DTFunction.cpp */; };
+		6351FB4024E213AE00ADB7E5 /* DTFunctionFit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA6824E213AD00ADB7E5 /* DTFunctionFit.cpp */; };
+		6351FB4124E213AE00ADB7E5 /* DTPath2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA6B24E213AD00ADB7E5 /* DTPath2D.cpp */; };
+		6351FB4224E213AE00ADB7E5 /* DTCoordinateLine2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA6E24E213AD00ADB7E5 /* DTCoordinateLine2D.cpp */; };
+		6351FB4324E213AE00ADB7E5 /* DTMesh2DBanded.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA6F24E213AD00ADB7E5 /* DTMesh2DBanded.cpp */; };
+		6351FB4624E213AE00ADB7E5 /* DTTriangularMesh2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA7224E213AD00ADB7E5 /* DTTriangularMesh2D.cpp */; };
+		6351FB4924E213AE00ADB7E5 /* DTPointCollection2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA7B24E213AD00ADB7E5 /* DTPointCollection2D.cpp */; };
+		6351FB4C24E213AE00ADB7E5 /* DTPoint2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8024E213AD00ADB7E5 /* DTPoint2D.cpp */; };
+		6351FB4D24E213AE00ADB7E5 /* DTStructuredGrid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8324E213AD00ADB7E5 /* DTStructuredGrid2D.cpp */; };
+		6351FB4F24E213AE00ADB7E5 /* DTRegion2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8524E213AD00ADB7E5 /* DTRegion2D.cpp */; };
+		6351FB5024E213AE00ADB7E5 /* DTFunction2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8624E213AD00ADB7E5 /* DTFunction2D.cpp */; };
+		6351FB5124E213AE00ADB7E5 /* DTMesh2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8724E213AD00ADB7E5 /* DTMesh2D.cpp */; };
+		6351FB5224E213AE00ADB7E5 /* DTImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8A24E213AD00ADB7E5 /* DTImage.cpp */; };
+		6351FB5324E213AE00ADB7E5 /* DTTriangularGrid2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8B24E213AD00ADB7E5 /* DTTriangularGrid2D.cpp */; };
+		6351FB5424E213AE00ADB7E5 /* DTStructuredVectorField2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA8F24E213AD00ADB7E5 /* DTStructuredVectorField2D.cpp */; };
+		6351FB5524E213AE00ADB7E5 /* DTStructuredMesh2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA9124E213AD00ADB7E5 /* DTStructuredMesh2D.cpp */; };
+		6351FB5624E213AE00ADB7E5 /* DTMesh2DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA9524E213AD00ADB7E5 /* DTMesh2DGrid.cpp */; };
+		6351FB5824E213AE00ADB7E5 /* DTPointVector2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA9824E213AD00ADB7E5 /* DTPointVector2D.cpp */; };
+		6351FB5A24E213AE00ADB7E5 /* DTShiftScale2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA9A24E213AD00ADB7E5 /* DTShiftScale2D.cpp */; };
+		6351FB5B24E213AE00ADB7E5 /* DTBitmap2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA9F24E213AD00ADB7E5 /* DTBitmap2D.cpp */; };
+		6351FB5C24E213AE00ADB7E5 /* DTTransform2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAA124E213AD00ADB7E5 /* DTTransform2D.cpp */; };
+		6351FB5D24E213AE00ADB7E5 /* DTMesh1DGrid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAA624E213AD00ADB7E5 /* DTMesh1DGrid.cpp */; };
+		6351FB5E24E213AE00ADB7E5 /* DTRegion1D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAA724E213AD00ADB7E5 /* DTRegion1D.cpp */; };
+		6351FB5F24E213AE00ADB7E5 /* DTFunction1D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAA824E213AD00ADB7E5 /* DTFunction1D.cpp */; };
+		6351FB6024E213AE00ADB7E5 /* DTPlot1D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAAB24E213AD00ADB7E5 /* DTPlot1D.cpp */; };
+		6351FB6124E213AE00ADB7E5 /* DTArrayConversion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAAE24E213AD00ADB7E5 /* DTArrayConversion.cpp */; };
+		6351FB6224E213AE00ADB7E5 /* DTUCharArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAB024E213AD00ADB7E5 /* DTUCharArray.cpp */; };
+		6351FB6324E213AE00ADB7E5 /* DTFloatArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAB124E213AD00ADB7E5 /* DTFloatArray.cpp */; };
+		6351FB6424E213AE00ADB7E5 /* DTUShortIntArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAB424E213AD00ADB7E5 /* DTUShortIntArray.cpp */; };
+		6351FB6524E213AE00ADB7E5 /* DTIntArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAB524E213AD00ADB7E5 /* DTIntArray.cpp */; };
+		6351FB6624E213AE00ADB7E5 /* DTUCharArrayRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAB724E213AD00ADB7E5 /* DTUCharArrayRegion.cpp */; };
+		6351FB6724E213AE00ADB7E5 /* DTIndex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FABA24E213AD00ADB7E5 /* DTIndex.cpp */; };
+		6351FB6824E213AE00ADB7E5 /* DTShortIntArrayRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FABB24E213AD00ADB7E5 /* DTShortIntArrayRegion.cpp */; };
+		6351FB6924E213AE00ADB7E5 /* DTIntArrayRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FABC24E213AD00ADB7E5 /* DTIntArrayRegion.cpp */; };
+		6351FB6A24E213AE00ADB7E5 /* DTFloatArrayOperators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FABD24E213AD00ADB7E5 /* DTFloatArrayOperators.cpp */; };
+		6351FB6B24E213AE00ADB7E5 /* DTUShortIntArrayRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAC024E213AD00ADB7E5 /* DTUShortIntArrayRegion.cpp */; };
+		6351FB6C24E213AE00ADB7E5 /* DTDoubleArrayOperators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAC124E213AD00ADB7E5 /* DTDoubleArrayOperators.cpp */; };
+		6351FB6D24E213AE00ADB7E5 /* DTIntArrayOperators.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAC424E213AD00ADB7E5 /* DTIntArrayOperators.cpp */; };
+		6351FB6E24E213AE00ADB7E5 /* DTCharArrayRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAC724E213AD00ADB7E5 /* DTCharArrayRegion.cpp */; };
+		6351FB6F24E213AE00ADB7E5 /* DTDoubleComplexArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAC824E213AD00ADB7E5 /* DTDoubleComplexArray.cpp */; };
+		6351FB7024E213AE00ADB7E5 /* DTFloatArrayRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FACA24E213AD00ADB7E5 /* DTFloatArrayRegion.cpp */; };
+		6351FB7124E213AE00ADB7E5 /* DTDoubleArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FACC24E213AD00ADB7E5 /* DTDoubleArray.cpp */; };
+		6351FB7224E213AE00ADB7E5 /* DTCharArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FACE24E213AD00ADB7E5 /* DTCharArray.cpp */; };
+		6351FB7324E213AE00ADB7E5 /* DTDoubleArrayRegion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAD124E213AD00ADB7E5 /* DTDoubleArrayRegion.cpp */; };
+		6351FB7424E213AE00ADB7E5 /* DTShortIntArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAD624E213AD00ADB7E5 /* DTShortIntArray.cpp */; };
+		6351FB7524E213AE00ADB7E5 /* DTMatlabDataFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FADA24E213AD00ADB7E5 /* DTMatlabDataFile.cpp */; };
+		6351FB7624E213AE00ADB7E5 /* DTDataStorage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FADB24E213AD00ADB7E5 /* DTDataStorage.cpp */; };
+		6351FB7724E213AE00ADB7E5 /* DTFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FADD24E213AD00ADB7E5 /* DTFile.cpp */; };
+		6351FB7824E213AE00ADB7E5 /* DTDataFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FADF24E213AD00ADB7E5 /* DTDataFile.cpp */; };
+		6351FB7A24E213AE00ADB7E5 /* DTEndianSwap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAE124E213AD00ADB7E5 /* DTEndianSwap.cpp */; };
+		6351FB8324E213CC00ADB7E5 /* structures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FB7F24E213CC00ADB7E5 /* structures.cpp */; };
+		6351FB8424E213CC00ADB7E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FB8124E213CC00ADB7E5 /* main.cpp */; };
+		63911740279CCBA000FFBAE7 /* DTRectangularImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6391173F279CCBA000FFBAE7 /* DTRectangularImage.cpp */; };
+		63C52A4429D52BE1002F38A7 /* DTTriangularImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63C52A4229D52BE1002F38A7 /* DTTriangularImage.cpp */; };
+		63C52A4729D52BED002F38A7 /* DTMask2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63C52A4529D52BED002F38A7 /* DTMask2D.cpp */; };
+		63D14754263A468C002B5B95 /* DTSurfaceValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63D14753263A468C002B5B95 /* DTSurfaceValues.cpp */; };
+		63FF9966274FF272000B62D4 /* DTSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63FF9964274FF272000B62D4 /* DTSet.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		6351F99924E212F500ADB7E5 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		63371B0329E3B10500BC795D /* DTMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMatrix.cpp; sourceTree = "<group>"; };
+		63371B0429E3B10500BC795D /* DTMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMatrix.h; sourceTree = "<group>"; };
+		6351F99B24E212F500ADB7E5 /* MAD calculation */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "MAD calculation"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6351F99E24E212F500ADB7E5 /* computation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = computation.cpp; sourceTree = "<group>"; };
+		6351FA0A24E213AD00ADB7E5 /* DTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRandom.h; sourceTree = "<group>"; };
+		6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTRandom.cpp; sourceTree = "<group>"; };
+		6351FA0D24E213AD00ADB7E5 /* DTMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMap.h; sourceTree = "<group>"; };
+		6351FA0E24E213AD00ADB7E5 /* DTThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTThread.h; sourceTree = "<group>"; };
+		6351FA0F24E213AD00ADB7E5 /* DTArguments.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTArguments.cpp; sourceTree = "<group>"; };
+		6351FA1024E213AD00ADB7E5 /* DTError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTError.h; sourceTree = "<group>"; };
+		6351FA1124E213AD00ADB7E5 /* DTPointer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPointer.h; sourceTree = "<group>"; };
+		6351FA1224E213AD00ADB7E5 /* DTUtilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTUtilities.cpp; sourceTree = "<group>"; };
+		6351FA1324E213AD00ADB7E5 /* DTUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTUtilities.h; sourceTree = "<group>"; };
+		6351FA1424E213AD00ADB7E5 /* DTDictionary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTDictionary.cpp; sourceTree = "<group>"; };
+		6351FA1524E213AD00ADB7E5 /* DTArguments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTArguments.h; sourceTree = "<group>"; };
+		6351FA1624E213AD00ADB7E5 /* DTDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDictionary.h; sourceTree = "<group>"; };
+		6351FA1724E213AD00ADB7E5 /* DTProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTProgress.h; sourceTree = "<group>"; };
+		6351FA1824E213AD00ADB7E5 /* DTThread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTThread.cpp; sourceTree = "<group>"; };
+		6351FA1924E213AD00ADB7E5 /* DTTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTimer.h; sourceTree = "<group>"; };
+		6351FA1A24E213AD00ADB7E5 /* DTSaveError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSaveError.cpp; sourceTree = "<group>"; };
+		6351FA1B24E213AD00ADB7E5 /* DTList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTList.h; sourceTree = "<group>"; };
+		6351FA1C24E213AD00ADB7E5 /* DTSaveError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSaveError.h; sourceTree = "<group>"; };
+		6351FA1D24E213AD00ADB7E5 /* DTError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTError.cpp; sourceTree = "<group>"; };
+		6351FA1E24E213AD00ADB7E5 /* DTProgress.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTProgress.cpp; sourceTree = "<group>"; };
+		6351FA2124E213AD00ADB7E5 /* DTStringList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTStringList.cpp; sourceTree = "<group>"; };
+		6351FA2624E213AD00ADB7E5 /* DTStringList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStringList.h; sourceTree = "<group>"; };
+		6351FA2724E213AD00ADB7E5 /* DTTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTTable.cpp; sourceTree = "<group>"; };
+		6351FA2C24E213AD00ADB7E5 /* DTTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTable.h; sourceTree = "<group>"; };
+		6351FA2E24E213AD00ADB7E5 /* DTPlane3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPlane3D.cpp; sourceTree = "<group>"; };
+		6351FA3024E213AD00ADB7E5 /* DTPlane3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPlane3D.h; sourceTree = "<group>"; };
+		6351FA3224E213AD00ADB7E5 /* DTSurface3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSurface3D.cpp; sourceTree = "<group>"; };
+		6351FA3324E213AD00ADB7E5 /* DTStructuredGrid3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStructuredGrid3D.h; sourceTree = "<group>"; };
+		6351FA3424E213AD00ADB7E5 /* DTPath3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPath3D.cpp; sourceTree = "<group>"; };
+		6351FA3524E213AD00ADB7E5 /* DTRegion3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRegion3D.h; sourceTree = "<group>"; };
+		6351FA3724E213AD00ADB7E5 /* DTPoint3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPoint3D.h; sourceTree = "<group>"; };
+		6351FA3824E213AD00ADB7E5 /* DTSurface3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSurface3D.h; sourceTree = "<group>"; };
+		6351FA3924E213AD00ADB7E5 /* DTStructuredGrid3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTStructuredGrid3D.cpp; sourceTree = "<group>"; };
+		6351FA3A24E213AD00ADB7E5 /* DTShiftScale3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTShiftScale3D.h; sourceTree = "<group>"; };
+		6351FA3B24E213AD00ADB7E5 /* DTPoint3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPoint3D.cpp; sourceTree = "<group>"; };
+		6351FA3C24E213AD00ADB7E5 /* DTPath3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPath3D.h; sourceTree = "<group>"; };
+		6351FA3F24E213AD00ADB7E5 /* DTPointCollection3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPointCollection3D.cpp; sourceTree = "<group>"; };
+		6351FA4024E213AD00ADB7E5 /* DTCoordinatePlane3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTCoordinatePlane3D.cpp; sourceTree = "<group>"; };
+		6351FA4224E213AD00ADB7E5 /* DTCoordinatePlane3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCoordinatePlane3D.h; sourceTree = "<group>"; };
+		6351FA4524E213AD00ADB7E5 /* DTVector3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVector3D.h; sourceTree = "<group>"; };
+		6351FA4624E213AD00ADB7E5 /* DTStructuredMesh3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStructuredMesh3D.h; sourceTree = "<group>"; };
+		6351FA4A24E213AD00ADB7E5 /* DTImage3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTImage3D.cpp; sourceTree = "<group>"; };
+		6351FA4B24E213AD00ADB7E5 /* DTPointCollection3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPointCollection3D.h; sourceTree = "<group>"; };
+		6351FA4C24E213AD00ADB7E5 /* DTMesh3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMesh3D.cpp; sourceTree = "<group>"; };
+		6351FA4D24E213AD00ADB7E5 /* DTFunction3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFunction3D.cpp; sourceTree = "<group>"; };
+		6351FA4F24E213AD00ADB7E5 /* DTRegion3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTRegion3D.cpp; sourceTree = "<group>"; };
+		6351FA5124E213AD00ADB7E5 /* DTTransform3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTTransform3D.cpp; sourceTree = "<group>"; };
+		6351FA5324E213AD00ADB7E5 /* DTImage3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTImage3D.h; sourceTree = "<group>"; };
+		6351FA5424E213AD00ADB7E5 /* DTShiftScale3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTShiftScale3D.cpp; sourceTree = "<group>"; };
+		6351FA5624E213AD00ADB7E5 /* DTMesh3DGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMesh3DGrid.cpp; sourceTree = "<group>"; };
+		6351FA5724E213AD00ADB7E5 /* DTTransform3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTransform3D.h; sourceTree = "<group>"; };
+		6351FA5A24E213AD00ADB7E5 /* DTFunction3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFunction3D.h; sourceTree = "<group>"; };
+		6351FA5D24E213AD00ADB7E5 /* DTMesh3DGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMesh3DGrid.h; sourceTree = "<group>"; };
+		6351FA6024E213AD00ADB7E5 /* DTStructuredMesh3D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTStructuredMesh3D.cpp; sourceTree = "<group>"; };
+		6351FA6124E213AD00ADB7E5 /* DTMesh3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMesh3D.h; sourceTree = "<group>"; };
+		6351FA6324E213AD00ADB7E5 /* DTFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFunction.h; sourceTree = "<group>"; };
+		6351FA6424E213AD00ADB7E5 /* DTMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMask.h; sourceTree = "<group>"; };
+		6351FA6524E213AD00ADB7E5 /* DTMask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMask.cpp; sourceTree = "<group>"; };
+		6351FA6624E213AD00ADB7E5 /* DTFunctionFit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFunctionFit.h; sourceTree = "<group>"; };
+		6351FA6724E213AD00ADB7E5 /* DTFunction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFunction.cpp; sourceTree = "<group>"; };
+		6351FA6824E213AD00ADB7E5 /* DTFunctionFit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFunctionFit.cpp; sourceTree = "<group>"; };
+		6351FA6A24E213AD00ADB7E5 /* DTCoordinateLine2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCoordinateLine2D.h; sourceTree = "<group>"; };
+		6351FA6B24E213AD00ADB7E5 /* DTPath2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPath2D.cpp; sourceTree = "<group>"; };
+		6351FA6C24E213AD00ADB7E5 /* DTStructuredGrid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStructuredGrid2D.h; sourceTree = "<group>"; };
+		6351FA6D24E213AD00ADB7E5 /* DTRegion2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRegion2D.h; sourceTree = "<group>"; };
+		6351FA6E24E213AD00ADB7E5 /* DTCoordinateLine2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTCoordinateLine2D.cpp; sourceTree = "<group>"; };
+		6351FA6F24E213AD00ADB7E5 /* DTMesh2DBanded.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMesh2DBanded.cpp; sourceTree = "<group>"; };
+		6351FA7224E213AD00ADB7E5 /* DTTriangularMesh2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTTriangularMesh2D.cpp; sourceTree = "<group>"; };
+		6351FA7324E213AD00ADB7E5 /* DTStructuredVectorField2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStructuredVectorField2D.h; sourceTree = "<group>"; };
+		6351FA7724E213AD00ADB7E5 /* DTTriangularGrid2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTriangularGrid2D.h; sourceTree = "<group>"; };
+		6351FA7924E213AD00ADB7E5 /* DTVector2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTVector2D.h; sourceTree = "<group>"; };
+		6351FA7B24E213AD00ADB7E5 /* DTPointCollection2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPointCollection2D.cpp; sourceTree = "<group>"; };
+		6351FA7C24E213AD00ADB7E5 /* DTPath2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPath2D.h; sourceTree = "<group>"; };
+		6351FA7F24E213AD00ADB7E5 /* DTMesh2DGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMesh2DGrid.h; sourceTree = "<group>"; };
+		6351FA8024E213AD00ADB7E5 /* DTPoint2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPoint2D.cpp; sourceTree = "<group>"; };
+		6351FA8124E213AD00ADB7E5 /* DTPoint2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPoint2D.h; sourceTree = "<group>"; };
+		6351FA8224E213AD00ADB7E5 /* DTShiftScale2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTShiftScale2D.h; sourceTree = "<group>"; };
+		6351FA8324E213AD00ADB7E5 /* DTStructuredGrid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTStructuredGrid2D.cpp; sourceTree = "<group>"; };
+		6351FA8524E213AD00ADB7E5 /* DTRegion2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTRegion2D.cpp; sourceTree = "<group>"; };
+		6351FA8624E213AD00ADB7E5 /* DTFunction2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFunction2D.cpp; sourceTree = "<group>"; };
+		6351FA8724E213AD00ADB7E5 /* DTMesh2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMesh2D.cpp; sourceTree = "<group>"; };
+		6351FA8A24E213AD00ADB7E5 /* DTImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTImage.cpp; sourceTree = "<group>"; };
+		6351FA8B24E213AD00ADB7E5 /* DTTriangularGrid2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTTriangularGrid2D.cpp; sourceTree = "<group>"; };
+		6351FA8C24E213AD00ADB7E5 /* DTPointCollection2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPointCollection2D.h; sourceTree = "<group>"; };
+		6351FA8D24E213AD00ADB7E5 /* DTImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTImage.h; sourceTree = "<group>"; };
+		6351FA8E24E213AD00ADB7E5 /* DTPointVector2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPointVector2D.h; sourceTree = "<group>"; };
+		6351FA8F24E213AD00ADB7E5 /* DTStructuredVectorField2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTStructuredVectorField2D.cpp; sourceTree = "<group>"; };
+		6351FA9024E213AD00ADB7E5 /* DTStructuredMesh2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTStructuredMesh2D.h; sourceTree = "<group>"; };
+		6351FA9124E213AD00ADB7E5 /* DTStructuredMesh2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTStructuredMesh2D.cpp; sourceTree = "<group>"; };
+		6351FA9224E213AD00ADB7E5 /* DTMesh2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMesh2D.h; sourceTree = "<group>"; };
+		6351FA9324E213AD00ADB7E5 /* DTFunction2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFunction2D.h; sourceTree = "<group>"; };
+		6351FA9524E213AD00ADB7E5 /* DTMesh2DGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMesh2DGrid.cpp; sourceTree = "<group>"; };
+		6351FA9724E213AD00ADB7E5 /* DTMesh2DBanded.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMesh2DBanded.h; sourceTree = "<group>"; };
+		6351FA9824E213AD00ADB7E5 /* DTPointVector2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPointVector2D.cpp; sourceTree = "<group>"; };
+		6351FA9A24E213AD00ADB7E5 /* DTShiftScale2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTShiftScale2D.cpp; sourceTree = "<group>"; };
+		6351FA9B24E213AD00ADB7E5 /* DTTransform2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTransform2D.h; sourceTree = "<group>"; };
+		6351FA9D24E213AD00ADB7E5 /* DTBitmap2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTBitmap2D.h; sourceTree = "<group>"; };
+		6351FA9F24E213AD00ADB7E5 /* DTBitmap2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTBitmap2D.cpp; sourceTree = "<group>"; };
+		6351FAA024E213AD00ADB7E5 /* DTTriangularMesh2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTriangularMesh2D.h; sourceTree = "<group>"; };
+		6351FAA124E213AD00ADB7E5 /* DTTransform2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTTransform2D.cpp; sourceTree = "<group>"; };
+		6351FAA424E213AD00ADB7E5 /* DTPlot1D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTPlot1D.h; sourceTree = "<group>"; };
+		6351FAA524E213AD00ADB7E5 /* DTFunction1D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFunction1D.h; sourceTree = "<group>"; };
+		6351FAA624E213AD00ADB7E5 /* DTMesh1DGrid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMesh1DGrid.cpp; sourceTree = "<group>"; };
+		6351FAA724E213AD00ADB7E5 /* DTRegion1D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTRegion1D.cpp; sourceTree = "<group>"; };
+		6351FAA824E213AD00ADB7E5 /* DTFunction1D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFunction1D.cpp; sourceTree = "<group>"; };
+		6351FAA924E213AD00ADB7E5 /* DTMesh1DGrid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMesh1DGrid.h; sourceTree = "<group>"; };
+		6351FAAA24E213AD00ADB7E5 /* DTRegion1D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRegion1D.h; sourceTree = "<group>"; };
+		6351FAAB24E213AD00ADB7E5 /* DTPlot1D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTPlot1D.cpp; sourceTree = "<group>"; };
+		6351FAAD24E213AD00ADB7E5 /* DTUCharArrayRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTUCharArrayRegion.h; sourceTree = "<group>"; };
+		6351FAAE24E213AD00ADB7E5 /* DTArrayConversion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTArrayConversion.cpp; sourceTree = "<group>"; };
+		6351FAAF24E213AD00ADB7E5 /* DTArrayConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTArrayConversion.h; sourceTree = "<group>"; };
+		6351FAB024E213AD00ADB7E5 /* DTUCharArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTUCharArray.cpp; sourceTree = "<group>"; };
+		6351FAB124E213AD00ADB7E5 /* DTFloatArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFloatArray.cpp; sourceTree = "<group>"; };
+		6351FAB224E213AD00ADB7E5 /* DTUCharArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTUCharArray.h; sourceTree = "<group>"; };
+		6351FAB324E213AD00ADB7E5 /* DTIntArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTIntArray.h; sourceTree = "<group>"; };
+		6351FAB424E213AD00ADB7E5 /* DTUShortIntArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTUShortIntArray.cpp; sourceTree = "<group>"; };
+		6351FAB524E213AD00ADB7E5 /* DTIntArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTIntArray.cpp; sourceTree = "<group>"; };
+		6351FAB624E213AD00ADB7E5 /* DTIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTIndex.h; sourceTree = "<group>"; };
+		6351FAB724E213AD00ADB7E5 /* DTUCharArrayRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTUCharArrayRegion.cpp; sourceTree = "<group>"; };
+		6351FAB824E213AD00ADB7E5 /* DTDoubleArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDoubleArray.h; sourceTree = "<group>"; };
+		6351FAB924E213AD00ADB7E5 /* DTIntArrayRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTIntArrayRegion.h; sourceTree = "<group>"; };
+		6351FABA24E213AD00ADB7E5 /* DTIndex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTIndex.cpp; sourceTree = "<group>"; };
+		6351FABB24E213AD00ADB7E5 /* DTShortIntArrayRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTShortIntArrayRegion.cpp; sourceTree = "<group>"; };
+		6351FABC24E213AD00ADB7E5 /* DTIntArrayRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTIntArrayRegion.cpp; sourceTree = "<group>"; };
+		6351FABD24E213AD00ADB7E5 /* DTFloatArrayOperators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFloatArrayOperators.cpp; sourceTree = "<group>"; };
+		6351FABE24E213AD00ADB7E5 /* DTArrayRegionTemplates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTArrayRegionTemplates.h; sourceTree = "<group>"; };
+		6351FABF24E213AD00ADB7E5 /* DTIntArrayOperators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTIntArrayOperators.h; sourceTree = "<group>"; };
+		6351FAC024E213AD00ADB7E5 /* DTUShortIntArrayRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTUShortIntArrayRegion.cpp; sourceTree = "<group>"; };
+		6351FAC124E213AD00ADB7E5 /* DTDoubleArrayOperators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTDoubleArrayOperators.cpp; sourceTree = "<group>"; };
+		6351FAC224E213AD00ADB7E5 /* DTDoubleArrayOperators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDoubleArrayOperators.h; sourceTree = "<group>"; };
+		6351FAC324E213AD00ADB7E5 /* DTUShortIntArrayRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTUShortIntArrayRegion.h; sourceTree = "<group>"; };
+		6351FAC424E213AD00ADB7E5 /* DTIntArrayOperators.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTIntArrayOperators.cpp; sourceTree = "<group>"; };
+		6351FAC524E213AD00ADB7E5 /* DTDoubleArrayRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDoubleArrayRegion.h; sourceTree = "<group>"; };
+		6351FAC624E213AD00ADB7E5 /* DTFloatArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFloatArray.h; sourceTree = "<group>"; };
+		6351FAC724E213AD00ADB7E5 /* DTCharArrayRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTCharArrayRegion.cpp; sourceTree = "<group>"; };
+		6351FAC824E213AD00ADB7E5 /* DTDoubleComplexArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTDoubleComplexArray.cpp; sourceTree = "<group>"; };
+		6351FAC924E213AD00ADB7E5 /* DTFloatArrayOperators.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFloatArrayOperators.h; sourceTree = "<group>"; };
+		6351FACA24E213AD00ADB7E5 /* DTFloatArrayRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFloatArrayRegion.cpp; sourceTree = "<group>"; };
+		6351FACB24E213AD00ADB7E5 /* DTArrayTemplates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTArrayTemplates.h; sourceTree = "<group>"; };
+		6351FACC24E213AD00ADB7E5 /* DTDoubleArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTDoubleArray.cpp; sourceTree = "<group>"; };
+		6351FACD24E213AD00ADB7E5 /* DTCharArrayRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCharArrayRegion.h; sourceTree = "<group>"; };
+		6351FACE24E213AD00ADB7E5 /* DTCharArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTCharArray.cpp; sourceTree = "<group>"; };
+		6351FACF24E213AD00ADB7E5 /* DTFloatArrayRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFloatArrayRegion.h; sourceTree = "<group>"; };
+		6351FAD024E213AD00ADB7E5 /* DTCharArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTCharArray.h; sourceTree = "<group>"; };
+		6351FAD124E213AD00ADB7E5 /* DTDoubleArrayRegion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTDoubleArrayRegion.cpp; sourceTree = "<group>"; };
+		6351FAD224E213AD00ADB7E5 /* DTUShortIntArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTUShortIntArray.h; sourceTree = "<group>"; };
+		6351FAD324E213AD00ADB7E5 /* DTArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTArray.h; sourceTree = "<group>"; };
+		6351FAD424E213AD00ADB7E5 /* DTShortIntArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTShortIntArray.h; sourceTree = "<group>"; };
+		6351FAD524E213AD00ADB7E5 /* DTShortIntArrayRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTShortIntArrayRegion.h; sourceTree = "<group>"; };
+		6351FAD624E213AD00ADB7E5 /* DTShortIntArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTShortIntArray.cpp; sourceTree = "<group>"; };
+		6351FAD724E213AD00ADB7E5 /* DTDoubleComplexArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDoubleComplexArray.h; sourceTree = "<group>"; };
+		6351FADA24E213AD00ADB7E5 /* DTMatlabDataFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMatlabDataFile.cpp; sourceTree = "<group>"; };
+		6351FADB24E213AD00ADB7E5 /* DTDataStorage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTDataStorage.cpp; sourceTree = "<group>"; };
+		6351FADD24E213AD00ADB7E5 /* DTFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTFile.cpp; sourceTree = "<group>"; };
+		6351FADE24E213AD00ADB7E5 /* DTFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTFile.h; sourceTree = "<group>"; };
+		6351FADF24E213AD00ADB7E5 /* DTDataFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTDataFile.cpp; sourceTree = "<group>"; };
+		6351FAE124E213AD00ADB7E5 /* DTEndianSwap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTEndianSwap.cpp; sourceTree = "<group>"; };
+		6351FAE324E213AD00ADB7E5 /* DTMatlabDataFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMatlabDataFile.h; sourceTree = "<group>"; };
+		6351FAE424E213AD00ADB7E5 /* DTDataFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDataFile.h; sourceTree = "<group>"; };
+		6351FAE524E213AD00ADB7E5 /* DTEndianSwap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTEndianSwap.h; sourceTree = "<group>"; };
+		6351FAE724E213AD00ADB7E5 /* DTDataStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTDataStorage.h; sourceTree = "<group>"; };
+		6351FAE824E213AD00ADB7E5 /* DTSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSource.h; sourceTree = "<group>"; };
+		6351FB7F24E213CC00ADB7E5 /* structures.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = structures.cpp; sourceTree = "<group>"; };
+		6351FB8024E213CC00ADB7E5 /* computation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = computation.h; sourceTree = "<group>"; };
+		6351FB8124E213CC00ADB7E5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6351FB8224E213CC00ADB7E5 /* structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = structures.h; sourceTree = "<group>"; };
+		6391173E279CCB9F00FFBAE7 /* DTRectangularImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRectangularImage.h; sourceTree = "<group>"; };
+		6391173F279CCBA000FFBAE7 /* DTRectangularImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTRectangularImage.cpp; sourceTree = "<group>"; };
+		63C52A4229D52BE1002F38A7 /* DTTriangularImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTTriangularImage.cpp; sourceTree = "<group>"; };
+		63C52A4329D52BE1002F38A7 /* DTTriangularImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTriangularImage.h; sourceTree = "<group>"; };
+		63C52A4529D52BED002F38A7 /* DTMask2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMask2D.cpp; sourceTree = "<group>"; };
+		63C52A4629D52BED002F38A7 /* DTMask2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMask2D.h; sourceTree = "<group>"; };
+		63D14752263A468C002B5B95 /* DTSurfaceValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSurfaceValues.h; sourceTree = "<group>"; };
+		63D14753263A468C002B5B95 /* DTSurfaceValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSurfaceValues.cpp; sourceTree = "<group>"; };
+		63FF9964274FF272000B62D4 /* DTSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSet.cpp; sourceTree = "<group>"; };
+		63FF9965274FF272000B62D4 /* DTSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSet.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6351F99824E212F500ADB7E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6351F99224E212F500ADB7E5 = {
+			isa = PBXGroup;
+			children = (
+				6351F9A524E213AD00ADB7E5 /* DTSource */,
+				6351FB7E24E213CC00ADB7E5 /* Autogenerated */,
+				6351F99D24E212F500ADB7E5 /* MAD calculation */,
+				6351F99C24E212F500ADB7E5 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6351F99C24E212F500ADB7E5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6351F99B24E212F500ADB7E5 /* MAD calculation */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6351F99D24E212F500ADB7E5 /* MAD calculation */ = {
+			isa = PBXGroup;
+			children = (
+				6351F99E24E212F500ADB7E5 /* computation.cpp */,
+			);
+			path = "MAD calculation";
+			sourceTree = "<group>";
+		};
+		6351F9A524E213AD00ADB7E5 /* DTSource */ = {
+			isa = PBXGroup;
+			children = (
+				6351FA0924E213AD00ADB7E5 /* Utilities */,
+				6351FA0C24E213AD00ADB7E5 /* Support */,
+				6351FA1F24E213AD00ADB7E5 /* Variables */,
+				6351FAAC24E213AD00ADB7E5 /* Arrays */,
+				6351FAD824E213AD00ADB7E5 /* DataFile */,
+				6351FAE824E213AD00ADB7E5 /* DTSource.h */,
+			);
+			name = DTSource;
+			path = /Applications/ImageTank.app/Contents/Library/DTSource;
+			sourceTree = "<absolute>";
+		};
+		6351FA0924E213AD00ADB7E5 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				6351FA0A24E213AD00ADB7E5 /* DTRandom.h */,
+				6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		6351FA0C24E213AD00ADB7E5 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				6351FA1524E213AD00ADB7E5 /* DTArguments.h */,
+				6351FA0F24E213AD00ADB7E5 /* DTArguments.cpp */,
+				6351FA1624E213AD00ADB7E5 /* DTDictionary.h */,
+				6351FA1424E213AD00ADB7E5 /* DTDictionary.cpp */,
+				6351FA1024E213AD00ADB7E5 /* DTError.h */,
+				6351FA1D24E213AD00ADB7E5 /* DTError.cpp */,
+				6351FA1B24E213AD00ADB7E5 /* DTList.h */,
+				6351FA0D24E213AD00ADB7E5 /* DTMap.h */,
+				6351FA1124E213AD00ADB7E5 /* DTPointer.h */,
+				6351FA1724E213AD00ADB7E5 /* DTProgress.h */,
+				6351FA1E24E213AD00ADB7E5 /* DTProgress.cpp */,
+				6351FA1C24E213AD00ADB7E5 /* DTSaveError.h */,
+				6351FA1A24E213AD00ADB7E5 /* DTSaveError.cpp */,
+				6351FA0E24E213AD00ADB7E5 /* DTThread.h */,
+				6351FA1824E213AD00ADB7E5 /* DTThread.cpp */,
+				6351FA1924E213AD00ADB7E5 /* DTTimer.h */,
+				6351FA1324E213AD00ADB7E5 /* DTUtilities.h */,
+				6351FA1224E213AD00ADB7E5 /* DTUtilities.cpp */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		6351FA1F24E213AD00ADB7E5 /* Variables */ = {
+			isa = PBXGroup;
+			children = (
+				6351FA2024E213AD00ADB7E5 /* 0D */,
+				6351FAA324E213AD00ADB7E5 /* 1D */,
+				6351FA6924E213AD00ADB7E5 /* 2D */,
+				6351FA2D24E213AD00ADB7E5 /* 3D */,
+				6351FA6224E213AD00ADB7E5 /* Support */,
+			);
+			path = Variables;
+			sourceTree = "<group>";
+		};
+		6351FA2024E213AD00ADB7E5 /* 0D */ = {
+			isa = PBXGroup;
+			children = (
+				63371B0429E3B10500BC795D /* DTMatrix.h */,
+				63371B0329E3B10500BC795D /* DTMatrix.cpp */,
+				6351FA2624E213AD00ADB7E5 /* DTStringList.h */,
+				6351FA2124E213AD00ADB7E5 /* DTStringList.cpp */,
+				6351FA2C24E213AD00ADB7E5 /* DTTable.h */,
+				6351FA2724E213AD00ADB7E5 /* DTTable.cpp */,
+			);
+			path = 0D;
+			sourceTree = "<group>";
+		};
+		6351FA2D24E213AD00ADB7E5 /* 3D */ = {
+			isa = PBXGroup;
+			children = (
+				6351FA4224E213AD00ADB7E5 /* DTCoordinatePlane3D.h */,
+				6351FA4024E213AD00ADB7E5 /* DTCoordinatePlane3D.cpp */,
+				6351FA5A24E213AD00ADB7E5 /* DTFunction3D.h */,
+				6351FA4D24E213AD00ADB7E5 /* DTFunction3D.cpp */,
+				6351FA5324E213AD00ADB7E5 /* DTImage3D.h */,
+				6351FA4A24E213AD00ADB7E5 /* DTImage3D.cpp */,
+				6351FA6124E213AD00ADB7E5 /* DTMesh3D.h */,
+				6351FA4C24E213AD00ADB7E5 /* DTMesh3D.cpp */,
+				6351FA5D24E213AD00ADB7E5 /* DTMesh3DGrid.h */,
+				6351FA5624E213AD00ADB7E5 /* DTMesh3DGrid.cpp */,
+				6351FA3C24E213AD00ADB7E5 /* DTPath3D.h */,
+				6351FA3424E213AD00ADB7E5 /* DTPath3D.cpp */,
+				6351FA3024E213AD00ADB7E5 /* DTPlane3D.h */,
+				6351FA2E24E213AD00ADB7E5 /* DTPlane3D.cpp */,
+				6351FA3724E213AD00ADB7E5 /* DTPoint3D.h */,
+				6351FA3B24E213AD00ADB7E5 /* DTPoint3D.cpp */,
+				6351FA4B24E213AD00ADB7E5 /* DTPointCollection3D.h */,
+				6351FA3F24E213AD00ADB7E5 /* DTPointCollection3D.cpp */,
+				6351FA3524E213AD00ADB7E5 /* DTRegion3D.h */,
+				6351FA4F24E213AD00ADB7E5 /* DTRegion3D.cpp */,
+				6351FA3A24E213AD00ADB7E5 /* DTShiftScale3D.h */,
+				6351FA5424E213AD00ADB7E5 /* DTShiftScale3D.cpp */,
+				6351FA3324E213AD00ADB7E5 /* DTStructuredGrid3D.h */,
+				6351FA3924E213AD00ADB7E5 /* DTStructuredGrid3D.cpp */,
+				6351FA4624E213AD00ADB7E5 /* DTStructuredMesh3D.h */,
+				6351FA6024E213AD00ADB7E5 /* DTStructuredMesh3D.cpp */,
+				6351FA3824E213AD00ADB7E5 /* DTSurface3D.h */,
+				6351FA3224E213AD00ADB7E5 /* DTSurface3D.cpp */,
+				63D14752263A468C002B5B95 /* DTSurfaceValues.h */,
+				63D14753263A468C002B5B95 /* DTSurfaceValues.cpp */,
+				6351FA5724E213AD00ADB7E5 /* DTTransform3D.h */,
+				6351FA5124E213AD00ADB7E5 /* DTTransform3D.cpp */,
+				6351FA4524E213AD00ADB7E5 /* DTVector3D.h */,
+			);
+			path = 3D;
+			sourceTree = "<group>";
+		};
+		6351FA6224E213AD00ADB7E5 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				6351FA6324E213AD00ADB7E5 /* DTFunction.h */,
+				6351FA6724E213AD00ADB7E5 /* DTFunction.cpp */,
+				6351FA6624E213AD00ADB7E5 /* DTFunctionFit.h */,
+				6351FA6824E213AD00ADB7E5 /* DTFunctionFit.cpp */,
+				6351FA6424E213AD00ADB7E5 /* DTMask.h */,
+				6351FA6524E213AD00ADB7E5 /* DTMask.cpp */,
+				63FF9965274FF272000B62D4 /* DTSet.h */,
+				63FF9964274FF272000B62D4 /* DTSet.cpp */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		6351FA6924E213AD00ADB7E5 /* 2D */ = {
+			isa = PBXGroup;
+			children = (
+				6351FA9D24E213AD00ADB7E5 /* DTBitmap2D.h */,
+				6351FA9F24E213AD00ADB7E5 /* DTBitmap2D.cpp */,
+				6351FA6A24E213AD00ADB7E5 /* DTCoordinateLine2D.h */,
+				6351FA6E24E213AD00ADB7E5 /* DTCoordinateLine2D.cpp */,
+				6351FA9324E213AD00ADB7E5 /* DTFunction2D.h */,
+				6351FA8624E213AD00ADB7E5 /* DTFunction2D.cpp */,
+				6351FA8D24E213AD00ADB7E5 /* DTImage.h */,
+				6351FA8A24E213AD00ADB7E5 /* DTImage.cpp */,
+				63C52A4629D52BED002F38A7 /* DTMask2D.h */,
+				63C52A4529D52BED002F38A7 /* DTMask2D.cpp */,
+				6351FA9224E213AD00ADB7E5 /* DTMesh2D.h */,
+				6351FA8724E213AD00ADB7E5 /* DTMesh2D.cpp */,
+				6351FA9724E213AD00ADB7E5 /* DTMesh2DBanded.h */,
+				6351FA6F24E213AD00ADB7E5 /* DTMesh2DBanded.cpp */,
+				6351FA7F24E213AD00ADB7E5 /* DTMesh2DGrid.h */,
+				6351FA9524E213AD00ADB7E5 /* DTMesh2DGrid.cpp */,
+				6351FA7C24E213AD00ADB7E5 /* DTPath2D.h */,
+				6351FA6B24E213AD00ADB7E5 /* DTPath2D.cpp */,
+				6351FA8C24E213AD00ADB7E5 /* DTPointCollection2D.h */,
+				6351FA8124E213AD00ADB7E5 /* DTPoint2D.h */,
+				6351FA8024E213AD00ADB7E5 /* DTPoint2D.cpp */,
+				6351FA7B24E213AD00ADB7E5 /* DTPointCollection2D.cpp */,
+				6351FA8E24E213AD00ADB7E5 /* DTPointVector2D.h */,
+				6351FA9824E213AD00ADB7E5 /* DTPointVector2D.cpp */,
+				6391173E279CCB9F00FFBAE7 /* DTRectangularImage.h */,
+				6391173F279CCBA000FFBAE7 /* DTRectangularImage.cpp */,
+				6351FA6D24E213AD00ADB7E5 /* DTRegion2D.h */,
+				6351FA8524E213AD00ADB7E5 /* DTRegion2D.cpp */,
+				6351FA8224E213AD00ADB7E5 /* DTShiftScale2D.h */,
+				6351FA9A24E213AD00ADB7E5 /* DTShiftScale2D.cpp */,
+				6351FA6C24E213AD00ADB7E5 /* DTStructuredGrid2D.h */,
+				6351FA8324E213AD00ADB7E5 /* DTStructuredGrid2D.cpp */,
+				6351FA9024E213AD00ADB7E5 /* DTStructuredMesh2D.h */,
+				6351FA9124E213AD00ADB7E5 /* DTStructuredMesh2D.cpp */,
+				6351FA7324E213AD00ADB7E5 /* DTStructuredVectorField2D.h */,
+				6351FA8F24E213AD00ADB7E5 /* DTStructuredVectorField2D.cpp */,
+				6351FA9B24E213AD00ADB7E5 /* DTTransform2D.h */,
+				6351FAA124E213AD00ADB7E5 /* DTTransform2D.cpp */,
+				63C52A4329D52BE1002F38A7 /* DTTriangularImage.h */,
+				63C52A4229D52BE1002F38A7 /* DTTriangularImage.cpp */,
+				6351FA7724E213AD00ADB7E5 /* DTTriangularGrid2D.h */,
+				6351FA8B24E213AD00ADB7E5 /* DTTriangularGrid2D.cpp */,
+				6351FAA024E213AD00ADB7E5 /* DTTriangularMesh2D.h */,
+				6351FA7224E213AD00ADB7E5 /* DTTriangularMesh2D.cpp */,
+				6351FA7924E213AD00ADB7E5 /* DTVector2D.h */,
+			);
+			path = 2D;
+			sourceTree = "<group>";
+		};
+		6351FAA324E213AD00ADB7E5 /* 1D */ = {
+			isa = PBXGroup;
+			children = (
+				6351FAA524E213AD00ADB7E5 /* DTFunction1D.h */,
+				6351FAA824E213AD00ADB7E5 /* DTFunction1D.cpp */,
+				6351FAA924E213AD00ADB7E5 /* DTMesh1DGrid.h */,
+				6351FAA624E213AD00ADB7E5 /* DTMesh1DGrid.cpp */,
+				6351FAA424E213AD00ADB7E5 /* DTPlot1D.h */,
+				6351FAAB24E213AD00ADB7E5 /* DTPlot1D.cpp */,
+				6351FAAA24E213AD00ADB7E5 /* DTRegion1D.h */,
+				6351FAA724E213AD00ADB7E5 /* DTRegion1D.cpp */,
+			);
+			path = 1D;
+			sourceTree = "<group>";
+		};
+		6351FAAC24E213AD00ADB7E5 /* Arrays */ = {
+			isa = PBXGroup;
+			children = (
+				6351FAAD24E213AD00ADB7E5 /* DTUCharArrayRegion.h */,
+				6351FAAE24E213AD00ADB7E5 /* DTArrayConversion.cpp */,
+				6351FAAF24E213AD00ADB7E5 /* DTArrayConversion.h */,
+				6351FAB024E213AD00ADB7E5 /* DTUCharArray.cpp */,
+				6351FAB124E213AD00ADB7E5 /* DTFloatArray.cpp */,
+				6351FAB224E213AD00ADB7E5 /* DTUCharArray.h */,
+				6351FAB324E213AD00ADB7E5 /* DTIntArray.h */,
+				6351FAB424E213AD00ADB7E5 /* DTUShortIntArray.cpp */,
+				6351FAB524E213AD00ADB7E5 /* DTIntArray.cpp */,
+				6351FAB624E213AD00ADB7E5 /* DTIndex.h */,
+				6351FAB724E213AD00ADB7E5 /* DTUCharArrayRegion.cpp */,
+				6351FAB824E213AD00ADB7E5 /* DTDoubleArray.h */,
+				6351FAB924E213AD00ADB7E5 /* DTIntArrayRegion.h */,
+				6351FABA24E213AD00ADB7E5 /* DTIndex.cpp */,
+				6351FABB24E213AD00ADB7E5 /* DTShortIntArrayRegion.cpp */,
+				6351FABC24E213AD00ADB7E5 /* DTIntArrayRegion.cpp */,
+				6351FABD24E213AD00ADB7E5 /* DTFloatArrayOperators.cpp */,
+				6351FABE24E213AD00ADB7E5 /* DTArrayRegionTemplates.h */,
+				6351FABF24E213AD00ADB7E5 /* DTIntArrayOperators.h */,
+				6351FAC024E213AD00ADB7E5 /* DTUShortIntArrayRegion.cpp */,
+				6351FAC124E213AD00ADB7E5 /* DTDoubleArrayOperators.cpp */,
+				6351FAC224E213AD00ADB7E5 /* DTDoubleArrayOperators.h */,
+				6351FAC324E213AD00ADB7E5 /* DTUShortIntArrayRegion.h */,
+				6351FAC424E213AD00ADB7E5 /* DTIntArrayOperators.cpp */,
+				6351FAC524E213AD00ADB7E5 /* DTDoubleArrayRegion.h */,
+				6351FAC624E213AD00ADB7E5 /* DTFloatArray.h */,
+				6351FAC724E213AD00ADB7E5 /* DTCharArrayRegion.cpp */,
+				6351FAC824E213AD00ADB7E5 /* DTDoubleComplexArray.cpp */,
+				6351FAC924E213AD00ADB7E5 /* DTFloatArrayOperators.h */,
+				6351FACA24E213AD00ADB7E5 /* DTFloatArrayRegion.cpp */,
+				6351FACB24E213AD00ADB7E5 /* DTArrayTemplates.h */,
+				6351FACC24E213AD00ADB7E5 /* DTDoubleArray.cpp */,
+				6351FACD24E213AD00ADB7E5 /* DTCharArrayRegion.h */,
+				6351FACE24E213AD00ADB7E5 /* DTCharArray.cpp */,
+				6351FACF24E213AD00ADB7E5 /* DTFloatArrayRegion.h */,
+				6351FAD024E213AD00ADB7E5 /* DTCharArray.h */,
+				6351FAD124E213AD00ADB7E5 /* DTDoubleArrayRegion.cpp */,
+				6351FAD224E213AD00ADB7E5 /* DTUShortIntArray.h */,
+				6351FAD324E213AD00ADB7E5 /* DTArray.h */,
+				6351FAD424E213AD00ADB7E5 /* DTShortIntArray.h */,
+				6351FAD524E213AD00ADB7E5 /* DTShortIntArrayRegion.h */,
+				6351FAD624E213AD00ADB7E5 /* DTShortIntArray.cpp */,
+				6351FAD724E213AD00ADB7E5 /* DTDoubleComplexArray.h */,
+			);
+			path = Arrays;
+			sourceTree = "<group>";
+		};
+		6351FAD824E213AD00ADB7E5 /* DataFile */ = {
+			isa = PBXGroup;
+			children = (
+				6351FAE424E213AD00ADB7E5 /* DTDataFile.h */,
+				6351FADF24E213AD00ADB7E5 /* DTDataFile.cpp */,
+				6351FAE724E213AD00ADB7E5 /* DTDataStorage.h */,
+				6351FADB24E213AD00ADB7E5 /* DTDataStorage.cpp */,
+				6351FAE524E213AD00ADB7E5 /* DTEndianSwap.h */,
+				6351FAE124E213AD00ADB7E5 /* DTEndianSwap.cpp */,
+				6351FADE24E213AD00ADB7E5 /* DTFile.h */,
+				6351FADD24E213AD00ADB7E5 /* DTFile.cpp */,
+				6351FAE324E213AD00ADB7E5 /* DTMatlabDataFile.h */,
+				6351FADA24E213AD00ADB7E5 /* DTMatlabDataFile.cpp */,
+			);
+			path = DataFile;
+			sourceTree = "<group>";
+		};
+		6351FB7E24E213CC00ADB7E5 /* Autogenerated */ = {
+			isa = PBXGroup;
+			children = (
+				6351FB8124E213CC00ADB7E5 /* main.cpp */,
+				6351FB8224E213CC00ADB7E5 /* structures.h */,
+				6351FB7F24E213CC00ADB7E5 /* structures.cpp */,
+				6351FB8024E213CC00ADB7E5 /* computation.h */,
+			);
+			path = Autogenerated;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6351F99A24E212F500ADB7E5 /* MAD calculation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6351F9A224E212F500ADB7E5 /* Build configuration list for PBXNativeTarget "MAD calculation" */;
+			buildPhases = (
+				6351F99724E212F500ADB7E5 /* Sources */,
+				6351F99824E212F500ADB7E5 /* Frameworks */,
+				6351F99924E212F500ADB7E5 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MAD calculation";
+			productName = "MAD calculation";
+			productReference = 6351F99B24E212F500ADB7E5 /* MAD calculation */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6351F99324E212F500ADB7E5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1330;
+				ORGANIZATIONNAME = "Visual Data Tools, Inc.";
+				TargetAttributes = {
+					6351F99A24E212F500ADB7E5 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 6351F99624E212F500ADB7E5 /* Build configuration list for PBXProject "MAD calculation" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6351F99224E212F500ADB7E5;
+			productRefGroup = 6351F99C24E212F500ADB7E5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6351F99A24E212F500ADB7E5 /* MAD calculation */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6351F99724E212F500ADB7E5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6351FB3A24E213AE00ADB7E5 /* DTMesh3DGrid.cpp in Sources */,
+				6351FB5D24E213AE00ADB7E5 /* DTMesh1DGrid.cpp in Sources */,
+				6351FB1B24E213AE00ADB7E5 /* DTThread.cpp in Sources */,
+				6351FB7624E213AE00ADB7E5 /* DTDataStorage.cpp in Sources */,
+				6351FB3D24E213AE00ADB7E5 /* DTStructuredMesh3D.cpp in Sources */,
+				6351FB5024E213AE00ADB7E5 /* DTFunction2D.cpp in Sources */,
+				6351FB6724E213AE00ADB7E5 /* DTIndex.cpp in Sources */,
+				6351FB1D24E213AE00ADB7E5 /* DTError.cpp in Sources */,
+				6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */,
+				6351FB7524E213AE00ADB7E5 /* DTMatlabDataFile.cpp in Sources */,
+				6351FB2E24E213AE00ADB7E5 /* DTCoordinatePlane3D.cpp in Sources */,
+				6351FB4924E213AE00ADB7E5 /* DTPointCollection2D.cpp in Sources */,
+				6351FB2524E213AE00ADB7E5 /* DTPlane3D.cpp in Sources */,
+				6351FB6924E213AE00ADB7E5 /* DTIntArrayRegion.cpp in Sources */,
+				6351FB3824E213AE00ADB7E5 /* DTShiftScale3D.cpp in Sources */,
+				6351FB1824E213AE00ADB7E5 /* DTArguments.cpp in Sources */,
+				63371B0529E3B10500BC795D /* DTMatrix.cpp in Sources */,
+				6351FB3424E213AE00ADB7E5 /* DTFunction3D.cpp in Sources */,
+				6351FB6524E213AE00ADB7E5 /* DTIntArray.cpp in Sources */,
+				6351FB1C24E213AE00ADB7E5 /* DTSaveError.cpp in Sources */,
+				6351FB6224E213AE00ADB7E5 /* DTUCharArray.cpp in Sources */,
+				6351FB5B24E213AE00ADB7E5 /* DTBitmap2D.cpp in Sources */,
+				6351FB3624E213AE00ADB7E5 /* DTRegion3D.cpp in Sources */,
+				6351FB5424E213AE00ADB7E5 /* DTStructuredVectorField2D.cpp in Sources */,
+				6351FB2724E213AE00ADB7E5 /* DTPath3D.cpp in Sources */,
+				63FF9966274FF272000B62D4 /* DTSet.cpp in Sources */,
+				6351FB5624E213AE00ADB7E5 /* DTMesh2DGrid.cpp in Sources */,
+				6351FB7724E213AE00ADB7E5 /* DTFile.cpp in Sources */,
+				6351FB7024E213AE00ADB7E5 /* DTFloatArrayRegion.cpp in Sources */,
+				6351FB6F24E213AE00ADB7E5 /* DTDoubleComplexArray.cpp in Sources */,
+				6351FB2124E213AE00ADB7E5 /* DTTable.cpp in Sources */,
+				6351FB7324E213AE00ADB7E5 /* DTDoubleArrayRegion.cpp in Sources */,
+				6351FB2924E213AE00ADB7E5 /* DTStructuredGrid3D.cpp in Sources */,
+				6351FB5524E213AE00ADB7E5 /* DTStructuredMesh2D.cpp in Sources */,
+				6351FB4124E213AE00ADB7E5 /* DTPath2D.cpp in Sources */,
+				6351FB4D24E213AE00ADB7E5 /* DTStructuredGrid2D.cpp in Sources */,
+				6351FB3F24E213AE00ADB7E5 /* DTFunction.cpp in Sources */,
+				6351FB8424E213CC00ADB7E5 /* main.cpp in Sources */,
+				6351FB5324E213AE00ADB7E5 /* DTTriangularGrid2D.cpp in Sources */,
+				6351FB6C24E213AE00ADB7E5 /* DTDoubleArrayOperators.cpp in Sources */,
+				6351F99F24E212F500ADB7E5 /* computation.cpp in Sources */,
+				6351FB4324E213AE00ADB7E5 /* DTMesh2DBanded.cpp in Sources */,
+				6351FB2D24E213AE00ADB7E5 /* DTPointCollection3D.cpp in Sources */,
+				6351FB6E24E213AE00ADB7E5 /* DTCharArrayRegion.cpp in Sources */,
+				6351FB1A24E213AE00ADB7E5 /* DTDictionary.cpp in Sources */,
+				6351FB7224E213AE00ADB7E5 /* DTCharArray.cpp in Sources */,
+				6351FB5824E213AE00ADB7E5 /* DTPointVector2D.cpp in Sources */,
+				6351FB6124E213AE00ADB7E5 /* DTArrayConversion.cpp in Sources */,
+				6351FB4C24E213AE00ADB7E5 /* DTPoint2D.cpp in Sources */,
+				6351FB8324E213CC00ADB7E5 /* structures.cpp in Sources */,
+				6351FB6A24E213AE00ADB7E5 /* DTFloatArrayOperators.cpp in Sources */,
+				6351FB4624E213AE00ADB7E5 /* DTTriangularMesh2D.cpp in Sources */,
+				63911740279CCBA000FFBAE7 /* DTRectangularImage.cpp in Sources */,
+				6351FB5C24E213AE00ADB7E5 /* DTTransform2D.cpp in Sources */,
+				6351FB6824E213AE00ADB7E5 /* DTShortIntArrayRegion.cpp in Sources */,
+				6351FB6624E213AE00ADB7E5 /* DTUCharArrayRegion.cpp in Sources */,
+				63C52A4429D52BE1002F38A7 /* DTTriangularImage.cpp in Sources */,
+				6351FB4224E213AE00ADB7E5 /* DTCoordinateLine2D.cpp in Sources */,
+				6351FB5F24E213AE00ADB7E5 /* DTFunction1D.cpp in Sources */,
+				6351FB4F24E213AE00ADB7E5 /* DTRegion2D.cpp in Sources */,
+				6351FB7424E213AE00ADB7E5 /* DTShortIntArray.cpp in Sources */,
+				6351FB7824E213AE00ADB7E5 /* DTDataFile.cpp in Sources */,
+				6351FB5A24E213AE00ADB7E5 /* DTShiftScale2D.cpp in Sources */,
+				6351FB4024E213AE00ADB7E5 /* DTFunctionFit.cpp in Sources */,
+				6351FB3E24E213AE00ADB7E5 /* DTMask.cpp in Sources */,
+				6351FB1F24E213AE00ADB7E5 /* DTStringList.cpp in Sources */,
+				6351FB1924E213AE00ADB7E5 /* DTUtilities.cpp in Sources */,
+				6351FB5224E213AE00ADB7E5 /* DTImage.cpp in Sources */,
+				6351FB5E24E213AE00ADB7E5 /* DTRegion1D.cpp in Sources */,
+				6351FB5124E213AE00ADB7E5 /* DTMesh2D.cpp in Sources */,
+				6351FB7A24E213AE00ADB7E5 /* DTEndianSwap.cpp in Sources */,
+				63C52A4729D52BED002F38A7 /* DTMask2D.cpp in Sources */,
+				6351FB6424E213AE00ADB7E5 /* DTUShortIntArray.cpp in Sources */,
+				6351FB6024E213AE00ADB7E5 /* DTPlot1D.cpp in Sources */,
+				6351FB7124E213AE00ADB7E5 /* DTDoubleArray.cpp in Sources */,
+				63D14754263A468C002B5B95 /* DTSurfaceValues.cpp in Sources */,
+				6351FB6B24E213AE00ADB7E5 /* DTUShortIntArrayRegion.cpp in Sources */,
+				6351FB3324E213AE00ADB7E5 /* DTMesh3D.cpp in Sources */,
+				6351FB1E24E213AE00ADB7E5 /* DTProgress.cpp in Sources */,
+				6351FB2624E213AE00ADB7E5 /* DTSurface3D.cpp in Sources */,
+				6351FB2A24E213AE00ADB7E5 /* DTPoint3D.cpp in Sources */,
+				6351FB3724E213AE00ADB7E5 /* DTTransform3D.cpp in Sources */,
+				6351FB3224E213AE00ADB7E5 /* DTImage3D.cpp in Sources */,
+				6351FB6D24E213AE00ADB7E5 /* DTIntArrayOperators.cpp in Sources */,
+				6351FB6324E213AE00ADB7E5 /* DTFloatArray.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		6351F9A024E212F500ADB7E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		6351F9A124E212F500ADB7E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		6351F9A324E212F500ADB7E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6351F9A424E212F500ADB7E5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6351F99624E212F500ADB7E5 /* Build configuration list for PBXProject "MAD calculation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6351F9A024E212F500ADB7E5 /* Debug */,
+				6351F9A124E212F500ADB7E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6351F9A224E212F500ADB7E5 /* Build configuration list for PBXNativeTarget "MAD calculation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6351F9A324E212F500ADB7E5 /* Debug */,
+				6351F9A424E212F500ADB7E5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6351F99324E212F500ADB7E5 /* Project object */;
+}

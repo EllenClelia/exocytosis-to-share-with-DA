@@ -112,7 +112,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "735"
             endingLineNumber = "735"
-            landmarkName = "FindGaussianPeak(image, channel)"
+            landmarkName = "Quantify(images, parameters)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -128,7 +128,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "731"
             endingLineNumber = "731"
-            landmarkName = "FindGaussianPeak(image, channel)"
+            landmarkName = "Quantify(images, parameters)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -144,7 +144,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "727"
             endingLineNumber = "727"
-            landmarkName = "FindGaussianPeak(image, channel)"
+            landmarkName = "Quantify(images, parameters)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
