@@ -89,6 +89,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
+			<string>mad</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>high</string>
 			<key>Type</key>
 			<string>Number</string>

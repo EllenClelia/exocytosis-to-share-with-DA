@@ -17,6 +17,18 @@
 			<array>
 				<dict>
 					<key>Name</key>
+					<string>Table</string>
+					<key>Type</key>
+					<string>Text</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>comb</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
 					<string>time</string>
 					<key>Type</key>
 					<string>Number</string>
@@ -81,6 +93,12 @@
 					<key>Type</key>
 					<string>Number</string>
 				</dict>
+				<dict>
+					<key>Name</key>
+					<string>peakWidth</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
 			</array>
 			<key>Trim Table</key>
 			<string>NO</string>
@@ -132,6 +150,18 @@
 	<string>filter duplicate events</string>
 	<key>Table Information</key>
 	<array>
+		<dict>
+			<key>Name</key>
+			<string>Table</string>
+			<key>Type</key>
+			<string>Text</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>comb</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
 		<dict>
 			<key>Name</key>
 			<string>time</string>
@@ -195,6 +225,12 @@
 		<dict>
 			<key>Name</key>
 			<string>width</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>peakWidth</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

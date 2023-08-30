@@ -93,6 +93,55 @@ DTDoubleArray FindP(const DTDoubleArray &pdfArray,double p,const DTMesh2DGrid &g
     return toReturn;
 }
 
+DTDoubleArray MAD(const DTImage &pdf)
+{
+    // norminv(0.75) = 0.674489750196082
+    DTDoubleArray values = ConvertToDouble(pdf(0)).DoubleArray();
+    ssize_t m = values.m();
+    ssize_t n = values.n();
+    ssize_t i,j,k,lower,upper;
+    
+    double dy = pdf.Grid().dy();
+    
+    DTMutableDoubleArray mad(m);
+
+    for (i=0;i<m;i++) {
+        // Median is where percentage is 0.5
+        for (j=0;j<n;j++) {
+            if (values(i,j)>0.5) {
+                break;
+            }
+        }
+        
+        if (j==n) {
+            // Didn't find the median
+            mad(i) = NAN;
+            continue;
+        }
+        if (j>0 && fabs(values(i,j-1)-0.5)<fabs(values(i,j))) {
+            j--;
+        }
+        if (j>0) {
+            // values(i,j) is closest to 0.5, so consider that the median.
+            // Compute the median of the absolute distance from the median, that
+            // means that I find k such that values(i,j+k)-values(i,j-k)==0.5
+            for (k=1;k<n;k++) {
+                lower = std::max(j-k,0L);
+                upper = std::min(j+k,n);
+                if (values(i,upper-1)-values(i,lower)>0.5) {
+                    break;
+                }
+            }
+            mad(i) = k*dy/0.674489750196082;
+        }
+        else {
+            mad(i) = 0;
+        }
+    }
+
+    return mad;
+}
+
 DTTable Computation(const DTImage &pdf,double p,const DTMask2D &mask,
                     const DTTable &points)
 {
@@ -144,12 +193,15 @@ DTTable Computation(const DTImage &pdf,double p,const DTMask2D &mask,
             pdfAtL(i) = pdfArray(i,j);
         }
     }
+    
+    DTDoubleArray mad = MAD(pdf);
 
     // Table is a list of columns
     return DTTable({
         CreateTableColumn("r",rList),
         CreateTableColumn("lower",lowerList),
         CreateTableColumn("median",medianList),
+        CreateTableColumn("mad",mad),
         CreateTableColumn("high",upperList),
         CreateTableColumn("Actual",lList),
         CreateTableColumn("pdfAtL",pdfAtL)

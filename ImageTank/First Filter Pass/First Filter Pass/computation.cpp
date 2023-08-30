@@ -12,12 +12,16 @@ DTTable Computation(const DTSet<DTImage> &images,
                     double maxDrift, // Maximum Drift
                     int stepsForDrift,const DTDictionary &parameters)
 {
+    DTImage firstImage = images(0);
+    double gridSize = firstImage.Grid().dx();
+    
     // images is a set
     ssize_t images_count = images.NumberOfItems();
     DTTable images_par = images.Parameters();
     
     DTTableColumnNumber T = images_par("T");
     DTTableColumnNumber ptNumber = images_par("ptNumber");
+    
     // int channel = parameters("channel");
     bool useAverage = parameters("useAverage");
     int howManyRequiredAboveThresholdForDecay = parameters("Points Above Baseline for threshold");
@@ -37,6 +41,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     DTMutableDoubleArray outputR2(outputLineLength);
     DTMutableDoubleArray outputBackground(outputLineLength);
     DTMutableDoubleArray outputWidth(outputLineLength);
+    DTMutableDoubleArray outputPeakWidth(outputLineLength);
     DTMutableDoubleArray outputCenter(2,outputLineLength);
     DTMutableDoubleArray outputDrift(outputLineLength);
     ssize_t posInOutput = 0;
@@ -48,6 +53,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputR2 = NAN;
     outputBackground = NAN;
     outputWidth = NAN;
+    outputPeakWidth = NAN;
     outputFlag = 0;
     outputCenter = NAN;
     outputDrift = NAN;
@@ -125,6 +131,8 @@ DTTable Computation(const DTSet<DTImage> &images,
         outputCenter(0,posInOutput) = startAt.x;
         outputCenter(1,posInOutput) = startAt.y;
         
+        DTTableColumnNumber imagePeakWidth = eventParameters("width");
+        outputPeakWidth(posInOutput) = imagePeakWidth(startingIndex)*gridSize;
 
         // On 5/18/23, changed the drift to be the biggest distance between points
         // around startingIndex where failure(ptIndex)==0.
@@ -256,6 +264,7 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputR2 = TruncateSize(outputR2,posInOutput);
     outputBackground = TruncateSize(outputBackground,posInOutput);
     outputWidth = TruncateSize(outputWidth,posInOutput);
+    outputPeakWidth = TruncateSize(outputPeakWidth,posInOutput);
     outputFlag = TruncateSize(outputFlag,posInOutput);
     outputCenter = TruncateSize(outputCenter,2*posInOutput);
     outputDrift = TruncateSize(outputDrift,posInOutput);
@@ -271,6 +280,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         CreateTableColumn("background",outputBackground),
         CreateTableColumn("delay",outputDelay),
         CreateTableColumn("decay",outputDecay),
-        CreateTableColumn("width",outputWidth)
+        CreateTableColumn("width",outputWidth),
+        CreateTableColumn("peakWidth",outputPeakWidth)
     });
 }
