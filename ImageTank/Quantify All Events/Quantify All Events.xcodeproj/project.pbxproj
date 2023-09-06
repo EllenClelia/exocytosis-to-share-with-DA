@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CBB90272AA8CDD200699804 /* DTMask2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB90252AA8CDD200699804 /* DTMask2D.cpp */; };
 		6351F99F24E212F500ADB7E5 /* computation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351F99E24E212F500ADB7E5 /* computation.cpp */; };
 		6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */; };
 		6351FB1824E213AE00ADB7E5 /* DTArguments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0F24E213AD00ADB7E5 /* DTArguments.cpp */; };
@@ -115,6 +116,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2CBB90252AA8CDD200699804 /* DTMask2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMask2D.cpp; sourceTree = "<group>"; };
+		2CBB90262AA8CDD200699804 /* DTMask2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMask2D.h; sourceTree = "<group>"; };
 		6351F99B24E212F500ADB7E5 /* Quantify All Events */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Quantify All Events"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6351F99E24E212F500ADB7E5 /* computation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = computation.cpp; sourceTree = "<group>"; };
 		6351FA0A24E213AD00ADB7E5 /* DTRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRandom.h; sourceTree = "<group>"; };
@@ -489,6 +492,8 @@
 		6351FA6924E213AD00ADB7E5 /* 2D */ = {
 			isa = PBXGroup;
 			children = (
+				2CBB90252AA8CDD200699804 /* DTMask2D.cpp */,
+				2CBB90262AA8CDD200699804 /* DTMask2D.h */,
 				6351FA9D24E213AD00ADB7E5 /* DTBitmap2D.h */,
 				6351FA9F24E213AD00ADB7E5 /* DTBitmap2D.cpp */,
 				6351FA6A24E213AD00ADB7E5 /* DTCoordinateLine2D.h */,
@@ -787,6 +792,7 @@
 				6351FB2A24E213AE00ADB7E5 /* DTPoint3D.cpp in Sources */,
 				6351FB3724E213AE00ADB7E5 /* DTTransform3D.cpp in Sources */,
 				6351FB3224E213AE00ADB7E5 /* DTImage3D.cpp in Sources */,
+				2CBB90272AA8CDD200699804 /* DTMask2D.cpp in Sources */,
 				6351FB6D24E213AE00ADB7E5 /* DTIntArrayOperators.cpp in Sources */,
 				6351FB6324E213AE00ADB7E5 /* DTFloatArray.cpp in Sources */,
 			);

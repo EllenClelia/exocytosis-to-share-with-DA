@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2CBB90212AA8CD7500699804 /* DTMask2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CBB901F2AA8CD7500699804 /* DTMask2D.cpp */; };
 		2CFEE11728F5FE3200E384F6 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2CFEE11528F5FE3200E384F6 /* Utilities.cpp */; };
 		6351F99F24E212F500ADB7E5 /* computation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351F99E24E212F500ADB7E5 /* computation.cpp */; };
 		6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */; };
@@ -116,6 +117,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2CBB901F2AA8CD7500699804 /* DTMask2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMask2D.cpp; sourceTree = "<group>"; };
+		2CBB90202AA8CD7500699804 /* DTMask2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMask2D.h; sourceTree = "<group>"; };
 		2CFEE11528F5FE3200E384F6 /* Utilities.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		2CFEE11628F5FE3200E384F6 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		6351F99B24E212F500ADB7E5 /* First Filter Pass */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "First Filter Pass"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -493,6 +496,8 @@
 		6351FA6924E213AD00ADB7E5 /* 2D */ = {
 			isa = PBXGroup;
 			children = (
+				2CBB901F2AA8CD7500699804 /* DTMask2D.cpp */,
+				2CBB90202AA8CD7500699804 /* DTMask2D.h */,
 				6351FA9D24E213AD00ADB7E5 /* DTBitmap2D.h */,
 				6351FA9F24E213AD00ADB7E5 /* DTBitmap2D.cpp */,
 				6351FA6A24E213AD00ADB7E5 /* DTCoordinateLine2D.h */,
@@ -790,6 +795,7 @@
 				6351FB5E24E213AE00ADB7E5 /* DTRegion1D.cpp in Sources */,
 				6351FB5124E213AE00ADB7E5 /* DTMesh2D.cpp in Sources */,
 				6351FB7A24E213AE00ADB7E5 /* DTEndianSwap.cpp in Sources */,
+				2CBB90212AA8CD7500699804 /* DTMask2D.cpp in Sources */,
 				6351FB6424E213AE00ADB7E5 /* DTUShortIntArray.cpp in Sources */,
 				6351FB6024E213AE00ADB7E5 /* DTPlot1D.cpp in Sources */,
 				6351FB4A24E213AE00ADB7E5 /* DTVectorCollection2D.cpp in Sources */,
