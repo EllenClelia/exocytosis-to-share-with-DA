@@ -89,6 +89,12 @@ DTTable Computation(const DTSet<DTImage> &images,
         outputTime(posInOutput) = Tval;
         outputPointNumber(posInOutput) = ptN;
         
+        // average :
+        // width :
+        // shift :
+        // delay :
+        // decay :
+        // R2 :
         outputBackground(posInOutput) = info.average;
         outputWidth(posInOutput) = info.width;
         outputShift(posInOutput) = info.shift;
@@ -268,6 +274,32 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputFlag = TruncateSize(outputFlag,posInOutput);
     outputCenter = TruncateSize(outputCenter,2*posInOutput);
     outputDrift = TruncateSize(outputDrift,posInOutput);
+    
+    
+    // center
+    // drift
+    // background
+    // peakWidth
+
+    
+    // Output columns:
+    // shift
+    // flag
+    //      sum of a sum to represent any combination of the following situations:
+    //      1 - Didn't rise high enough from the background
+    //      2 - Drifted too far
+    //      4 - Only the first point was above the threshold
+    //      8 - Require at least the first point to look like a peak
+    //      The flag is the sum of the situations that apply, values range from 0-15.
+    // center
+    //      Starting point, comes from the centerSpot column from the input
+    // R2
+    // drift
+    // background
+    // delay
+    // decay
+    // width
+    // peakWidth
     
     return DTTable({
         CreateTableColumn("time",outputTime),
