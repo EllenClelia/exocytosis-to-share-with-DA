@@ -135,6 +135,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
+			<string>intensity</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>R2</string>
 			<key>Type</key>
 			<string>Number</string>
@@ -165,7 +171,13 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>width</string>
+			<string>tau</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>backgroundVariation</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

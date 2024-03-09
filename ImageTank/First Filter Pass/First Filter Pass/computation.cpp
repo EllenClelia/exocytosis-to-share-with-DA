@@ -38,11 +38,13 @@ DTTable Computation(const DTSet<DTImage> &images,
     DTMutableDoubleArray outputFlag(outputLineLength);
     DTMutableDoubleArray outputDelay(outputLineLength);
     DTMutableDoubleArray outputDecay(outputLineLength);
+    DTMutableDoubleArray outputTau(outputLineLength);
     DTMutableDoubleArray outputR2(outputLineLength);
     DTMutableDoubleArray outputBackground(outputLineLength);
-    DTMutableDoubleArray outputWidth(outputLineLength);
+    DTMutableDoubleArray outputBackgroundVariation(outputLineLength);
     DTMutableDoubleArray outputPeakWidth(outputLineLength);
     DTMutableDoubleArray outputCenter(2,outputLineLength);
+    DTMutableDoubleArray outputIntensity(outputLineLength);
     DTMutableDoubleArray outputDrift(outputLineLength);
     ssize_t posInOutput = 0;
     
@@ -50,12 +52,14 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputPointNumber = NAN;
     outputShift = NAN;
     outputDecay = NAN;
+    outputTau = NAN;
     outputR2 = NAN;
     outputBackground = NAN;
-    outputWidth = NAN;
+    outputBackgroundVariation = NAN;
     outputPeakWidth = NAN;
     outputFlag = 0;
     outputCenter = NAN;
+    outputIntensity = NAN;
     outputDrift = NAN;
 
     DTProgress progress;
@@ -96,10 +100,11 @@ DTTable Computation(const DTSet<DTImage> &images,
         // decay :
         // R2 :
         outputBackground(posInOutput) = info.average;
-        outputWidth(posInOutput) = info.width;
+        outputBackgroundVariation(posInOutput) = info.width;
         outputShift(posInOutput) = info.shift;
         outputDelay(posInOutput) = info.delay;
         outputDecay(posInOutput) = info.decay;
+        outputTau(posInOutput) = log(2)/info.decay;
         outputR2(posInOutput) = info.R2;
 
         DTTable eventParameters = event.Parameters();
@@ -136,6 +141,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTPoint2D startAt = centerSpot(startingIndex);
         outputCenter(0,posInOutput) = startAt.x;
         outputCenter(1,posInOutput) = startAt.y;
+        outputIntensity(posInOutput) = intensityToUse(startingIndex);
         
         DTTableColumnNumber imagePeakWidth = eventParameters("width");
         outputPeakWidth(posInOutput) = imagePeakWidth(startingIndex)*gridSize;
@@ -267,12 +273,14 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputShift = TruncateSize(outputShift,posInOutput);
     outputDelay = TruncateSize(outputDelay,posInOutput);
     outputDecay = TruncateSize(outputDecay,posInOutput);
+    outputTau = TruncateSize(outputTau,posInOutput);
     outputR2 = TruncateSize(outputR2,posInOutput);
     outputBackground = TruncateSize(outputBackground,posInOutput);
-    outputWidth = TruncateSize(outputWidth,posInOutput);
+    outputBackgroundVariation = TruncateSize(outputBackgroundVariation,posInOutput);
     outputPeakWidth = TruncateSize(outputPeakWidth,posInOutput);
     outputFlag = TruncateSize(outputFlag,posInOutput);
     outputCenter = TruncateSize(outputCenter,2*posInOutput);
+    outputIntensity = TruncateSize(outputIntensity,posInOutput);
     outputDrift = TruncateSize(outputDrift,posInOutput);
     
     
@@ -307,12 +315,14 @@ DTTable Computation(const DTSet<DTImage> &images,
         CreateTableColumn("shift",outputShift),
         CreateTableColumn("flag",outputFlag),
         CreateTableColumn("center",DTPointCollection2D(outputCenter)),
+        CreateTableColumn("intensity",outputIntensity),
         CreateTableColumn("R2",outputR2),
         CreateTableColumn("drift",outputDrift),
         CreateTableColumn("background",outputBackground),
         CreateTableColumn("delay",outputDelay),
         CreateTableColumn("decay",outputDecay),
-        CreateTableColumn("width",outputWidth),
+        CreateTableColumn("tau",outputTau),
+        CreateTableColumn("backgroundVariation",outputBackgroundVariation),
         CreateTableColumn("peakWidth",outputPeakWidth)
     });
 }
