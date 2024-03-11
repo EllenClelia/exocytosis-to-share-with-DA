@@ -63,7 +63,8 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     // The drift calculation can start before the startingIndex
     DTTableColumnNumber failure = eventParameters("failure");
     
-    int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow drift failures",0);
+    int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow peak failures",0);
+    if (parameters.Contains("Allow drift failures")) howManyFailuresToAllowInDrift = parameters("Allow drift failures");
     bool checkDriftBefore = parameters.GetNumber("drift",0);
     
     DTTable driftPortion;

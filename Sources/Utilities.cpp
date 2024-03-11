@@ -514,10 +514,9 @@ DTTable Prune(const DTTable &table)
 
 QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &parameters)
 {
-    //DTSet<DTImage> imagesToView = images.ExtractRows("ptNumber",[](double v) {return (v==0);});
+    //DTSet<DTImage> imagesToView = images.ExtractRows("ptNumber",[](double v) {return (v==0);}); - To pick a sub-table with a particular value for ptNumber
     
-    // ssize_t images_count = images.NumberOfItems();
-    DTTable images_par = images.Parameters();
+    DTTable images_par = images.Parameters(); // In the debugger, use images_par.pinfo() and images_par.pall() to see the content.
 
     bool useAverage = parameters("useAverage");
     int channel = parameters("channel");
@@ -544,27 +543,15 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         
         double sizeScale = std::max(intensity(locOrigin),intensity(locOrigin+1))-average(0);
 
-        // if (intensity(locOrigin-1)>intensity(locOrigin+1)) {
         if (intensity(locOrigin-1)>sizeScale*0.8+average(0)) {
-            // Large before the start
-            //if (intensity(locOrigin-1)>intensity(locOrigin)) {
-                locOrigin--;
-                shift--;
-            //}
+            // Previous value is
+            locOrigin--;
+            shift--;
         }
         else if (intensity(locOrigin+1)-intensity(locOrigin)>0.6*sizeScale) {
             // Next value is much larger
             locOrigin++;
             shift++;
-        }
-        else {
-            /*
-             Does the decay handle this for me?
-            if (intensity(locOrigin+1)>intensity(locOrigin)) {
-                locOrigin++;
-                shift++;
-            }
-             */
         }
     }
 
@@ -741,40 +728,6 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     DTFunction1D fitFcn;
     DTDoubleArray fitValues;
 
-    /*
-    // don't do this fit, the piecewise fit handles this
-    
-    // The x is known and a,b,c are unknown guesses.  You can have multiple known arguments, and they can be arrays or single numbers.
-    knownConstants("x") = xval;
-    guesses("a") = mean;
-    guesses("b") = yval(0)-mean;
-    guesses("c") = 1;
-    
-    DTFunction fit = FunctionFit(foo,yval,knownConstants,guesses);
-    double av = guesses("a");
-    double bv = guesses("b");
-    double cv = guesses("c");
-    
-    DTFunction1D xv = DTFunction1D::x();
-    if (shift==0) {
-        fitFcn = av + bv*exp(-cv*xv);
-    }
-    else if (shift>0) {
-        fitFcn = av + bv*exp(-cv*(xv-shift));
-    }
-    else {
-        fitFcn = av + bv*exp(-cv*(xv+(-shift)));
-    }
-    toReturn.decay = cv;
-    toReturn.base = av;
-    toReturn.spike = bv;
-    
-    // Compute the values
-    DTDoubleArray fitValues = fitFcn(tVal);
-    
-    toReturn.R2 = ComputeR2(yval,fitValues);
-    */
-    
     // Compute the piecewise fits
     
     // First a slight hack. The xval list before was initially shifted by "shift"
@@ -801,9 +754,6 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
 
         return toReturn;
     }
-    //if (howManyShifts==1) {
-    //    DTErrorMessage("Only one point - look at this case");
-    //}
     
     DTMutableDoubleArray kinkList(howManyShifts);
     DTMutableDoubleArray baseList(howManyShifts);

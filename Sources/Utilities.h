@@ -26,13 +26,15 @@ DTImage MedianOfImages(const DTList<DTImage> &);
 double ComputeR2(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList);
 double ComputeRMSE(const DTDoubleArray &yValuesList,const DTDoubleArray &fitValuesList);
 
-// Part of quantifying an event
+// Part of quantifying an event. Callers will extract different parts.
 struct QuantifyEvent {
     double average;
     double width;
     
     // fit with a + b*exp(-c*(t-shift)) for x>shift, just the constant a+b before.
-    int shift; // If the real event starts earlier this is <0
+    int shift; // If the real event starts earlier this is <0. The shift from the function above
+    
+    // The function fit.
     int delay;
     double base;
     double spike;

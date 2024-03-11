@@ -39,16 +39,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1C552162-F19C-4F68-BB24-7F8FB9C0EF42"
+            uuid = "61C376D8-87E9-43C2-A63A-953767BA1956"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../Sources/Utilities.cpp"
+            filePath = "../../../../../../../Applications/ImageTank.app/Contents/Library/DTSource/Variables/0D/DTStringList.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "588"
-            endingLineNumber = "588"
-            landmarkName = "Quantify(images, parameters)"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "ExtractIndices(A, r)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
