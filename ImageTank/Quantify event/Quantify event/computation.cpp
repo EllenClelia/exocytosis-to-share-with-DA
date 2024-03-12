@@ -46,7 +46,6 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     toReturn.width = event.width;
     toReturn.histogram = event.histogram;
     DTFunction xv = DTFunction::Constant("x");
-    double shift = event.shift;
     DTFunction1D fitFcn;
     
     double kinkAt = event.shift+event.delay;

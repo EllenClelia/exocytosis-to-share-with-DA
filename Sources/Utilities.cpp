@@ -544,12 +544,12 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         double sizeScale = std::max(intensity(locOrigin),intensity(locOrigin+1))-average(0);
 
         if (intensity(locOrigin-1)>sizeScale*0.8+average(0)) {
-            // Previous value is
+            // Previous value is big enough, back up one step.
             locOrigin--;
             shift--;
         }
         else if (intensity(locOrigin+1)-intensity(locOrigin)>0.6*sizeScale) {
-            // Next value is much larger
+            // Next value is much larger, consider this a false start.
             locOrigin++;
             shift++;
         }
@@ -563,16 +563,20 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     }
     double mean = sum/(locOrigin-1);
     // Compute the standard deviation
-    double sumSq = 0;
-    for (i=0;i<locOrigin-1;i++) {
-        double val = average(i);
-        sumSq = (val-mean)*(val-mean);
-    }
-    double width;
     
     QuantifyEvent toReturn;
 
+    toReturn.shift = shift; // The time when the event starts
+    toReturn.average = mean; // The "size" of the signal before the start.
+    
+    // Two methods to compute the width
+    double width;
     if (useAverage) {
+        double sumSq = 0;
+        for (i=0;i<locOrigin-1;i++) {
+            double val = average(i);
+            sumSq = (val-mean)*(val-mean);
+        }
         width = sqrt(sumSq/(locOrigin-1)); // standard deviation of the avarage
         toReturn.width = width;
     }
@@ -604,7 +608,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         
         // Compute the standard deviation
         sum = 0;
-        sumSq = 0.0;
+        double sumSq = 0.0;
         int totalCount = 0;
         // Average from before is going to work, in fact a little more accurate.
         // Compute the standard error
@@ -618,6 +622,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         }
         width = sqrt(sumSq/totalCount);
         
+        // Save the histogram, in case you want to look at it in ImageTank.
         DTMutableDoubleArray intensityList(maxNonZero-minNonZero+1);
         DTMutableDoubleArray countList(maxNonZero-minNonZero+1);
         int pos = 0;
@@ -627,27 +632,18 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
             pos++;
         }
         
+        // The histogram of the intensity (combined from all of the images).
         toReturn.histogram = DTTable({
             CreateTableColumn("intensity",intensityList),
             CreateTableColumn("count",countList)
         });
-        toReturn.width = width;
+        toReturn.width = width; // The variability in the signal before the event. The standard deviation from the mean.
     }
 
-    toReturn.shift = shift;
-    toReturn.average = mean;
-    
-    // Fit with a + b*exp(-c*x)
-    DTFunction a = DTFunction::Constant("a");
-    DTFunction b = DTFunction::Constant("b");
-    DTFunction c = DTFunction::Constant("c");
-    DTFunction x = DTFunction::Constant("x");
-    //DTFunction foo = a + b*exp(-c*x);
-
-    // Create the fitting data
+    // Create the fitting data table.
     ssize_t rowCount = images_par.NumberOfRows();
     
-    int howFar = int(rowCount); // 20;
+    int howFar = int(rowCount);
     double scaleForMin = parameters.GetNumber("minIntensityForFit",2.0);
     double minIntensityValueForFit = mean+scaleForMin*width;
     int allowIntensityFailures = parameters.GetNumber("Allow intensity failures",100);
@@ -664,9 +660,8 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     
     while (i<rowCount && time(i)<=howFar+shift) {
         double t = time(i);
+        // Only include points that are coming from a valid fit
         if (useAverage || failure(i)==0) {
-            // Only include points that are coming from a valid fit
-            
             // Don't include intensity values that are too low
             if (intensity(i)>minIntensityValueForFit) {
                 if (posInSkippedOver>0 && includeIntensityFailures) {
@@ -700,15 +695,8 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     
     DTTable tableUsedForFit({CreateTableColumn("x",xval),CreateTableColumn("t",tval),CreateTableColumn("y",yval)});
     tableUsedForFit = Prune(tableUsedForFit);
-    DTTableColumnNumber numCol = tableUsedForFit("x");
-    xval = numCol.DoubleVersion();
-    numCol = tableUsedForFit("t");
-    tval = numCol.DoubleVersion();
-    numCol = tableUsedForFit("y");
-    yval = numCol.DoubleVersion();
-    
     toReturn.pointsUsedForFit = tableUsedForFit;
-
+    
     if (pos==0) {
         // Failed, don't want an error message to propagate to IT.
         toReturn.average = NAN;
@@ -723,6 +711,15 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         return toReturn;
     }
 
+
+    
+    DTTableColumnNumber numCol = tableUsedForFit("x");
+    xval = numCol.DoubleVersion();
+    numCol = tableUsedForFit("t");
+    tval = numCol.DoubleVersion();
+    numCol = tableUsedForFit("y");
+    yval = numCol.DoubleVersion();
+
     DTMutableDictionary knownConstants;
     DTMutableDictionary guesses;
     DTFunction1D fitFcn;
@@ -731,10 +728,9 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     // Compute the piecewise fits
     
     // First a slight hack. The xval list before was initially shifted by "shift"
-    // This llows the function fit to use "a + b*exp(-cx)" instead of "a + b*exp(-c*(x-shift))
+    // This allows the function fit to use "a + b*exp(-cx)" instead of "a + b*exp(-c*(x-shift))
     // However for the piecewise function we want to vary the shift, so the x values should be
     // changed back to the x values relative to the starting frame.
-    // xval += shift;
     xval = xval + shift; // Isn't this just tval?
     knownConstants("x") = xval; // Technically not needed since the xval is shared, but makes it more explicit.
     
@@ -766,13 +762,22 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     double bv = yval(0)-mean;
     double cv = 1.0;
     
+    // Components for the analytical function
+    DTFunction a = DTFunction::Constant("a");
+    DTFunction b = DTFunction::Constant("b");
+    DTFunction c = DTFunction::Constant("c");
+    DTFunction x = DTFunction::Constant("x");
+    
     for (int kink=shift;kink<maximumShift;kink++) { // use delay, and then kink = shift + delay
         DTFunction combo = IfFunction(x<kink,a*a+b,a*a+b*exp(-c*(x-kink)));
+        // if x<kink just a C, for x>=kink the function is Const + b*exp(-c*(distance from kink)).
+        // Const = a^2+b to enforce that the shift is positive. b might be negative, but then the signal is not decaying.
         
         guesses("a") = sqrt(fabs(av));
         guesses("b") = bv;
         guesses("c") = cv;
         
+        // This is a Levenberg–Marquardt method to solve the non-linear least squares problem
         fitFcn = FunctionFit(combo,yval,knownConstants,guesses);
         fitValues = fitFcn(xval);
         
@@ -780,8 +785,8 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         baseList(kink-shift) = pow(guesses("a"),2.0);
         spikeList(kink-shift) = guesses("b");
         decayList(kink-shift) = guesses("c");
-        R2List(kink-shift) = ComputeR2(yval,fitValues);
-        RMSEList(kink-shift) = ComputeRMSE(yval,fitValues);
+        R2List(kink-shift) = ComputeR2(yval,fitValues); // Quality of the fit. Not necessarily proper for a non-linear fit,
+        RMSEList(kink-shift) = ComputeRMSE(yval,fitValues); // A better measurement of the quality of the fit.
     }
     
     // Find the best R2 value. A long kink will reduce the R2 and that is a reasonable
@@ -807,7 +812,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         }
     }
     
-    ssize_t indexForKink = bestRMSEindex; // used to be bestRindex
+    ssize_t indexForKink = bestRMSEindex; // used to be bestRindex. That means that the R2List is ignored, but you can
     
     // Compute the R2 value for this fit. The R^2 for the fit should not include
     // the values before the kink.
@@ -835,10 +840,6 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     }
     bestR = ComputeR2(yvalForR2,fitValuesForR2);
     
-    //fitValuesForR2 = ExtractRows(fitValuesForR2,DTRange(startAt,fitValuesForR2.Length()-startAt));
-    //yvalForR2 = ExtractRows(yvalForR2,DTRange(startAt,yvalForR2.Length()-startAt));
-    //bestR = ComputeR2(yvalForR2,fitValuesForR2);
-
     //The returned fit, quality decay etc is the result of the best piecewise fit
     //not the original fit.
     // if (startAt<kinkList.Length()) {

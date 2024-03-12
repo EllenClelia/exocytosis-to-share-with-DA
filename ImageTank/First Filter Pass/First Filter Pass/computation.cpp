@@ -93,12 +93,12 @@ DTTable Computation(const DTSet<DTImage> &images,
         outputTime(posInOutput) = Tval;
         outputPointNumber(posInOutput) = ptN;
         
-        // average :
-        // width :
-        // shift :
-        // delay :
-        // decay :
-        // R2 :
+        // average : The average of the signal before the entry starts.
+        // width : The standard deviation of the signal before the entry starts
+        // shift : The index where the signal starts
+        // delay : The fit is of the form constant and then an exponential decay. The delay is when the decay starts
+        // decay : The decay rate for the exponent, i.e exp(-decay*(time-delay))
+        // R2 : Quality of the non-linear fit.
         outputBackground(posInOutput) = info.average;
         outputBackgroundVariation(posInOutput) = info.width;
         outputShift(posInOutput) = info.shift;
@@ -127,11 +127,6 @@ DTTable Computation(const DTSet<DTImage> &images,
         ssize_t startingIndex = time.FindClosest(info.shift); // Start where the event starts, not where the decay starts
         
         double valueAtStart = intensityToUse(startingIndex);
-        // double valueAtNext = intensityToUse(startingIndex+1);
-        //if (valueAtNext>valueAtStart) {
-        //    // Still going up, need to look at this further
-        //    outputFlag(posInOutput) += 1;
-        //}
         
         // Make sure that the initial spike is high enough from the background
         if (valueAtStart<info.average + info.width*fromBkgrnd) {
@@ -146,7 +141,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTTableColumnNumber imagePeakWidth = eventParameters("width");
         outputPeakWidth(posInOutput) = imagePeakWidth(startingIndex)*gridSize;
 
-        // On 5/18/23, changed the drift to be the biggest distance between points
+        // The drift is the biggest distance between points
         // around startingIndex where failure(ptIndex)==0.
         // Do that by first computing that point list, and then find the maximum
         // pairwise distance beween the points.
@@ -201,43 +196,7 @@ DTTable Computation(const DTSet<DTImage> &images,
                 if (dist>drift) drift = dist;
             }
         }
-        
-        /*
-         Before 5/18/23 we computed the distance from the centerSpot(startingIndex)
-        // Find when the spike goes below the tail intensityToUse. Also check how much movement happened
-        double drift = 0;
-        // Find the drift
-        ssize_t stopSearchingDrift = startingIndex+stepsForDrift;
-        ssize_t lookAtPoint = startingIndex;
-        
-        // Compute the drift from previous values
-        if (failure(lookAtPoint)==0 && failure(lookAtPoint-1)==0) {
-            // The forward drift calculation fails in the first two steps of the next loop
-            // Check to see if there was a valid point before it.
-            ssize_t check = lookAtPoint-1;
-            while (check>=0 && failure(check)==0) {
-                double dist = Distance(startAt,centerSpot(check));
-                if (dist>drift) drift = dist;
-                check--;
-            }
-        }
-
-        while (lookAtPoint<lengthOfEvent &&
-               lookAtPoint<stopSearchingDrift &&
-               failure(lookAtPoint)==0
-               // The next line was commented out before April 5th 2023
-               // it was put back in because when the intensity dips too low the drift is messed up.
-               // On May 18th 23 we commented this out again
-               // intensityToUse(lookAtPoint)>info.average+info.width*tailThreshold
-               ) {
-            // The center point is still valid, and intensity is still large enough, check the drift.
-            double dist = Distance(startAt,centerSpot(lookAtPoint));
-            if (dist>drift) drift = dist;
-            lookAtPoint++;
-        }
-         
-         */
-        
+                
         outputDrift(posInOutput) = drift;
         if (drift>maxDrift) {
             outputFlag(posInOutput) += 2; // Drifted too far
@@ -284,14 +243,13 @@ DTTable Computation(const DTSet<DTImage> &images,
     outputDrift = TruncateSize(outputDrift,posInOutput);
     
     
-    // center
-    // drift
-    // background
-    // peakWidth
-
-    
     // Output columns:
+    // time
+    //      The time in the movie where the point was first found (see shift)
+    // ptNumber
+    //      At a specific time, there might be several points, they are numbered 0,1,...
     // shift
+    //      Possibly the starting point was moved a time frame backward or forward
     // flag
     //      sum of a sum to represent any combination of the following situations:
     //      1 - Didn't rise high enough from the background
@@ -301,12 +259,19 @@ DTTable Computation(const DTSet<DTImage> &images,
     //      The flag is the sum of the situations that apply, values range from 0-15.
     // center
     //      Starting point, comes from the centerSpot column from the input
+    // intensity
+    //      The value comes from the input, and comes from the "average" column if parameters("useAverage")==true
+    //      If "useAverage"==false the value comes from the intensity column.
+    //      The value comes from the starting index (based on the shift value, not where the decay starts)
     // R2
+    //      Comes from the Quantify() call. The quality if the delay+decay fit.
     // drift
+    //      The biggest 
     // background
     // delay
     // decay
-    // width
+    // tau
+    // backgroundVariation
     // peakWidth
     
     return DTTable({
