@@ -63,7 +63,7 @@ Group Computation(const DTSet<DTImage> &images,int pt,
     DTTableColumnNumber failure = eventParameters("failure");
     
     int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow peak failures",0);
-    if (parameters.Contains("Allow drift failures")) howManyFailuresToAllowInDrift = parameters("Allow drift failures");
+    if (parameters.Contains("Allow drift failures")) howManyFailuresToAllowInDrift = parameters("Allow drift failures"); // backwards compatability
     bool checkDriftBefore = parameters.GetNumber("drift",0);
     
     DTTable driftPortion;

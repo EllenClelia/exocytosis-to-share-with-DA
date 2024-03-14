@@ -32,3 +32,10 @@ ImageTank/First Filter Pass/First Filter Pass.xcodeproj/xcuserdata/david.xcuserd
 ImageTank/Quantify event/Quantify event.xcodeproj/xcuserdata/david.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
 *.xcuserstate
 *.xcbkptlist
+*.xcuserstate
+.DS_Store
+ImageTank/.DS_Store
+*.xcuserstate
+ImageTank/GaussFit/.DS_Store
+ImageTank/Regions from sequence/.DS_Store
+ImageTank/GaussFit/.DS_Store

@@ -68,8 +68,9 @@ DTTable Computation(const DTSet<DTImage> &images,
     int posInTempPoints;
     
     bool checkDriftBefore = parameters.GetNumber("drift",0);
-    int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow drift failures",0);
-    
+    int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow peak failures",0);
+    if (parameters.Contains("Allow drift failures")) howManyFailuresToAllowInDrift = parameters("Allow drift failures"); // backwards compatability
+
     // Loop through each event
     ssize_t startsAt = 0;
     while (startsAt<images_count) {
