@@ -96,6 +96,8 @@ DTTable Computation(const DTSet<DTImage> &images,
         
         // average : The average of the signal before the entry starts.
         // width : The standard deviation of the signal before the entry starts
+        //         if useAverage=1, this is the variation in the averages
+        //         if useAverage=0, this is the variation in the individual pixel intensities.
         // shift : The index where the signal starts
         // delay : The fit is of the form constant and then an exponential decay. The delay is when the decay starts
         // decay : The decay rate for the exponent, i.e exp(-decay*(time-delay))
@@ -267,12 +269,14 @@ DTTable Computation(const DTSet<DTImage> &images,
     // R2
     //      Comes from the Quantify() call. The quality if the delay+decay fit.
     // drift
-    //      The biggest 
+    //      The maximum distance between the centers of every frame that passes the peak fit criteria
     // background
     // delay
     // decay
     // tau
     // backgroundVariation
+    //         if useAverage=1, this is the variation in the averages
+    //         if useAverage=0, this is the variation in the individual pixel intensities.
     // peakWidth
     
     return DTTable({
