@@ -96,7 +96,7 @@
 	<key>Name of Group</key>
 	<string>MyGroup</string>
 	<key>Name of Module</key>
-	<string>Command Line Utility</string>
+	<string>Extract a time series of regions around point(s)</string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>
