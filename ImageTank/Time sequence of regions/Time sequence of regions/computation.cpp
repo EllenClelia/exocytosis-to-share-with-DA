@@ -19,13 +19,38 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
         timeColumn = points("time");
     }
     
-    DTTableColumnPoint2D center = points("point");
-    ssize_t row,howMany = center.NumberOfRows();
+    // Flexible regarding the point to use.
+    DTTableColumnPoint2D center;
+    std::string tp = points("point").Type();
+    if (points.Contains("point") && points("point").Type()=="Point2D") {
+        center = points("point");
+    }
+    else {
+        // Find the first point
+        for (int cN=0;cN<points.NumberOfColumns();cN++) {
+            if (points(cN).Type()=="Point2D") {
+                center = points(cN);
+                break;
+            }
+        }
+        if (center.NumberOfRows()==0) {
+            DTErrorMessage("Did not find the point column");
+            return;
+        }
+    }
+    
+    // Optional point number input
+    DTTableColumnNumber pointNumberColumn;
+    bool pointNumberSpecified = points.Contains("pointNumber");
+    if (pointNumberSpecified) pointNumberColumn = points("pointNumber");
+
+    int row,howMany = int(center.NumberOfRows());
     int posInOutput = 0;
     
     double w = width;
     
     DTMutableDoubleArray timeList(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray pointColumnNumberList(howMany*(timeback+1+timeforward));
     DTMutableList<DTPoint2D> centerList(howMany*(timeback+1+timeforward));
     
     DTProgress progress;
@@ -35,6 +60,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
         if (timeColumnExists) {
             time = timeColumn(row);
         }
+        int pointNumber = (pointNumberSpecified ? pointNumberColumn(row) : row+1);
         
         ssize_t where = timeValues.FindClosest(time);
         if (where<0) continue;
@@ -55,6 +81,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
                 
                 timeList(posInOutput) = index-where;
                 centerList(posInOutput) = p;
+                pointColumnNumberList(posInOutput) = pointNumber;
                 
                 posInOutput++;
             }
@@ -64,11 +91,13 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
     if (posInOutput!=timeList.Length()) {
         timeList = TruncateSize(timeList,posInOutput);
         centerList = TruncateSize(centerList,posInOutput);
+        pointColumnNumberList = TruncateSize(pointColumnNumberList,posInOutput);
     }
     
     // Create the parameter table, typically fill alongside the Add calls
     output.Finish(DTTable({
         CreateTableColumn("time",timeList),
         CreateTableColumn("center",DTPointCollection2D(centerList)),
+        CreateTableColumn("pointNumber",pointColumnNumberList),
     }));
 }
