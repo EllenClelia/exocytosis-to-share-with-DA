@@ -113,9 +113,15 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>point</string>
+			<string>center</string>
 			<key>Type</key>
 			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>pointNumber</string>
+			<key>Type</key>
+			<string>Number</string>
 		</dict>
 	</array>
 	<key>Variable Type</key>
