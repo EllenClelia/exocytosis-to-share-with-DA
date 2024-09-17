@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>34e0b1907afde5b0fd08fb5a91ae95f090304eb4f320fffec4cac789c31631fe</string>
+	<string>c42f130b8dcd3adc4d878e607513396c6207b40296d6aa1fcfaf661f4aa13c23</string>
 	<key>Input</key>
 	<array>
 		<dict>
@@ -12,61 +12,86 @@
 			<key>Comment</key>
 			<string></string>
 			<key>Display</key>
-			<string>Images</string>
+			<string></string>
 			<key>Type</key>
 			<string>Image Set</string>
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>fromBkgrnd</string>
+			<string>parameters</string>
 			<key>Comment</key>
-			<string>How much it has to rise from background</string>
-			<key>Default</key>
-			<string>0</string>
-			<key>Display</key>
-			<string>From Bkgrnd</string>
-			<key>Interval</key>
 			<string></string>
-			<key>Round</key>
-			<false/>
+			<key>Display</key>
+			<string></string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>time</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>failure</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>failureAtStart</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>R2</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>intensity</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>width</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>center</string>
+					<key>Type</key>
+					<string>Point2D</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>ptNumber</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>centerSpot</string>
+					<key>Type</key>
+					<string>Point2D</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>average</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
 			<key>Type</key>
-			<string>Number</string>
+			<string>Table</string>
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>tailThreshold</string>
-			<key>Comment</key>
-			<string>When to stop tracking</string>
-			<key>Default</key>
-			<string>0</string>
-			<key>Display</key>
-			<string>Tail Scale</string>
-			<key>Interval</key>
-			<string></string>
-			<key>Round</key>
-			<false/>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Argument</key>
-			<string>maxDrift</string>
-			<key>Comment</key>
-			<string>Maximum Drift</string>
-			<key>Default</key>
-			<string>0</string>
-			<key>Display</key>
-			<string>Max Drift</string>
-			<key>Interval</key>
-			<string></string>
-			<key>Round</key>
-			<false/>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Argument</key>
-			<string>stepsForDrift</string>
+			<string>width</string>
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
@@ -82,26 +107,34 @@
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>parameters</string>
+			<string>t</string>
 			<key>Comment</key>
 			<string></string>
+			<key>Default</key>
+			<string>0</string>
 			<key>Display</key>
 			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<false/>
 			<key>Type</key>
-			<string>Dictionary</string>
+			<string>Number</string>
 		</dict>
 	</array>
 	<key>Name of Function</key>
 	<string>Computation</string>
 	<key>Name of Group</key>
-	<string>Group</string>
+	<string>MyGroup</string>
 	<key>Name of Module</key>
-	<string>First Filter Pass</string>
+	<string>Extract Larger Crop Region</string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>
-	<string>First Filter Pass</string>
-	<key>Table Information</key>
+	<string>Extract Larger Crop Region</string>
+	<key>Set Channel Information From</key>
+	<string>images</string>
+	<key>Set Parameter Information</key>
 	<array>
 		<dict>
 			<key>Name</key>
@@ -111,31 +144,13 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>ptNumber</string>
+			<string>failure</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>shift</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>flag</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>center</string>
-			<key>Type</key>
-			<string>Point2D</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>intensity</string>
+			<string>failureAtStart</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
@@ -147,48 +162,42 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>drift</string>
+			<string>intensity</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>background</string>
+			<string>width</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>delay</string>
+			<string>center</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ptNumber</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>decay</string>
+			<string>centerSpot</string>
 			<key>Type</key>
-			<string>Number</string>
+			<string>Point2D</string>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>tau</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>backgroundVariation</string>
-			<key>Type</key>
-			<string>Number</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>peakWidth</string>
+			<string>average</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
 	</array>
 	<key>Variable Type</key>
-	<string>Table</string>
+	<string>Image Set</string>
 </dict>
 </plist>

@@ -518,7 +518,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     
     DTTable images_par = images.Parameters(); // In the debugger, use images_par.pinfo() and images_par.pall() to see the content.
 
-    bool useAverage = parameters("useAverage");
+    bool useAverage = parameters.GetNumber("useAverage",true);
     int channel = parameters("channel");
     
     DTTableColumnNumber time = images_par("time");
@@ -555,7 +555,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         }
     }
 
-    // Compute the average for the background before the location.
+    // Compute the average for the background before the location. Also exclude the frame immediately before the starting frame.
     double sum = 0.0;
     ssize_t i;
     for (i=0;i<locOrigin-1;i++) {
@@ -572,6 +572,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     // Two methods to compute the width
     double width;
     if (useAverage) {
+        // Variability in the averages.
         double sumSq = 0;
         for (i=0;i<locOrigin-1;i++) {
             double val = average(i);
@@ -581,7 +582,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
         toReturn.width = width;
     }
     else {
-        // Compute the standard deviation of the image values
+        // Compute the standard deviation of the image values (individual pixels, not just the averages).
         ssize_t firstBin = -3000;
         ssize_t lastBin = 3000+mean*10;
         ssize_t maxBin = lastBin-firstBin+1;
@@ -917,7 +918,7 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
     toReturn.center = image.Grid().GridToSpace(DTPoint2D(returned("x0"),returned("y0")));
     toReturn.base = returned("base");
     toReturn.height = toReturn.base + double(returned("scale"));
-    toReturn.width = fabs(returned("radius"));
+    toReturn.width = 2*sqrt(2*log(2))*fabs(returned("radius")); // FWHM - full width at half maximumum
     toReturn.failureMode = 0;
     
     DTMutableDoubleArray fitValues(values.m(),values.n());

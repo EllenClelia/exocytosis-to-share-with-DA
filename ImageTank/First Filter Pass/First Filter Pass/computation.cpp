@@ -223,6 +223,11 @@ DTTable Computation(const DTSet<DTImage> &images,
             // Require at least the first point to look like a peak.
             outputFlag(posInOutput) += 8;
         }
+        
+        if (info.spike<0) {
+            // The fit is background + spike*exp(-decay*(time-kink)), a negative spike means that the signal is not physically meaningful.
+            outputFlag(posInOutput) += 16;
+        }
                                 
         // Ready for the next point
         startsAt = endsAt;
