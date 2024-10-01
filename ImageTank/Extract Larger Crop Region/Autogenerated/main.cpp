@@ -35,16 +35,16 @@ int main(int argc,const char *argv[])
             _channelNames(_count) = variableDataFile.ReadString(_cName+DTInt2String(_count+1)+"N");
         }
 
-        variableDataFile = DTDataFile("parameters.dtbin",DTFile::ReadOnly);
-        Read(variableDataFile,"parameters",parameters);
         width = inputDataFile.ReadNumber("width");
         t = inputDataFile.ReadNumber("t");
+        variableDataFile = DTDataFile("parameters.dtbin",DTFile::ReadOnly);
+        Read(variableDataFile,"parameters",parameters);
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
     DTMutableSet<DTImage> output(outputFile,"Var");
-    Computation(images,parameters,width,t,output);
+    Computation(images,width,t,parameters,output);
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 

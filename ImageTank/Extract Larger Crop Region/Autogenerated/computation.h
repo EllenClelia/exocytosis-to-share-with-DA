@@ -7,7 +7,7 @@
 
 #include "DTProgress.h"
 
-void Computation(const DTSet<DTImage> &images,const DTTable &parameters,
-                 int width,double t,DTMutableSet<DTImage> &output);
+void Computation(const DTSet<DTImage> &images,int width,double t,
+                 const DTTable &parameters,DTMutableSet<DTImage> &output);
 
 #endif /* IT_computation_h */ 
