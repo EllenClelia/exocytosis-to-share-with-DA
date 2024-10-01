@@ -21,6 +21,7 @@ void Computation(const DTSet<DTImage> &images,int width,double t,
     
     double radius = width/2+0.01;
     bool saveSmooth = true;
+    // get this from the parameter group
     
     // Extract point numbers until I don't have any more.
     DTTableColumnNumber pointNumber = parameters("ptNumber");

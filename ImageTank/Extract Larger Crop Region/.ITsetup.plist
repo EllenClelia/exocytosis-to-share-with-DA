@@ -132,8 +132,11 @@
 	<string>output</string>
 	<key>Name of Project</key>
 	<string>Extract Larger Crop Region</string>
-	<key>Set Channel Information From</key>
-	<string>images</string>
+	<key>Set Channel Information</key>
+	<array>
+		<string>intensity</string>
+		<string>difference</string>
+	</array>
 	<key>Set Parameter Information</key>
 	<array>
 		<dict>
