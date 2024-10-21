@@ -189,6 +189,8 @@ DTFloatArray GaussianFilter(const DTFloatArray &arr,double sigma)
         }
     }
     
+    cerr << returnArray(300,300) << std::endl;
+    
     return returnArray;
 }
 
@@ -359,7 +361,7 @@ DTFloatArray MedianOfStack(const DTFloatArray &stack,ssize_t slices)
             }
             std::sort(list.Pointer(),list.Pointer()+k);
             if (slices%2==0) {
-                toReturn(i,j) = (list(half)+list(half)+1)*0.5;
+                toReturn(i,j) = (list(half)+list(half+1))*0.5;
             }
             else {
                 toReturn(i,j) = list(half);

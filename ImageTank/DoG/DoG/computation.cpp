@@ -16,6 +16,9 @@ DTImage Computation(const DTImage &image,double sigma,int inOctave,
     int stepNumber;
     
     DTImage imageToUse = ConvertToFloat(image);
+    DTMutableList<DTImageChannel> firstChannel(1);
+    firstChannel = imageToUse(0);
+    imageToUse = DTImage(imageToUse.Grid(),firstChannel);
     
     DTProgress progress;
     
