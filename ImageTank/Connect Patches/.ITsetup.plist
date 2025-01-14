@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>9c626dcbca461f0a9dacb83de677d0fcb216c02d9e1863ae3d486ca97ab55d52</string>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>everything</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>time</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>Mask</string>
+					<key>Type</key>
+					<string>Mask2D</string>
+				</dict>
+			</array>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>stepsBack</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>MyGroup</string>
+	<key>Name of Module</key>
+	<string>Command Line Utility</string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Connect Patches</string>
+	<key>Table Information</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>time</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Mask</string>
+			<key>Type</key>
+			<string>Mask2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ID</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Variable Type</key>
+	<string>Table</string>
+</dict>
+</plist>
