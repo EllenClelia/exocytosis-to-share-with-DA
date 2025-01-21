@@ -220,8 +220,13 @@ DTTable Computation(const DTTable &everything,int stepsBack)
         DTTable leftOverFromCurrent = information.first;
         DTTable leftOverFromPrevious = information.second;
         newHistory(0) = leftOverFromPrevious;
+        
+        // One idea is to go to the accepted table from two steps back and see
+        // find where the entries in leftOverFromPrevious were
+                
+        
 
-        // Pick what we can from two steps back
+        // Pick what we can from two steps back that was not found in the previous time
         information = GetIDFromTable(leftOverFromCurrent,history(0),labelsAtCurrentTime);
         DTTable leavingUnassigned = information.second;
         DTTable givingUpOn = information.second;
@@ -236,7 +241,7 @@ DTTable Computation(const DTTable &everything,int stepsBack)
         // stopped2Back = leftOverFromPrevious;
         
         // Get ready for the next step
-        history = newHistory;
+        history = Copy(newHistory);
         previousTime = currentTime.Append(CreateTableColumn("ID",labelsAtCurrentTime));
 
         // Put in the label IDs into the overall return table
