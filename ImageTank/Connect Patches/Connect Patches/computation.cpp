@@ -202,10 +202,12 @@ DTTable Computation(const DTTable &everything,int stepsBack)
     int nextTrack = howManyRowsPrevious;
     int startOfEntries = howManyRowsPrevious;
     
-    DTTable stopped2Back = previousTime.ExtractRows(DTRange(0,0));
-    DTMutableList<DTTable> history(1);
-    history(0) = stopped2Back;
-    DTMutableList<DTTable> newHistory(1);
+    DTTable emptyTable = previousTime.ExtractRows(DTRange(0,0));
+    DTMutableList<DTTable> stoppedInPreviousSteps(stepsBack);
+    for (int i=0;i<stepsBack;i++) {
+        stoppedInPreviousSteps(i) = emptyTable;
+    }
+    DTMutableList<DTTable> newHistory(stepsBack+1);
 
     for (timeNumber=1;timeNumber<uniqueTimes.Length();timeNumber++) {
         DTTable currentTime = everything.ExtractRows(time.FindValue(uniqueTimes(timeNumber)));
@@ -214,22 +216,19 @@ DTTable Computation(const DTTable &everything,int stepsBack)
         int countInCurrent = int(currentTime.NumberOfRows());
         DTMutableIntArray labelsAtCurrentTime(countInCurrent);
         labelsAtCurrentTime = -1;
+        
 
         // Pick what we can from the previous time (has an ID column)
         auto information = GetIDFromTable(currentTime,previousTime,labelsAtCurrentTime);
         DTTable leftOverFromCurrent = information.first;
-        DTTable leftOverFromPrevious = information.second;
-        newHistory(0) = leftOverFromPrevious;
+        newHistory(0) = information.second; // Left over from previous time, i.e. timeNumber-1
         
-        // One idea is to go to the accepted table from two steps back and see
-        // find where the entries in leftOverFromPrevious were
-                
-        
-
-        // Pick what we can from two steps back that was not found in the previous time
-        information = GetIDFromTable(leftOverFromCurrent,history(0),labelsAtCurrentTime);
-        DTTable leavingUnassigned = information.second;
-        DTTable givingUpOn = information.second;
+        // Go back and look for traces that stopped.
+        for (int stepBack=0;stepBack<stepsBack;stepBack++) {
+            information = GetIDFromTable(leftOverFromCurrent,stoppedInPreviousSteps(stepBack),labelsAtCurrentTime);
+            leftOverFromCurrent = information.first;
+            newHistory(stepBack+1) = information.second; // still left, just moves one step back
+        }
         
         // Anything that is still not connected in labelsAtCurrentTime should get a new number
         for (int i=0;i<countInCurrent;i++) {
@@ -238,10 +237,8 @@ DTTable Computation(const DTTable &everything,int stepsBack)
             }
         }
 
-        // stopped2Back = leftOverFromPrevious;
-        
         // Get ready for the next step
-        history = Copy(newHistory);
+        stoppedInPreviousSteps = Copy(newHistory);
         previousTime = currentTime.Append(CreateTableColumn("ID",labelsAtCurrentTime));
 
         // Put in the label IDs into the overall return table
@@ -272,253 +269,6 @@ DTTable Computation(const DTTable &everything,int stepsBack)
     // Table is a list of columns
     return DTTable({
         everything("time"),
-        everything("Mask"),
-        CreateTableColumn("ID",finalTrackNumbers)
-    });
-}
-
-DTTable ComputationOld(const DTTable &everything,int stepsBack)
-{
-    // time
-    //
-    //   DTDoubleArray time = values.DoubleVersion();
-    //   double single = values(3); // Higher overhead, simpler syntax.
-    // Value
-    //   DTTableColumnNumber values = everything("Value");
-    // Mask
-    DTTableColumnNumber time = everything("time");
-    DTTableColumnMask2D masks = everything("Mask");
-    
-    DTDoubleArray uniqueTimes = UniqueTimeValues(time);
-    
-    ssize_t totalRowCount = everything.NumberOfRows();
-    
-    int timeNumber = 0;
-    DTTable previousTime = everything.ExtractRows(time.FindValue(uniqueTimes(timeNumber)));
-    int howManyRowsPrevious = int(previousTime.NumberOfRows());
-    DTMutableIntArray trackNumbers(howManyRowsPrevious);
-    for (int i=0;i<howManyRowsPrevious;i++) trackNumbers(i) = i;
-    previousTime = previousTime.Append(CreateTableColumn("ID",trackNumbers));
-    
-    DTMutableDoubleArray finalTrackNumbers(totalRowCount);
-    finalTrackNumbers = -1;
-    
-    // Give them an initial track numbers
-    for (int i = 0;i<howManyRowsPrevious;i++) {
-        finalTrackNumbers(i) = trackNumbers(i);
-    }
-    int nextTrack = howManyRowsPrevious;
-    int startOfEntries = howManyRowsPrevious;
-    
-    DTMutableList<DTTable> history(1);
-    DTTable stopped2Back = previousTime.ExtractRows(DTRange(0,0));
-    
-    for (timeNumber=1;timeNumber<uniqueTimes.Length();timeNumber++) {
-        DTTable currentTime = everything.ExtractRows(time.FindValue(uniqueTimes(timeNumber)));
-        
-        // Need to set labels at the current time based on the previous times.
-        int countInCurrent = int(currentTime.NumberOfRows());
-        DTMutableIntArray labelsAtCurrentTime(countInCurrent);
-        labelsAtCurrentTime = -1;
-
-        // Pick what we can from the previous time (has an ID column)
-        auto information = GetIDFromTable(currentTime,previousTime,labelsAtCurrentTime);
-        DTTable leftOverFromCurrent = information.first;
-        DTTable leftOverFromPrevious = information.second;
-
-        // Pick what we can from two steps back
-        information = GetIDFromTable(leftOverFromCurrent,stopped2Back,labelsAtCurrentTime);
-        DTTable leavingUnassigned = information.second;
-        DTTable givingUpOn = information.second;
-        
-        // Anything that is still not connected in labelsAtCurrentTime should get a new number
-        for (int i=0;i<countInCurrent;i++) {
-            if (labelsAtCurrentTime(i)<0) {
-                labelsAtCurrentTime(i) = nextTrack++;
-            }
-        }
-
-        // Prepare for the next iteration
-        stopped2Back = leftOverFromPrevious;
-        
-        // Get ready for the next step
-        previousTime = currentTime.Append(CreateTableColumn("ID",labelsAtCurrentTime));
-
-        // Put in the label IDs into the overall return table
-        for (int i=0;i<countInCurrent;i++) {
-            finalTrackNumbers(startOfEntries+i) = labelsAtCurrentTime(i);
-        }
-        startOfEntries += countInCurrent;
-    }
-    
-    // Compress the finalTrackNumbers, might not be using a track number
-    DTMutableCharArray usedTracks(nextTrack);
-    usedTracks = 0;
-    for (int i=0;i<totalRowCount;i++) {
-        usedTracks(finalTrackNumbers(i)) = 1;
-    }
-    DTMutableIntArray enumerate(nextTrack);
-    int newNumber = 0;
-    for (int i=0;i<nextTrack;i++) {
-        enumerate(i) = newNumber;
-        if (usedTracks(i)) {
-            newNumber++;
-        }
-    }
-    if (newNumber!=nextTrack) {
-        DTErrorMessage("Need to re-label");
-    }
-        
-    // Table is a list of columns
-    return DTTable({
-        everything("time"),
-        everything("Value"),
-        everything("Mask"),
-        CreateTableColumn("ID",finalTrackNumbers)
-    });
-}DTTable ComputationPrevious(const DTTable &everything,int stepsBack)
-{
-    // time
-    //
-    //   DTDoubleArray time = values.DoubleVersion();
-    //   double single = values(3); // Higher overhead, simpler syntax.
-    // Value
-    //   DTTableColumnNumber values = everything("Value");
-    // Mask
-    DTTableColumnNumber time = everything("time");
-    DTTableColumnMask2D masks = everything("Mask");
-    
-    DTDoubleArray uniqueTimes = UniqueTimeValues(time);
-    
-    ssize_t totalRowCount = everything.NumberOfRows();
-    
-    int timeNumber = 0;
-    DTTable previousTime = everything.ExtractRows(time.FindValue(uniqueTimes(timeNumber)));
-    int howManyRowsPrevious = int(previousTime.NumberOfRows());
-    DTMutableIntArray trackNumbers(howManyRowsPrevious);
-    for (int i=0;i<howManyRowsPrevious;i++) trackNumbers(i) = i;
-    previousTime = previousTime.Append(CreateTableColumn("ID",trackNumbers));
-        
-    DTMutableDoubleArray finalTrackNumbers(totalRowCount);
-    finalTrackNumbers = -1;
-    
-    // Give them an initial track numbers
-    for (int i = 0;i<howManyRowsPrevious;i++) {
-        finalTrackNumbers(i) = trackNumbers(i);
-    }
-    int nextTrack = howManyRowsPrevious;
-    int startOfEntries = howManyRowsPrevious;
-    
-    DTTable stopped2Back;
-    
-    for (timeNumber=1;timeNumber<uniqueTimes.Length();timeNumber++) {
-        DTTable currentTime = everything.ExtractRows(time.FindValue(uniqueTimes(timeNumber)));
-
-        int countInPrevious = int(previousTime.NumberOfRows());
-        int countInCurrent = int(currentTime.NumberOfRows());
-
-        // find location of patches at the current time in the previous time value
-        DTIntArray locationInPrevious = TrackChanges(previousTime,currentTime);
-        
-                
-        // First pass is to connect what we can to the previous track numbers
-        DTMutableIntArray labelsAtCurrentTime(countInCurrent);
-        labelsAtCurrentTime = -1;
-        
-        DTMutableCharArray foundInPrevious(countInPrevious);
-        foundInPrevious = 0;
-        DTMutableCharArray foundInCurrent(countInCurrent);
-        foundInCurrent = 0;
-        
-        DTMutableIntArray notFoundInCurrent(countInCurrent);
-        int howManyNotFoundInCurrent = 0;
-        DTIntArray trackNumberPrevious = DTTableColumnNumber(previousTime("ID")).IntVersion();
-
-        //int howManyFoundInPrevious = 0;
-        int howManySet = 0;
-        for (int i=0;i<countInCurrent;i++) {
-            int loc = locationInPrevious(i);
-            if (loc<0) {
-                // not matched with the previous time, so keep it at -1
-                notFoundInCurrent(howManyNotFoundInCurrent++) = i;
-            }
-            else {
-                // found in the previous time
-                foundInPrevious(loc) = 1;
-                labelsAtCurrentTime(i) = trackNumberPrevious(loc);
-                howManySet++;
-                //foundInCurrent(i) = 1;
-                //foundInPrevious(loc) = 1;
-                //howManyFoundInPrevious++;
-            }
-        }
-        
-        // What is not connected yet has an opportunity to connect to 2 steps back (and 3,4 etc in the future)
-        notFoundInCurrent = TruncateSize(notFoundInCurrent,howManyNotFoundInCurrent);
-        DTTable notConnectedInCurrent = currentTime.ExtractRows(notFoundInCurrent);
-        
-        // The rows in previousTime that were not connected will be stopped2Back in the next iteration.
-        DTMutableIntArray indexNotFoundInPrevious(howManySet);
-        int posInPrev = 0;
-        for (int i=0;i<countInPrevious;i++) {
-            if (foundInPrevious(i)==0) indexNotFoundInPrevious(posInPrev++) = i;
-        }
-        DTTable newStopped2Back = previousTime.ExtractRows(TruncateSize(indexNotFoundInPrevious,posInPrev));
-
-        
-        // Look to see if there is a match to entries 2 steps back (before the previous table)
-        if (howManySet!=countInCurrent && stopped2Back.NumberOfRows()!=0) {
-            // Missing some, look at indices two step back
-            DTIntArray locationIn2Back = TrackChanges(stopped2Back,notConnectedInCurrent);
-            
-            DTMutableIntArray notFound2Back(howManyNotFoundInCurrent);
-            int howManyNotFound2Back = 0;
-            int countIn2Back = int(stopped2Back.NumberOfRows());
-            DTMutableCharArray foundIn2Back(countIn2Back);
-            foundIn2Back = 0;
-            
-            trackNumberPrevious = DTTableColumnNumber(stopped2Back("ID")).IntVersion();
-            howManySet = 0;
-
-            for (int i=0;i<howManyNotFoundInCurrent;i++) {
-                int loc = locationIn2Back(i);
-                if (loc<0) {
-                    // Didn't match with two steps back, keep it at 1
-                    notFoundInCurrent(howManyNotFound2Back++) = i;
-                }
-                else {
-                    foundIn2Back(loc) = 1;
-                    labelsAtCurrentTime(notFoundInCurrent(i)) = trackNumberPrevious(loc);
-                    howManySet++;
-                }
-            }
-        }
-        
-        // Anything that is still not connected in labelsAtCurrentTime should get a new number
-        for (int i=0;i<countInCurrent;i++) {
-            if (labelsAtCurrentTime(i)<0) {
-                labelsAtCurrentTime(i) = nextTrack++;
-            }
-        }
-
-        
-        // Prepare for the next iteration
-        stopped2Back = newStopped2Back;
-        
-        previousTime = currentTime.Append(CreateTableColumn("ID",labelsAtCurrentTime));
-
-        
-        // Put in the label IDs
-        for (int i=0;i<countInCurrent;i++) {
-            finalTrackNumbers(startOfEntries+i) = labelsAtCurrentTime(i);
-        }
-        startOfEntries += countInCurrent;
-    }
-    
-    // Table is a list of columns
-    return DTTable({
-        everything("time"),
-        everything("Value"),
         everything("Mask"),
         CreateTableColumn("ID",finalTrackNumbers)
     });
