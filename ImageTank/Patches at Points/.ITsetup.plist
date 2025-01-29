@@ -3,45 +3,44 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>9c626dcbca461f0a9dacb83de677d0fcb216c02d9e1863ae3d486ca97ab55d52</string>
+	<string>648f7f3b8fd638d4a01ec860322d9feba60f8de28f858e6f9311dbdbe5d81940</string>
 	<key>Input</key>
 	<array>
 		<dict>
 			<key>Argument</key>
-			<string>everything</string>
+			<string>grid</string>
 			<key>Comment</key>
 			<string></string>
 			<key>Display</key>
 			<string></string>
-			<key>Structure</key>
-			<array>
-				<dict>
-					<key>Name</key>
-					<string>time</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>Mask</string>
-					<key>Type</key>
-					<string>Mask2D</string>
-				</dict>
-			</array>
 			<key>Type</key>
-			<string>Table</string>
+			<string>Image</string>
 		</dict>
 		<dict>
 			<key>Argument</key>
-			<string>stepsBack</string>
+			<string>points</string>
+			<key>Column Name</key>
+			<string>point</string>
+			<key>Column Type</key>
+			<integer>5</integer>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Single Column</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>radius</string>
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
-			<string>0</string>
+			<string>4</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
-			<string></string>
+			<string>1,40</string>
 			<key>Round</key>
 			<true/>
 			<key>Type</key>
@@ -53,30 +52,24 @@
 	<key>Name of Group</key>
 	<string>MyGroup</string>
 	<key>Name of Module</key>
-	<string>Tracker</string>
+	<string>Create patches</string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>
-	<string>Connect Patches</string>
+	<string>Patches at Points</string>
 	<key>Table Information</key>
 	<array>
 		<dict>
 			<key>Name</key>
-			<string>time</string>
+			<string>point</string>
 			<key>Type</key>
-			<string>Number</string>
+			<string>Point2D</string>
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>Mask</string>
+			<string>mask</string>
 			<key>Type</key>
 			<string>Mask2D</string>
-		</dict>
-		<dict>
-			<key>Name</key>
-			<string>ID</string>
-			<key>Type</key>
-			<string>Number</string>
 		</dict>
 	</array>
 	<key>Variable Type</key>
