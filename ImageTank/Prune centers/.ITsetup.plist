@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>12541a66feeb4cb6d1a18badd94ff0672995549f9c4d34cddb24866bf03d6210</string>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>extrema</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>point</string>
+					<key>Type</key>
+					<string>Point2D</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>main</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>gradient</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>distance</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<false/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>MyGroup</string>
+	<key>Name of Module</key>
+	<string>Find regions</string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Prune centers</string>
+	<key>Table Information</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>from</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>to</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>variation</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>center</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>interval</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>start</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>end</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Variable Type</key>
+	<string>Table</string>
+</dict>
+</plist>
