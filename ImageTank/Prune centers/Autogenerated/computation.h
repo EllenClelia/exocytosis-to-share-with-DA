@@ -7,7 +7,7 @@
 
 #include "DTProgress.h"
 
-DTTable Computation(const DTTable &extrema,const DTImage &gradient,
-                    double distance);
+MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
+                    double distance,double threshold);
 
 #endif /* IT_computation_h */ 

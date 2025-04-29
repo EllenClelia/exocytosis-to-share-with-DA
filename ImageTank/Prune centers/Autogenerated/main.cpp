@@ -11,9 +11,9 @@ int main(int argc,const char *argv[])
 {
     DTSetArguments(argc,argv);
 
-    DTImage gradient;
+    DTImage magnitude;
     DTTable extrema;
-    double distance;
+    double distance, threshold;
 
     {
         // Inside a scope so that the data files will be closed before the computation starts.
@@ -25,16 +25,17 @@ int main(int argc,const char *argv[])
 
         variableDataFile = DTDataFile("extrema.dtbin",DTFile::ReadOnly);
         Read(variableDataFile,"extrema",extrema);
-        variableDataFile = DTDataFile("gradient.dtbin",DTFile::ReadOnly);
-        Read(variableDataFile,"gradient",gradient);
+        variableDataFile = DTDataFile("magnitude.dtbin",DTFile::ReadOnly);
+        Read(variableDataFile,"magnitude",magnitude);
         distance = inputDataFile.ReadNumber("distance");
+        threshold = inputDataFile.ReadNumber("threshold");
     }
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
     //DTTimer timer;
     //timer.Start();
-    DTTable output = Computation(extrema,gradient,distance);
+    MyGroup output = Computation(extrema,magnitude,distance,threshold);
 
     //timer.Stop(); // Use timer.Time() to get the elapsed time
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging

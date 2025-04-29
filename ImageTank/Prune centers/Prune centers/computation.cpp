@@ -95,46 +95,65 @@ double Variation(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
     // return sqrt(sumOfSquares/N);
 }
 
-DTTable Computation(const DTTable &extrema,const DTImage &gradient,
-                    double distance)
+struct PairingEntry
+{
+    int lowerIndex;
+    int upperIndex;
+    int rowIndex;
+    
+    bool operator<(const PairingEntry &other) const {return lowerIndex<other.lowerIndex;}
+};
+
+MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
+                    double distance,double threshold)
 {
     // point
     DTTableColumnPoint2D pointsColumn = extrema("point");
     DTPointCollection2D point = pointsColumn.Points();
 
-    DTMesh2DGrid grid = gradient.Grid(); // The underlying grid
+    DTMesh2DGrid grid = magnitude.Grid(); // The underlying grid
     // Extract channels from gradient
     // DTImageChannel channel = gradient("gx") or gradient(0)
     // DTImageChannel channel = gradient("gy") or gradient(1)
-    DTImageChannel magnitudeChannel = gradient("magnitude");
+    DTImageChannel magnitudeChannel = magnitude("magnitude");
     magnitudeChannel = ConvertToDouble(magnitudeChannel);
-    DTDoubleArray magnitude = magnitudeChannel.DoubleArray();
+    // DTDoubleArray intensity = magnitudeChannel.DoubleArray();
     // If you want to access this as a float even for 8,32 or 64 bit
     // channel = ConvertToFloat(channel); // no cost if already float
     // DTFloatArray values = channel.FloatArray(); // Complains if not stored as floats
     
     ssize_t howManyPoints = point.NumberOfPoints();
     DTDoubleArray pointList = point.Data();
-    ssize_t i,j;
+    int i,j;
     DTPoint2D Q;
     double dx,dy,d;
     double distSq = distance*distance;
     
     int lenOfTable = int(howManyPoints);
     DTMutableDoubleArray fromList(2,lenOfTable);
+    DTMutableIntArray fromIndex(lenOfTable);
     DTMutableDoubleArray toList(2,lenOfTable);
+    DTMutableIntArray toIndex(lenOfTable);
     DTMutableDoubleArray variationList(lenOfTable);
     int posInTable = 0;
     DTMutableDoubleArray centerList(2,lenOfTable);
     DTMutableDoubleArray intervalList(lenOfTable);
     DTMutableDoubleArray startList(lenOfTable);
     DTMutableDoubleArray endList(lenOfTable);
+    
+    DTMutableList<DTPoint2D> finalListOfPoints(howManyPoints);
+    int posInFinalList = 0;
+    DTMutableIntArray addedThisPoint(howManyPoints);
+    addedThisPoint = 0;
 
+    bool addedPoint;
+    DTPoint2D P;
     for (j=0;j<howManyPoints;j++) {
-        DTPoint2D P = point(j);
+        DTPoint2D Q = point(j);
+        addedPoint = false;
         for (i=j+1;i<howManyPoints;i++) {
-            Q.x = pointList(0,i);
-            Q.y = pointList(1,i);
+            P.x = pointList(0,i);
+            P.y = pointList(1,i);
             
             dx = Q.x-P.x;
             dy = Q.y-P.y;
@@ -148,33 +167,161 @@ DTTable Computation(const DTTable &extrema,const DTImage &gradient,
                     intervalList = IncreaseSize(intervalList);
                     startList = IncreaseSize(startList);
                     endList = IncreaseSize(endList);
+                    fromIndex = IncreaseSize(fromIndex);
+                    toIndex = IncreaseSize(toIndex);
                 }
-                fromList(0,posInTable) = P.x;
-                fromList(1,posInTable) = P.y;
-                toList(0,posInTable) = Q.x;
-                toList(1,posInTable) = Q.y;
+                fromList(0,posInTable) = Q.x;
+                fromList(1,posInTable) = Q.y;
+                toList(0,posInTable) = P.x;
+                toList(1,posInTable) = P.y;
                 DTPoint2D c = (P+Q)/2;
                 centerList(0,posInTable) = c.x;
                 centerList(1,posInTable) = c.y;
                 intervalList(posInTable) = posInTable+1;
-                startList(posInTable) = i+1;
-                endList(posInTable) = j+1;
+                startList(posInTable) = j;
+                endList(posInTable) = i;
+                
+                fromIndex(posInTable) = i;
+                toIndex(posInTable) = j;
+                addedThisPoint(i)++;
+                addedThisPoint(j)++;
 
                 variationList(posInTable) = Variation(magnitudeChannel,grid.SpaceToGrid(P),grid.SpaceToGrid(Q));
+                
+                addedPoint = true;
                 
                 posInTable++;
             }
         }
+        
+        // if (addedPoint) addedThisPoint(j) = 1;
     }
     
-    // Table is a list of columns
-    return DTTable({
-        CreateTableColumn("from",DTPointCollection2D(TruncateSize(fromList,2*posInTable))),
-        CreateTableColumn("to",DTPointCollection2D(TruncateSize(toList,2*posInTable))),
-        CreateTableColumn("variation",TruncateSize(variationList,posInTable)),
-        CreateTableColumn("center",DTPointCollection2D(TruncateSize(centerList,2*posInTable))),
-        CreateTableColumn("interval",TruncateSize(intervalList,posInTable)),
-        CreateTableColumn("start",TruncateSize(startList,posInTable)),
-        CreateTableColumn("end",TruncateSize(endList,posInTable))
-      });
+    // Trim the result
+    fromList = TruncateSize(fromList,2*posInTable);
+    toList = TruncateSize(toList,2*posInTable);
+    variationList = TruncateSize(variationList,posInTable);
+    centerList = TruncateSize(centerList,2*posInTable);
+    intervalList = TruncateSize(intervalList,posInTable);
+    startList = TruncateSize(startList,posInTable);
+    endList = TruncateSize(endList,posInTable);
+    
+    MyGroup toReturn;
+    
+    // Create the table process
+    DTTable processTable = DTTable({
+        CreateTableColumn("from",DTPointCollection2D(fromList)),
+        CreateTableColumn("to",DTPointCollection2D(toList)),
+        CreateTableColumn("variation",variationList),
+        CreateTableColumn("center",DTPointCollection2D(centerList)),
+        CreateTableColumn("interval",intervalList),
+        CreateTableColumn("start",startList),
+        CreateTableColumn("end",endList)
+    });
+    
+    toReturn.process = processTable;
+    
+    // Prune out the rows where the variation is too large
+    DTMutableIntArray rowsToUse(posInTable);
+    int posInNewTable = 0;
+    for (int rowNumber=0;rowNumber<posInTable;rowNumber++) {
+        if (variationList(rowNumber)<threshold) {
+            rowsToUse(posInNewTable++) = rowNumber;
+        }
+        else {
+            addedThisPoint(fromIndex(rowNumber))--;
+            addedThisPoint(toIndex(rowNumber))--;
+        }
+    }
+    
+    // Add the points that are not connected to any other points.
+    // Leaves points that are a part of a group.
+    for (i=0;i<howManyPoints;i++) {
+        if (addedThisPoint(i)==0) {
+            finalListOfPoints(posInFinalList++) = point(i);
+        }
+    }
+    
+    // rowsToUse is now the entries from the processing table where the variation is < threshold.
+    // The next step is to remove from that list any row where the end points are singletons
+
+    DTTable acceptedSegments = processTable.ExtractRows(TruncateSize(rowsToUse,posInNewTable));
+
+    // Find clusters, i.e. points that are connected together in a loop.
+    // I know that the start list is sorted it increasing order and start<end for every row.
+    DTMutableIntArray segmentNumberForIndex(howManyPoints+1);
+    segmentNumberForIndex = -1; // Not found yet
+    int thisSegmentIndex = -1;
+
+    DTTableColumnNumber start = acceptedSegments("start");
+    DTTableColumnNumber end = acceptedSegments("end");
+    
+    DTMutableIntArray remap(howManyPoints+1);
+    remap = -1;
+
+    for (i=0;i<posInNewTable;i++) {
+        int startIndex = start(i);
+        int endIndex = end(i);
+        if (segmentNumberForIndex(startIndex)==-1) {
+            // First time I see this number
+            thisSegmentIndex++;
+            segmentNumberForIndex(startIndex) = thisSegmentIndex;
+            remap(thisSegmentIndex) = thisSegmentIndex;
+            if (segmentNumberForIndex(endIndex)==-1) {
+                segmentNumberForIndex(endIndex) = thisSegmentIndex;
+            }
+            else {
+                DTErrorMessage("");
+            }
+        }
+        else {
+            if (segmentNumberForIndex(endIndex)==-1) {
+                segmentNumberForIndex(endIndex) = segmentNumberForIndex(startIndex);
+            }
+            else {
+                // Need to remap the higher number to the smaller number. Figure out what the number ends up being
+                // Know that segmentNumberForIndex(endIndex) and segmentNumberForIndex(startIndex)
+                // really should point to the same number. That number should be stored in remap(lower of the two)
+                if (segmentNumberForIndex(endIndex)<segmentNumberForIndex(startIndex)) {
+                    DTErrorMessage("deal with this");
+                }
+                else if (segmentNumberForIndex(endIndex)>segmentNumberForIndex(startIndex)) {
+                    DTErrorMessage("deal with this");
+                }
+                else { // The same, nothing to do
+                    
+                }
+            }
+        }
+    }
+
+    // Count how many are in each segment
+    DTMutableIntArray howManyForSegment(thisSegmentIndex+1);
+    howManyForSegment = 0;
+    DTMutableDoubleArray sumOfXY(2,thisSegmentIndex+1);
+    sumOfXY = 0.0;
+    DTTableColumnPoint2D centerColumn = acceptedSegments("center");
+    for (i=0;i<howManyPoints;i++) {
+        int segmentN = segmentNumberForIndex(i);
+        if (segmentN>=0) {
+            howManyForSegment(segmentN)++;
+            DTPoint2D c = pointsColumn(i);
+            sumOfXY(0,segmentN) += c.x;
+            sumOfXY(1,segmentN) += c.y;
+        }
+    }
+    
+    for (i=0;i<howManyForSegment.Length();i++) {
+        finalListOfPoints(posInFinalList++) = DTPoint2D(sumOfXY(0,i),sumOfXY(1,i))/howManyForSegment(i);
+    }
+    
+    // Now go through the connected components
+    finalListOfPoints = TruncateSize(finalListOfPoints,posInFinalList);
+    
+    // Create the table centers
+    toReturn.centers = DTTable({
+        CreateTableColumn("center",finalListOfPoints)
+    });
+
+    return toReturn;
 }

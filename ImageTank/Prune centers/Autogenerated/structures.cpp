@@ -2,3 +2,70 @@
 
 #include "structures.h"
 
+//////////////////////////////////////////////////////////////////////////////
+//    MyGroup
+//////////////////////////////////////////////////////////////////////////////
+
+void MyGroup::pinfo(void) const
+{
+    pinfoIndent("");
+}
+
+void MyGroup::pinfoIndent(std::string pad) const
+{
+    std::cerr << pad << "process = "; process.pinfo();
+    std::cerr << pad << "centers = "; centers.pinfo();
+}
+
+void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
+{
+    // Structure for "process"
+    output.Save("process",name+"_1N");
+    output.Save("from",name+"_1T_1N");
+    output.Save("Point2D",name+"_1T_1T");
+    output.Save("to",name+"_1T_2N");
+    output.Save("Point2D",name+"_1T_2T");
+    output.Save("variation",name+"_1T_3N");
+    output.Save("Number",name+"_1T_3T");
+    output.Save("center",name+"_1T_4N");
+    output.Save("Point2D",name+"_1T_4T");
+    output.Save("interval",name+"_1T_5N");
+    output.Save("Number",name+"_1T_5T");
+    output.Save("start",name+"_1T_6N");
+    output.Save("Number",name+"_1T_6T");
+    output.Save("end",name+"_1T_7N");
+    output.Save("Number",name+"_1T_7T");
+    output.Save(7,name+"_1T_N");
+    output.Save("Table",name+"_1T");
+
+    // Structure for "centers"
+    output.Save("centers",name+"_2N");
+    output.Save("center",name+"_2T_1N");
+    output.Save("Point2D",name+"_2T_1T");
+    output.Save(1,name+"_2T_N");
+    output.Save("Table",name+"_2T");
+
+    output.Save(2,name+"_N");
+    output.Save("MyGroup",name+"_Name");
+    output.Save("Group",name);
+}
+
+void Write(DTDataStorage &output,std::string name,const MyGroup &var)
+{
+    Write(output,name+"_process",var.process);
+    Write(output,name+"_centers",var.centers);
+    Write(output,name,DTDoubleArray());
+}
+
+void WriteOne(DTDataStorage &output,std::string name,const MyGroup &var)
+{
+    Write(output,name,var);
+    output.Save("Group","Seq_"+name);
+    MyGroup::WriteStructure(output,"SeqInfo_"+name);
+}
+
+void Read(DTDataStorage &input,std::string name,MyGroup &var)
+{
+    Read(input,name+"_process",var.process);
+    Read(input,name+"_centers",var.centers);
+}

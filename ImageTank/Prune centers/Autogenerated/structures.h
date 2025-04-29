@@ -3,10 +3,28 @@
 #ifndef IT_structure_h
 #define IT_structure_h
 
+#include "DTDataStorage.h"
 #include "DTDoubleArray.h"
 #include "DTImage.h"
 #include "DTIntArray.h"
 #include "DTTable.h"
 
+
+//////////////////////////////////////////////////////////////////////////////
+//    MyGroup
+//////////////////////////////////////////////////////////////////////////////
+
+struct MyGroup {
+    DTTable process;
+    DTTable centers;
+
+    void pinfo(void) const;
+    void pinfoIndent(std::string) const;
+    static void WriteStructure(DTDataStorage &,std::string);
+};
+
+extern void Write(DTDataStorage &,std::string name,const MyGroup &);
+extern void Read(DTDataStorage &,std::string name,MyGroup &);
+extern void WriteOne(DTDataStorage &,std::string name,const MyGroup &);
 
 #endif /* IT_structure_h */ 
