@@ -24,8 +24,9 @@ double Interpolate(const DTDoubleArray &data,DTPoint2D at)
     return val;
 }
 
-double Variation(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
+double VariationPrev(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
 {
+    // 5/13 - disabled this.
     int N = 100;
     DTPoint2D delta = (Q-P)/N;
     DTDoubleArray data = magnitude.DoubleArray();
@@ -93,6 +94,56 @@ double Variation(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
     return std::max(risesAbove,goesBelow);
     
     // return sqrt(sumOfSquares/N);
+}
+
+double Variation(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
+{
+    int N = 100;
+    DTPoint2D delta = (Q-P)/N;
+    DTDoubleArray data = magnitude.DoubleArray();
+    int m = int(data.m());
+    int n = int(data.n());
+    double prev = NAN;
+    double total = 0;
+    double first = NAN, last = NAN;
+    double minV = INFINITY;
+    double maxV = -INFINITY;
+    
+    int i,j;
+    
+    
+    // First and last value
+    double firstValue = Interpolate(data,P);
+    double lastValue = Interpolate(data,Q);
+    double h = 1.0/N;
+    double sumOfSquares = 0;
+    
+    double maxAboveEnds = std::max(firstValue,lastValue);
+    double minBelowEnds = std::min(firstValue,lastValue);
+    
+    static bool display = false;
+    
+    double maxDeviation = 0;
+    double minDeviation = 0;
+
+    for (int ptN=0;ptN<=N;ptN++) {
+        DTPoint2D at = P + delta*ptN;
+        double value = Interpolate(data,at);
+        
+        if (display) {
+            std::cerr << value << std::endl;
+        }
+        
+        // Do a linear interpolation between the values at the start&end and see how much the
+        // the intensity differst from that
+        double prediction = firstValue + ptN*h*(lastValue-firstValue);
+        double difference = value-prediction;
+        
+        if (difference<minDeviation) minDeviation = difference;
+        if (difference>maxDeviation) maxDeviation = difference;
+    }
+    
+    return (maxDeviation-minDeviation);
 }
 
 struct PairingEntry
