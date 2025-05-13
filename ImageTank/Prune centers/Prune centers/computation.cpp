@@ -161,7 +161,7 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
             if (d<distSq) {
                 if (posInTable==lenOfTable) {
                     fromList = IncreaseSize(fromList);
-                    toList = IncreaseSize(fromList);
+                    toList = IncreaseSize(toList);
                     variationList = IncreaseSize(variationList);
                     centerList = IncreaseSize(centerList);
                     intervalList = IncreaseSize(intervalList);
