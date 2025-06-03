@@ -62,7 +62,8 @@ DTTable ComputeL(const DTMesh2DGrid &grid,
                  int rCount)
 {
     DTTable points = Realization(grid,maskArray,randNumber,count);
-
+    if (points.IsEmpty()) return DTTable();
+    
     DTTableColumnPoint2D pointsColumn = points("xy");
     DTPointCollection2D point = pointsColumn.Points();
     DTDoubleArray data = point.Data();
