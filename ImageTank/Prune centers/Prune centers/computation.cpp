@@ -3,26 +3,8 @@
 #include <math.h>
 #include "DTDoubleArrayOperators.h"
 #include "DTUtilities.h"
-
-double Interpolate(const DTDoubleArray &data,DTPoint2D at)
-{
-    int m = int(data.m());
-    int n = int(data.n());
-
-    double i = floor(at.x);
-    double j = floor(at.y);
-    if (i<0) i = 0;
-    if (j<0) j = 0;
-    if (i>=m-2) i = m-2;
-    if (j>=n-2) j = n-2;
-    
-    double dx = at.x-i;
-    double dy = at.y-j;
-
-    double val = data(i,j)*(1-dx)*(1-dy) + data(i+1,j)*dx*(1-dy) + data(i,j+1)*(1-dx)*dy + data(i+1,j+1)*dx*dy;
-
-    return val;
-}
+#include "DTTable.h"
+#include "Adhesion.hpp"
 
 double VariationPrev(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
 {
@@ -30,6 +12,7 @@ double VariationPrev(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
     int N = 100;
     DTPoint2D delta = (Q-P)/N;
     DTDoubleArray data = magnitude.DoubleArray();
+    /*
     int m = int(data.m());
     int n = int(data.n());
     double prev = NAN;
@@ -37,9 +20,8 @@ double VariationPrev(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
     double first = NAN, last = NAN;
     double minV = INFINITY;
     double maxV = -INFINITY;
-    
-    int i,j;
-    
+    */
+
     
     // First and last value
     double firstValue = Interpolate(data,P);
@@ -96,54 +78,10 @@ double VariationPrev(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
     // return sqrt(sumOfSquares/N);
 }
 
-double Variation(const DTImageChannel &magnitude,DTPoint2D P,DTPoint2D Q)
+double Variation(const DTImageChannel &magnitude,const DTMesh2DGrid &grid,DTPoint2D P,DTPoint2D Q)
 {
-    int N = 100;
-    DTPoint2D delta = (Q-P)/N;
-    DTDoubleArray data = magnitude.DoubleArray();
-    int m = int(data.m());
-    int n = int(data.n());
-    double prev = NAN;
-    double total = 0;
-    double first = NAN, last = NAN;
-    double minV = INFINITY;
-    double maxV = -INFINITY;
-    
-    int i,j;
-    
-    
-    // First and last value
-    double firstValue = Interpolate(data,P);
-    double lastValue = Interpolate(data,Q);
-    double h = 1.0/N;
-    double sumOfSquares = 0;
-    
-    double maxAboveEnds = std::max(firstValue,lastValue);
-    double minBelowEnds = std::min(firstValue,lastValue);
-    
-    static bool display = false;
-    
-    double maxDeviation = 0;
-    double minDeviation = 0;
-
-    for (int ptN=0;ptN<=N;ptN++) {
-        DTPoint2D at = P + delta*ptN;
-        double value = Interpolate(data,at);
-        
-        if (display) {
-            std::cerr << value << std::endl;
-        }
-        
-        // Do a linear interpolation between the values at the start&end and see how much the
-        // the intensity differst from that
-        double prediction = firstValue + ptN*h*(lastValue-firstValue);
-        double difference = value-prediction;
-        
-        if (difference<minDeviation) minDeviation = difference;
-        if (difference>maxDeviation) maxDeviation = difference;
-    }
-    
-    return (maxDeviation-minDeviation);
+    DTTable interpolated = InterpolateSegment(magnitude,grid,P,Q,100);
+    return Variation(interpolated);
 }
 
 struct PairingEntry
@@ -237,7 +175,8 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
                 addedThisPoint(i)++;
                 addedThisPoint(j)++;
 
-                variationList(posInTable) = Variation(magnitudeChannel,grid.SpaceToGrid(P),grid.SpaceToGrid(Q));
+                DTTable interpolated = InterpolateSegment(magnitudeChannel,grid,P,Q,100);
+                variationList(posInTable) = Variation(interpolated);
                 
                 addedPoint = true;
                 
@@ -475,7 +414,7 @@ MyGroup ComputationOld(const DTTable &extrema,const DTImage &magnitude,
                 addedThisPoint(i)++;
                 addedThisPoint(j)++;
 
-                variationList(posInTable) = Variation(magnitudeChannel,grid.SpaceToGrid(P),grid.SpaceToGrid(Q));
+                // variationList(posInTable) = Variation(magnitudeChannel,grid.SpaceToGrid(P),grid.SpaceToGrid(Q));
                 
                 addedPoint = true;
                 

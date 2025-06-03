@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>3e2c3cbf771fb699bb9f7e3e9cd9f13418d880d675f6bafe478a3fe449077782</string>
+	<key>Group Information</key>
+	<array>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>magnitude</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>Values</string>
+			<key>Type</key>
+			<string>Path2D Values</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Variation1</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>image</string>
+			<key>Channel Name</key>
+			<string>magnitude</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Single Image Channel</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>from</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0,0</string>
+			<key>Display</key>
+			<string>From</string>
+			<key>Type</key>
+			<string>2D Point</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>to</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>0,0</string>
+			<key>Display</key>
+			<string>To</string>
+			<key>Type</key>
+			<string>2D Point</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>N</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Default</key>
+			<string>100</string>
+			<key>Display</key>
+			<string></string>
+			<key>Interval</key>
+			<string></string>
+			<key>Round</key>
+			<true/>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>Width</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>straight</string>
+					<key>Value</key>
+					<string>0</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>wide</string>
+					<key>Value</key>
+					<string>1</string>
+				</dict>
+			</array>
+			<key>Type</key>
+			<string>Number Menu</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>MyGroup</string>
+	<key>Name of Module</key>
+	<string>Slice between two points</string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Slice between two points</string>
+	<key>Variable Type</key>
+	<string>Group</string>
+</dict>
+</plist>
