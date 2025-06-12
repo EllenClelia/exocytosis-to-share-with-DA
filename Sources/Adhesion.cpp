@@ -145,3 +145,56 @@ double Variation(const DTTable &interpolated)
     return (maxDeviation-minDeviation);
 }
 
+double FindLocalMaxima(const DTImageChannel &magnitude,const DTMesh2DGrid &grid,const DTPoint2D &at,int r)
+{
+    DTDoubleArray data = magnitude.DoubleArray();
+    
+    int mMax = int(magnitude.m()-1);
+    int nMax = int(magnitude.n()-1);
+    int i,j;
+
+    DTPoint2D atC = grid.SpaceToGrid(at);
+    
+    int startI = round(atC.x)-r;
+    int endI = round(atC.x)+r;
+    int startJ = round(atC.y)-r;
+    int endJ = round(atC.y)+r;
+    if (startI<0) startI = 0;
+    if (startJ<0) startJ = 0;
+    if (endI>mMax) endI = mMax;
+    if (endJ>nMax) endJ = nMax;
+    
+    double maxV = data(startI,startJ);
+    for (j=startJ;j<=endJ;j++) {
+        for (i=startI;i<=endI;i++) {
+            double v = data(i,j);
+            if (v>maxV) maxV = v;
+        }
+    }
+
+    return maxV;
+}
+
+double ComputeRatio(const DTImageChannel &magnitude,const DTMesh2DGrid &grid,const DTTable &interpolated,int r)
+{
+    DTTableColumnPoint2D points = interpolated("point");
+    DTTableColumnNumber values = interpolated("value");
+    ssize_t len = interpolated.NumberOfRows();
+
+    DTPointCollection2D pointList = points.Points();
+
+    int maxIndexAt = 0;
+    double maxValue = values(0);
+    for (int i=0;i<len;i++) {
+        double v = values(i);
+        if (v>maxValue) {
+            maxValue = v;
+            maxIndexAt = i;
+        }
+    }
+    
+    double ratio = FindLocalMaxima(magnitude,grid,points(maxIndexAt),2)/values(maxIndexAt);
+
+    return ratio;
+}
+

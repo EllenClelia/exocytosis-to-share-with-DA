@@ -124,6 +124,7 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
     DTMutableDoubleArray toList(2,lenOfTable);
     DTMutableIntArray toIndex(lenOfTable);
     DTMutableDoubleArray variationList(lenOfTable);
+    DTMutableDoubleArray ratioList(lenOfTable);
     int posInTable = 0;
     DTMutableDoubleArray centerList(2,lenOfTable);
     DTMutableDoubleArray intervalList(lenOfTable);
@@ -152,6 +153,7 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
                     fromList = IncreaseSize(fromList);
                     toList = IncreaseSize(toList);
                     variationList = IncreaseSize(variationList);
+                    ratioList = IncreaseSize(ratioList);
                     centerList = IncreaseSize(centerList);
                     intervalList = IncreaseSize(intervalList);
                     startList = IncreaseSize(startList);
@@ -177,6 +179,7 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
 
                 DTTable interpolated = InterpolateSegment(magnitudeChannel,grid,P,Q,100);
                 variationList(posInTable) = Variation(interpolated);
+                ratioList(posInTable) = ComputeRatio(magnitudeChannel,grid,interpolated,2);
                 
                 addedPoint = true;
                 
@@ -191,6 +194,7 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
     fromList = TruncateSize(fromList,2*posInTable);
     toList = TruncateSize(toList,2*posInTable);
     variationList = TruncateSize(variationList,posInTable);
+    ratioList = TruncateSize(ratioList,posInTable);
     centerList = TruncateSize(centerList,2*posInTable);
     intervalList = TruncateSize(intervalList,posInTable);
     startList = TruncateSize(startList,posInTable);
@@ -203,6 +207,7 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
         CreateTableColumn("from",DTPointCollection2D(fromList)),
         CreateTableColumn("to",DTPointCollection2D(toList)),
         CreateTableColumn("variation",variationList),
+        CreateTableColumn("ratio",ratioList),
         CreateTableColumn("center",DTPointCollection2D(centerList)),
         CreateTableColumn("interval",intervalList),
         CreateTableColumn("start",startList),
@@ -215,7 +220,8 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
     DTMutableIntArray rowsToUse(posInTable);
     int posInNewTable = 0;
     for (int rowNumber=0;rowNumber<posInTable;rowNumber++) {
-        if (variationList(rowNumber)<threshold) {
+        // if (variationList(rowNumber)<threshold) {
+        if (ratioList(rowNumber)>threshold) {
             rowsToUse(posInNewTable++) = rowNumber;
         }
         else {
@@ -363,6 +369,7 @@ MyGroup ComputationOld(const DTTable &extrema,const DTImage &magnitude,
     DTMutableDoubleArray toList(2,lenOfTable);
     DTMutableIntArray toIndex(lenOfTable);
     DTMutableDoubleArray variationList(lenOfTable);
+    DTMutableDoubleArray ratioList(lenOfTable);
     int posInTable = 0;
     DTMutableDoubleArray centerList(2,lenOfTable);
     DTMutableDoubleArray intervalList(lenOfTable);
@@ -391,6 +398,7 @@ MyGroup ComputationOld(const DTTable &extrema,const DTImage &magnitude,
                     fromList = IncreaseSize(fromList);
                     toList = IncreaseSize(fromList);
                     variationList = IncreaseSize(variationList);
+                    ratioList = IncreaseSize(ratioList);
                     centerList = IncreaseSize(centerList);
                     intervalList = IncreaseSize(intervalList);
                     startList = IncreaseSize(startList);
@@ -429,6 +437,7 @@ MyGroup ComputationOld(const DTTable &extrema,const DTImage &magnitude,
     fromList = TruncateSize(fromList,2*posInTable);
     toList = TruncateSize(toList,2*posInTable);
     variationList = TruncateSize(variationList,posInTable);
+    ratioList = TruncateSize(ratioList,posInTable);
     centerList = TruncateSize(centerList,2*posInTable);
     intervalList = TruncateSize(intervalList,posInTable);
     startList = TruncateSize(startList,posInTable);
