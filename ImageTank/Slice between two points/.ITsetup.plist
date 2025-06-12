@@ -17,6 +17,22 @@
 					<key>Type</key>
 					<string>Number</string>
 				</dict>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>closeBy</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>arc</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
 			</array>
 			<key>Name</key>
 			<string>Values</string>
@@ -26,6 +42,12 @@
 		<dict>
 			<key>Name</key>
 			<string>Variation1</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ratio</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

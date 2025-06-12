@@ -15,6 +15,7 @@ void MyGroup::pinfoIndent(std::string pad) const
 {
     std::cerr << pad << "Values = "; Values.pinfo();
     std::cerr << pad << "Variation1 = " << Variation1 << std::endl;
+    std::cerr << pad << "ratio = " << ratio << std::endl;
 }
 
 void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
@@ -27,7 +28,11 @@ void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("Variation1",name+"_2N");
     output.Save("Number",name+"_2T");
 
-    output.Save(2,name+"_N");
+    // Structure for "ratio"
+    output.Save("ratio",name+"_3N");
+    output.Save("Number",name+"_3T");
+
+    output.Save(3,name+"_N");
     output.Save("MyGroup",name+"_Name");
     output.Save("Group",name);
 }
@@ -36,6 +41,7 @@ void Write(DTDataStorage &output,std::string name,const MyGroup &var)
 {
     Write(output,name+"_Values",var.Values);
     output.Save(var.Variation1,name+"_Variation1");
+    output.Save(var.ratio,name+"_ratio");
     Write(output,name,DTDoubleArray());
 }
 
@@ -50,4 +56,5 @@ void Read(DTDataStorage &input,std::string name,MyGroup &var)
 {
     Read(input,name+"_Values",var.Values);
     var.Variation1 = input.ReadNumber(name+"_Variation1");
+    var.ratio = input.ReadNumber(name+"_ratio");
 }

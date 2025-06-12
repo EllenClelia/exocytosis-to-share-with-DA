@@ -615,8 +615,8 @@
 				63B904AE2DEB38DB0050065E /* Adhesion.cpp */,
 			);
 			name = Sources;
-			path = "/Users/ellencleliaoshaughnessy/Documents/GitHub/exocytosis-to-share-with-DA/Sources";
-			sourceTree = "<absolute>";
+			path = ../../Sources;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
