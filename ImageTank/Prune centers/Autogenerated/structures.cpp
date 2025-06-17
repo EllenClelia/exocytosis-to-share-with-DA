@@ -27,15 +27,17 @@ void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("Point2D",name+"_1T_2T");
     output.Save("variation",name+"_1T_3N");
     output.Save("Number",name+"_1T_3T");
-    output.Save("center",name+"_1T_4N");
-    output.Save("Point2D",name+"_1T_4T");
-    output.Save("interval",name+"_1T_5N");
-    output.Save("Number",name+"_1T_5T");
-    output.Save("start",name+"_1T_6N");
+    output.Save("ratio",name+"_1T_4N");
+    output.Save("Number",name+"_1T_4T");
+    output.Save("center",name+"_1T_5N");
+    output.Save("Point2D",name+"_1T_5T");
+    output.Save("interval",name+"_1T_6N");
     output.Save("Number",name+"_1T_6T");
-    output.Save("end",name+"_1T_7N");
+    output.Save("start",name+"_1T_7N");
     output.Save("Number",name+"_1T_7T");
-    output.Save(7,name+"_1T_N");
+    output.Save("end",name+"_1T_8N");
+    output.Save("Number",name+"_1T_8T");
+    output.Save(8,name+"_1T_N");
     output.Save("Table",name+"_1T");
 
     // Structure for "centers"

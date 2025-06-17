@@ -78,6 +78,12 @@
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Count</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
 	</array>
 	<key>Variable Type</key>
 	<string>Table</string>

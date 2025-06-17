@@ -31,8 +31,18 @@ DTIntArray TrackChanges(const DTTable &previousTime,const DTTable &currentTime)
     for (int currentRow=0;currentRow<currentCount;currentRow++) {
         DTMask2D mask = currentMask(currentRow);
         for (int previousRow=0;previousRow<previousCount;previousRow++) {
+            DTMask2D previous = previousMask(previousRow);
             DTMask2D intersection = Intersection(previousMask(previousRow),mask);
-            double fraction = intersection.Mask().NumberOfPoints()/(1.0*mask.Mask().NumberOfPoints());
+            // I have three masks here
+            // mask = currentMask(currentRow)
+            // previousMask(previousRow)
+            // intersection - the overlap of the the above two masks.
+            
+            // The logic before 6/16/2025.
+            // double fraction = intersection.Mask().NumberOfPoints()/(1.0*mask.Mask().NumberOfPoints());
+
+            // this fraction is big if new overlaps highly with the previous time value.
+            double fraction = intersection.Mask().NumberOfPoints()/(1.0*previous.Mask().NumberOfPoints());
             crossDistance(previousRow,currentRow) = fraction;
         }
     }
@@ -208,9 +218,13 @@ DTTable Computation(const DTTable &everything,int stepsBack)
         stoppedInPreviousSteps(i) = emptyTable;
     }
     DTMutableList<DTTable> newHistory(stepsBack+1);
+    
+    DTProgress progress;
 
     for (timeNumber=1;timeNumber<uniqueTimes.Length();timeNumber++) {
         DTTable currentTime = everything.ExtractRows(time.FindValue(uniqueTimes(timeNumber)));
+        
+        progress.UpdatePercentage(timeNumber/(1.0*uniqueTimes.Length()));
         
         // Need to set labels at the current time based on the previous times.
         int countInCurrent = int(currentTime.NumberOfRows());
@@ -265,11 +279,23 @@ DTTable Computation(const DTTable &everything,int stepsBack)
     if (newNumber!=nextTrack) {
         DTErrorMessage("Need to re-label");
     }
-        
+    
+    // Add a column that counts how many entries have the same track number
+    DTMutableIntArray countPerID(newNumber);
+    countPerID = 0;
+    for (int i=0;i<totalRowCount;i++) {
+        countPerID(finalTrackNumbers(i))++;
+    }
+    DTMutableDoubleArray countColumn(totalRowCount);
+    for (int i=0;i<totalRowCount;i++) {
+        countColumn(i) = countPerID(finalTrackNumbers(i));
+    }
+
     // Table is a list of columns
     return DTTable({
         everything("time"),
         everything("Mask"),
-        CreateTableColumn("ID",finalTrackNumbers)
+        CreateTableColumn("ID",finalTrackNumbers),
+        CreateTableColumn("Count",countColumn)
     });
 }
