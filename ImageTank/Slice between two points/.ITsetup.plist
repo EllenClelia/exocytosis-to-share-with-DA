@@ -51,6 +51,24 @@
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
+		<dict>
+			<key>Name</key>
+			<string>arcForRatio</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ratioAtMax</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>arcForRatioAtMax</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
 	</array>
 	<key>Input</key>
 	<array>

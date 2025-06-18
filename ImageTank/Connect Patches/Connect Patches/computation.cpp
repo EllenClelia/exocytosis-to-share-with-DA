@@ -42,7 +42,8 @@ DTIntArray TrackChanges(const DTTable &previousTime,const DTTable &currentTime)
             // double fraction = intersection.Mask().NumberOfPoints()/(1.0*mask.Mask().NumberOfPoints());
 
             // this fraction is big if new overlaps highly with the previous time value.
-            double fraction = intersection.Mask().NumberOfPoints()/(1.0*previous.Mask().NumberOfPoints());
+            // double fraction = intersection.Mask().NumberOfPoints()/(1.0*previous.Mask().NumberOfPoints());
+            double fraction = intersection.Mask().NumberOfPoints();
             crossDistance(previousRow,currentRow) = fraction;
         }
     }

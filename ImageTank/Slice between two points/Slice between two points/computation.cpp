@@ -61,48 +61,7 @@ struct PairingEntry
     bool operator<(const PairingEntry &other) const {return lowerIndex<other.lowerIndex;}
 };
 
-DTDoubleArray FindLocalMaxima(const DTImageChannel &magnitude,const DTMesh2DGrid &grid,const DTPointCollection2D &pointList,int r);
 
-
-DTDoubleArray FindLocalMaxima(const DTImageChannel &magnitude,const DTMesh2DGrid &grid,const DTPointCollection2D &pointList,int r)
-{
-    ssize_t N = pointList.NumberOfPoints();
-    
-    DTDoubleArray data = magnitude.DoubleArray();
-    
-    DTMutableDoubleArray toReturn(N);
-    toReturn = NAN;
-    
-    int mMax = int(magnitude.m()-1);
-    int nMax = int(magnitude.n()-1);
-    int i,j;
-
-    for (int ptN=0;ptN<N;ptN++) {
-        DTPoint2D at = pointList(ptN);
-        DTPoint2D atC = grid.SpaceToGrid(at);
-        
-        int startI = round(atC.x)-r;
-        int endI = round(atC.x)+r;
-        int startJ = round(atC.y)-r;
-        int endJ = round(atC.y)+r;
-        if (startI<0) startI = 0;
-        if (startJ<0) startJ = 0;
-        if (endI>mMax) endI = mMax;
-        if (endJ>nMax) endJ = nMax;
-        
-        double maxV = data(startI,startJ);
-        for (j=startJ;j<=endJ;j++) {
-            for (i=startI;i<=endI;i++) {
-                double v = data(i,j);
-                if (v>maxV) maxV = v;
-            }
-        }
-        
-        toReturn(ptN) = maxV;
-    }
-    
-    return toReturn;
-}
 
 /*
 double FindLocalMaxima(const DTImageChannel &magnitude,const DTMesh2DGrid &grid,const DTPoint2D &at,int r)
@@ -194,15 +153,26 @@ MyGroup Computation(const DTImage &image,DTPoint2D from,DTPoint2D to,int N,
     maximaArray(0) = len;
     arcArray(0) = len;
     
+    double minRatioSoFar = INFINITY;
+    int indexOfMinRatio = 0;
     for (int i=0;i<len;i++) {
         DTPoint2D p = points(i);
         pathArray(0,i+1) = p.x;
         pathArray(1,i+1) = p.y;
         valueArray(i+1) = values(i);
         maximaArray(i+1) = localMaximas(i);
+        double currRatio = localMaximas(i)/values(i);
+        if (currRatio<minRatioSoFar) {
+            minRatioSoFar = currRatio;
+            indexOfMinRatio = i;
+        }
         arcArray(i+1) = arcList(i);
     }
+    toReturn.ratio = minRatioSoFar;
+    toReturn.arcForRatio = arcList(indexOfMinRatio);
+    toReturn.ratio = ComputeRatio(magnitudeChannel,image.Grid(),interpolated,2);
     
+    // ratioAtMax and arcForRatioAtMax
     // Find the maximum ratio. Start by computing the location and value of the maximum magnitude,
     int maxIndexAt = 0;
     double maxValue = values(0);
@@ -213,8 +183,12 @@ MyGroup Computation(const DTImage &image,DTPoint2D from,DTPoint2D to,int N,
             maxIndexAt = i;
         }
     }
-    // double ratio = FindLocalMaxima(magnitudeChannel,image.Grid(),points(maxIndexAt),2)/values(maxIndexAt);
+    // double ratioAtMax = FindLocalMaxima(magnitudeChannel,image.Grid(),points(maxIndexAt),2)/values(maxIndexAt);
+    toReturn.ratioAtMax = localMaximas(maxIndexAt)/maxValue;
+    toReturn.arcForRatioAtMax = arcList(maxIndexAt);
+    toReturn.ratioAtMax = ComputeRatioAtMax(magnitudeChannel,image.Grid(),interpolated,2);
 
+    
     DTMutableList<DTPath2DValuesChannel> pathChannels(3);
     pathChannels(0) = DTPath2DValuesChannel("magnitude",valueArray);
     pathChannels(1) = DTPath2DValuesChannel("closeBy",maximaArray);
@@ -222,7 +196,6 @@ MyGroup Computation(const DTImage &image,DTPoint2D from,DTPoint2D to,int N,
     toReturn.Values = DTPath2DValues(DTPath2D(pathArray),pathChannels);
 
     toReturn.Variation1 = Variation(interpolated);
-    toReturn.ratio = ComputeRatio(magnitudeChannel,image.Grid(),interpolated,2);
 
     return toReturn;
                 

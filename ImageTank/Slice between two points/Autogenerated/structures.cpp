@@ -16,6 +16,9 @@ void MyGroup::pinfoIndent(std::string pad) const
     std::cerr << pad << "Values = "; Values.pinfo();
     std::cerr << pad << "Variation1 = " << Variation1 << std::endl;
     std::cerr << pad << "ratio = " << ratio << std::endl;
+    std::cerr << pad << "arcForRatio = " << arcForRatio << std::endl;
+    std::cerr << pad << "ratioAtMax = " << ratioAtMax << std::endl;
+    std::cerr << pad << "arcForRatioAtMax = " << arcForRatioAtMax << std::endl;
 }
 
 void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
@@ -32,7 +35,19 @@ void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("ratio",name+"_3N");
     output.Save("Number",name+"_3T");
 
-    output.Save(3,name+"_N");
+    // Structure for "arcForRatio"
+    output.Save("arcForRatio",name+"_4N");
+    output.Save("Number",name+"_4T");
+
+    // Structure for "ratioAtMax"
+    output.Save("ratioAtMax",name+"_5N");
+    output.Save("Number",name+"_5T");
+
+    // Structure for "arcForRatioAtMax"
+    output.Save("arcForRatioAtMax",name+"_6N");
+    output.Save("Number",name+"_6T");
+
+    output.Save(6,name+"_N");
     output.Save("MyGroup",name+"_Name");
     output.Save("Group",name);
 }
@@ -42,6 +57,9 @@ void Write(DTDataStorage &output,std::string name,const MyGroup &var)
     Write(output,name+"_Values",var.Values);
     output.Save(var.Variation1,name+"_Variation1");
     output.Save(var.ratio,name+"_ratio");
+    output.Save(var.arcForRatio,name+"_arcForRatio");
+    output.Save(var.ratioAtMax,name+"_ratioAtMax");
+    output.Save(var.arcForRatioAtMax,name+"_arcForRatioAtMax");
     Write(output,name,DTDoubleArray());
 }
 
@@ -57,4 +75,7 @@ void Read(DTDataStorage &input,std::string name,MyGroup &var)
     Read(input,name+"_Values",var.Values);
     var.Variation1 = input.ReadNumber(name+"_Variation1");
     var.ratio = input.ReadNumber(name+"_ratio");
+    var.arcForRatio = input.ReadNumber(name+"_arcForRatio");
+    var.ratioAtMax = input.ReadNumber(name+"_ratioAtMax");
+    var.arcForRatioAtMax = input.ReadNumber(name+"_arcForRatioAtMax");
 }

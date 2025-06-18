@@ -19,6 +19,9 @@ struct MyGroup {
     DTPath2DValues Values;
     double Variation1;
     double ratio;
+    double arcForRatio;
+    double ratioAtMax;
+    double arcForRatioAtMax;
 
     void pinfo(void) const;
     void pinfoIndent(std::string) const;
