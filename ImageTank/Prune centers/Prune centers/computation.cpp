@@ -160,6 +160,7 @@ MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
                     endList = IncreaseSize(endList);
                     fromIndex = IncreaseSize(fromIndex);
                     toIndex = IncreaseSize(toIndex);
+                    lenOfTable = fromIndex.Length();
                 }
                 fromList(0,posInTable) = Q.x;
                 fromList(1,posInTable) = Q.y;
