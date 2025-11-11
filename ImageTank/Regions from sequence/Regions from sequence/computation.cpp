@@ -221,6 +221,13 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 }
                 p = peak.center;
                 
+                // ToDo for David: ?
+                // I know the positive peak, height, quality, width, background?
+                // Look for the minimum value in the image
+                //    - fit with a negative peak. Maybe force the width to be the same?
+                //    - return the center, depth, quality of that peak
+                //      as additional columns
+                
                 pointNumber(posInOutput) = row;
                 timeList(posInOutput) = index-where;
                 failureMode(posInOutput) = peak.failureMode;
