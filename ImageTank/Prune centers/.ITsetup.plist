@@ -114,12 +114,6 @@
 					<key>Type</key>
 					<string>Point2D</string>
 				</dict>
-				<dict>
-					<key>Name</key>
-					<string>main</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
 			</array>
 			<key>Type</key>
 			<string>Table</string>

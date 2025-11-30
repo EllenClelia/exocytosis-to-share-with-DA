@@ -46,3 +46,8 @@ ImageTank/Time sequence of regions/Time sequence of regions.xcodeproj/project.xc
 ImageTank/Patches at Points/Patches at Points.xcodeproj/xcuserdata/ellencleliaoshaughnessy.xcuserdatad/xcschemes/xcschememanagement.plist
 ImageTank/.DS_Store
 .DS_Store
+*.pbxproj
+/ImageTank/Diffusion and growth in 1D/Diffusion and growth in 1D.xcodeproj/project.xcworkspace
+/ImageTank/Diffusion and growth in 1D/Diffusion and growth in 1D.xcodeproj/xcuserdata
+/ImageTank/Manders/Manders.xcodeproj/project.xcworkspace
+/ImageTank/Manders/Manders.xcodeproj/xcuserdata

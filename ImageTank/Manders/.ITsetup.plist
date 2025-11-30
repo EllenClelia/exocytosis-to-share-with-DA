@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>b8528969dbdd1433d682a1be55f8a75f95ddfd932ed4904fd7422ffec6292ea7</string>
+	<key>Group Information</key>
+	<array>
+		<dict>
+			<key>Name</key>
+			<string>coeff</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>image</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Allow Empty</key>
+			<string>YES</string>
+			<key>Allow Empty Variable</key>
+			<string>YES</string>
+			<key>Argument</key>
+			<string>mask</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Mask2D</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>Correlation</string>
+	<key>Name of Module</key>
+	<string>Command Line Utility</string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Manders</string>
+	<key>Variable Type</key>
+	<string>Group</string>
+</dict>
+</plist>
