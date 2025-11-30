@@ -127,6 +127,12 @@
 			<key>Type</key>
 			<string>Number</string>
 		</dict>
+		<dict>
+			<key>Name</key>
+			<string>distance</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
 	</array>
 	<key>Input</key>
 	<array>

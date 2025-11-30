@@ -26,6 +26,7 @@ struct MyGroup {
     DTPoint2D second_center;
     double second_base;
     double second_height;
+    double distance;
 
     void pinfo(void) const;
     void pinfoIndent(std::string) const;

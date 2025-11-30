@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6301D0A62ED61EA90018C580 /* Adhesion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6301D0A22ED61EA90018C580 /* Adhesion.cpp */; };
-		6301D0A72ED61EA90018C580 /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6301D0A42ED61EA90018C580 /* Utilities.cpp */; };
 		63371B0529E3B10500BC795D /* DTMatrix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63371B0329E3B10500BC795D /* DTMatrix.cpp */; };
 		6351F99F24E212F500ADB7E5 /* computation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351F99E24E212F500ADB7E5 /* computation.cpp */; };
 		6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FA0B24E213AD00ADB7E5 /* DTRandom.cpp */; };
@@ -93,6 +91,8 @@
 		63911740279CCBA000FFBAE7 /* DTRectangularImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6391173F279CCBA000FFBAE7 /* DTRectangularImage.cpp */; };
 		63C52A4429D52BE1002F38A7 /* DTTriangularImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63C52A4229D52BE1002F38A7 /* DTTriangularImage.cpp */; };
 		63C52A4729D52BED002F38A7 /* DTMask2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63C52A4529D52BED002F38A7 /* DTMask2D.cpp */; };
+		63C8AB862EDCCB8100AA7E9B /* Adhesion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63C8AB822EDCCB8100AA7E9B /* Adhesion.cpp */; };
+		63C8AB872EDCCB8100AA7E9B /* Utilities.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63C8AB842EDCCB8100AA7E9B /* Utilities.cpp */; };
 		63D14754263A468C002B5B95 /* DTSurfaceValues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63D14753263A468C002B5B95 /* DTSurfaceValues.cpp */; };
 		63FF9966274FF272000B62D4 /* DTSet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63FF9964274FF272000B62D4 /* DTSet.cpp */; };
 /* End PBXBuildFile section */
@@ -110,10 +110,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6301D0A12ED61EA90018C580 /* Adhesion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Adhesion.hpp; sourceTree = "<group>"; };
-		6301D0A22ED61EA90018C580 /* Adhesion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Adhesion.cpp; sourceTree = "<group>"; };
-		6301D0A32ED61EA90018C580 /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
-		6301D0A42ED61EA90018C580 /* Utilities.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		63371B0329E3B10500BC795D /* DTMatrix.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMatrix.cpp; sourceTree = "<group>"; };
 		63371B0429E3B10500BC795D /* DTMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMatrix.h; sourceTree = "<group>"; };
 		6351F99B24E212F500ADB7E5 /* Detect Dipole */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "Detect Dipole"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +288,10 @@
 		63C52A4329D52BE1002F38A7 /* DTTriangularImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTTriangularImage.h; sourceTree = "<group>"; };
 		63C52A4529D52BED002F38A7 /* DTMask2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTMask2D.cpp; sourceTree = "<group>"; };
 		63C52A4629D52BED002F38A7 /* DTMask2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTMask2D.h; sourceTree = "<group>"; };
+		63C8AB812EDCCB8100AA7E9B /* Adhesion.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Adhesion.hpp; sourceTree = "<group>"; };
+		63C8AB822EDCCB8100AA7E9B /* Adhesion.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Adhesion.cpp; sourceTree = "<group>"; };
+		63C8AB832EDCCB8100AA7E9B /* Utilities.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		63C8AB842EDCCB8100AA7E9B /* Utilities.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Utilities.cpp; sourceTree = "<group>"; };
 		63D14752263A468C002B5B95 /* DTSurfaceValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTSurfaceValues.h; sourceTree = "<group>"; };
 		63D14753263A468C002B5B95 /* DTSurfaceValues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSurfaceValues.cpp; sourceTree = "<group>"; };
 		63FF9964274FF272000B62D4 /* DTSet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DTSet.cpp; sourceTree = "<group>"; };
@@ -309,24 +309,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6301D0A52ED61EA90018C580 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				6301D0A12ED61EA90018C580 /* Adhesion.hpp */,
-				6301D0A22ED61EA90018C580 /* Adhesion.cpp */,
-				6301D0A32ED61EA90018C580 /* Utilities.h */,
-				6301D0A42ED61EA90018C580 /* Utilities.cpp */,
-			);
-			path = Sources;
-			sourceTree = "<group>";
-		};
 		6351F99224E212F500ADB7E5 = {
 			isa = PBXGroup;
 			children = (
 				6351F9A524E213AD00ADB7E5 /* DTSource */,
 				6351FB7E24E213CC00ADB7E5 /* Autogenerated */,
 				6351F99D24E212F500ADB7E5 /* Detect Dipole */,
-				6301D0A52ED61EA90018C580 /* Sources */,
+				63C8AB852EDCCB8100AA7E9B /* Sources */,
 				6351F99C24E212F500ADB7E5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -622,6 +611,18 @@
 			path = Autogenerated;
 			sourceTree = "<group>";
 		};
+		63C8AB852EDCCB8100AA7E9B /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				63C8AB812EDCCB8100AA7E9B /* Adhesion.hpp */,
+				63C8AB822EDCCB8100AA7E9B /* Adhesion.cpp */,
+				63C8AB832EDCCB8100AA7E9B /* Utilities.h */,
+				63C8AB842EDCCB8100AA7E9B /* Utilities.cpp */,
+			);
+			name = Sources;
+			path = "/Users/david/Documents/GitHub/exocytosis-to-share-with-DA/Sources";
+			sourceTree = "<absolute>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -687,8 +688,8 @@
 				6351FB3D24E213AE00ADB7E5 /* DTStructuredMesh3D.cpp in Sources */,
 				6351FB5024E213AE00ADB7E5 /* DTFunction2D.cpp in Sources */,
 				6351FB6724E213AE00ADB7E5 /* DTIndex.cpp in Sources */,
-				6301D0A62ED61EA90018C580 /* Adhesion.cpp in Sources */,
-				6301D0A72ED61EA90018C580 /* Utilities.cpp in Sources */,
+				63C8AB862EDCCB8100AA7E9B /* Adhesion.cpp in Sources */,
+				63C8AB872EDCCB8100AA7E9B /* Utilities.cpp in Sources */,
 				6351FB1D24E213AE00ADB7E5 /* DTError.cpp in Sources */,
 				6351FB1724E213AE00ADB7E5 /* DTRandom.cpp in Sources */,
 				6351FB7524E213AE00ADB7E5 /* DTMatlabDataFile.cpp in Sources */,

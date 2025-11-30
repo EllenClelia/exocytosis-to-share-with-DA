@@ -189,8 +189,6 @@ DTFloatArray GaussianFilter(const DTFloatArray &arr,double sigma)
         }
     }
     
-    cerr << returnArray(300,300) << std::endl;
-    
     return returnArray;
 }
 

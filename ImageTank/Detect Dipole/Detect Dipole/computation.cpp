@@ -93,6 +93,8 @@ MyGroup Computation(const DTImage &image)
     toReturn.second_base = fitInDifference.base;
     toReturn.second_height = fitInDifference.height;
     toReturn.second_center = fitInDifference.center;
+    
+    toReturn.distance = Distance(toReturn.first_center,toReturn.second_center);
 
     return toReturn;
 }

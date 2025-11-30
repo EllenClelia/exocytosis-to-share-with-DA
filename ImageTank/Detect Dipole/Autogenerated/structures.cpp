@@ -24,6 +24,7 @@ void MyGroup::pinfoIndent(std::string pad) const
     std::cerr << pad << "second_center = "; second_center.pinfo();
     std::cerr << pad << "second_base = " << second_base << std::endl;
     std::cerr << pad << "second_height = " << second_height << std::endl;
+    std::cerr << pad << "distance = " << distance << std::endl;
 }
 
 void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
@@ -82,7 +83,11 @@ void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("second height",name+"_11N");
     output.Save("Number",name+"_11T");
 
-    output.Save(11,name+"_N");
+    // Structure for "distance"
+    output.Save("distance",name+"_12N");
+    output.Save("Number",name+"_12T");
+
+    output.Save(12,name+"_N");
     output.Save("MyGroup",name+"_Name");
     output.Save("Group",name);
 }
@@ -100,6 +105,7 @@ void Write(DTDataStorage &output,std::string name,const MyGroup &var)
     Write(output,name+"_second center",var.second_center);
     output.Save(var.second_base,name+"_second base");
     output.Save(var.second_height,name+"_second height");
+    output.Save(var.distance,name+"_distance");
     Write(output,name,DTDoubleArray());
 }
 
@@ -123,4 +129,5 @@ void Read(DTDataStorage &input,std::string name,MyGroup &var)
     Read(input,name+"_second center",var.second_center);
     var.second_base = input.ReadNumber(name+"_second base");
     var.second_height = input.ReadNumber(name+"_second height");
+    var.distance = input.ReadNumber(name+"_distance");
 }
