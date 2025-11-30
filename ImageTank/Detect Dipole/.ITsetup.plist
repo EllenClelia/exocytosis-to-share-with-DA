@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Calling Arguments</key>
+	<string>e37833f4859739d1bee4761f3d95a98cc896893fee792e9674b068ee03f38a01</string>
+	<key>Group Information</key>
+	<array>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>height</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>input</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>height</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>first peak</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>height</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>first residual</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>height</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>second peak</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Channel</key>
+					<string>YES</string>
+					<key>Name</key>
+					<string>height</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+			</array>
+			<key>Name</key>
+			<string>second residual</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first center</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first base</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second center</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second base</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>image</string>
+			<key>Channel Name</key>
+			<string>height</string>
+			<key>Comment</key>
+			<string></string>
+			<key>Display</key>
+			<string></string>
+			<key>Type</key>
+			<string>Single Image Channel</string>
+		</dict>
+	</array>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Group</key>
+	<string>MyGroup</string>
+	<key>Name of Module</key>
+	<string></string>
+	<key>Name of Output</key>
+	<string>output</string>
+	<key>Name of Project</key>
+	<string>Detect Dipole</string>
+	<key>Variable Type</key>
+	<string>Group</string>
+</dict>
+</plist>

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>c049163faa2341420809e4ab1b6bfa1269e4b0bc1218f9c71c10e3e8bc7b6763</string>
+	<string>c1c87df0aef08c95c10e3ba487b0e8bc10cc6504904ca57fc0a0bb4fb3f26eb2</string>
 	<key>Channel Information</key>
 	<array>
 		<string>intensity</string>
@@ -28,7 +28,7 @@
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
-			<string>1</string>
+			<string>0</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
@@ -44,7 +44,7 @@
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
-			<string>100</string>
+			<string>0</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
@@ -60,7 +60,7 @@
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
-			<string>100</string>
+			<string>0</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
@@ -76,7 +76,7 @@
 			<key>Comment</key>
 			<string></string>
 			<key>Default</key>
-			<string>1</string>
+			<string>0</string>
 			<key>Display</key>
 			<string></string>
 			<key>Interval</key>
@@ -89,16 +89,21 @@
 		<dict>
 			<key>Argument</key>
 			<string>points</string>
-			<key>Column Name</key>
-			<string>point</string>
-			<key>Column Type</key>
-			<integer>5</integer>
 			<key>Comment</key>
 			<string></string>
 			<key>Display</key>
 			<string></string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>point</string>
+					<key>Type</key>
+					<string>Point2D</string>
+				</dict>
+			</array>
 			<key>Type</key>
-			<string>Single Column</string>
+			<string>Table</string>
 		</dict>
 	</array>
 	<key>Name of Function</key>
@@ -106,7 +111,7 @@
 	<key>Name of Group</key>
 	<string>Group</string>
 	<key>Name of Module</key>
-	<string>Combine Peaks</string>
+	<string></string>
 	<key>Name of Output</key>
 	<string>output</string>
 	<key>Name of Project</key>
