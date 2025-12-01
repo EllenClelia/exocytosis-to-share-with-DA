@@ -189,6 +189,8 @@ DTFloatArray GaussianFilter(const DTFloatArray &arr,double sigma)
         }
     }
     
+    cerr << returnArray(300,300) << std::endl;
+    
     return returnArray;
 }
 
@@ -871,6 +873,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
 }
 
 bool EvaluateGaussianPeak(const DTDictionary &constants,DTMutableDoubleArray &returnArray);
+bool EvaluateGaussianPeakNew(const DTDictionary &constants,DTMutableDoubleArray &returnArray);
 
 LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
 {
@@ -903,7 +906,8 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
     DTMutableDictionary guesses;
     guesses("x0") = maxI;
     guesses("y0") = maxJ;
-    guesses("scale") = maxV-minV;
+    //guesses("scale") = maxV-minV;
+    guesses("scaleSqrt") = sqrt(maxV-minV);
     guesses("base") = minV;
     guesses("radius") = 5;
 
@@ -911,19 +915,26 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
 
     // Function form is
     // base + scale*exp(-((x-x0)^2+(y-y0)^2)/(2radius^2));
-    DTDictionary returned = FunctionFit(EvaluateGaussianPeak,values,knownConstants,guesses);
+    DTDictionary returned = FunctionFit(EvaluateGaussianPeakNew,values,knownConstants,guesses);
 
     LocalPeak toReturn;
     
     toReturn.center = image.Grid().GridToSpace(DTPoint2D(returned("x0"),returned("y0")));
     toReturn.base = returned("base");
-    toReturn.height = toReturn.base + double(returned("scale"));
+    double scaleSqrt = returned("scaleSqrt");
+    toReturn.height = toReturn.base + scaleSqrt*scaleSqrt;
     toReturn.width = 2*sqrt(2*log(2))*fabs(returned("radius")); // FWHM - full width at half maximumum
     toReturn.failureMode = 0;
     
     DTMutableDoubleArray fitValues(values.m(),values.n());
-    EvaluateGaussianPeak(returned,fitValues);
+    EvaluateGaussianPeakNew(returned,fitValues);
     toReturn.R2 = ComputeR2(values,fitValues);
+    toReturn.RMSE = ComputeRMSE(values,fitValues);
+
+    //DTDataFile tempF("/tmp/test.dtbin",DTFile::NewReadWrite);
+    //WriteOne(tempF,"Image",image);
+    //WriteOne(tempF,"Fit",DTImage(image.Grid(),fitValues,"fit"));
+    //tempF.Flush();
     
     double R2threshold = parameters("R2 for Peak");
     if (returned("LM::Status")==1) {
@@ -953,6 +964,40 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
     }
     
     return toReturn;
+}
+
+bool EvaluateGaussianPeakNew(const DTDictionary &constants,DTMutableDoubleArray &returnArray)
+{
+    // Function form is
+    
+    // Base + scale*exp(-((x-xC)^2+(y-yC)^2)/2radius^2);
+    // where scale = scaleSqrt^2 to require it to be positive
+    int m = (int)returnArray.m();
+    int n = (int)returnArray.n();
+    
+    double base = constants("base");
+    double scaleSqrt = constants("scaleSqrt");
+    double x0 = constants("x0");
+    double y0 = constants("y0");
+    double radius = constants("radius");
+    
+    int i,j,ij;
+    double x,y,arg;
+    double C = 1.0/(2*radius*radius);
+    ij = 0;
+    double *returnArrayD = returnArray.Pointer();
+    double scale = scaleSqrt*scaleSqrt;
+    for (j=0;j<n;j++) {
+        y = (j-y0);
+        for (i=0;i<m;i++) {
+            x = (i-x0);
+            arg = -(x*x+y*y)*C;
+            returnArrayD[ij] = base + scale*exp(arg);
+            ij++;
+        }
+    }
+    
+    return true;
 }
 
 bool EvaluateGaussianPeak(const DTDictionary &constants,DTMutableDoubleArray &returnArray)

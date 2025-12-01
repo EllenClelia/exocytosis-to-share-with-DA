@@ -25,6 +25,12 @@ void MyGroup::pinfoIndent(std::string pad) const
     std::cerr << pad << "second_base = " << second_base << std::endl;
     std::cerr << pad << "second_height = " << second_height << std::endl;
     std::cerr << pad << "distance = " << distance << std::endl;
+    std::cerr << pad << "R2first = " << R2first << std::endl;
+    std::cerr << pad << "RMSEfirst = " << RMSEfirst << std::endl;
+    std::cerr << pad << "R2second = " << R2second << std::endl;
+    std::cerr << pad << "RMSEsecond = " << RMSEsecond << std::endl;
+    std::cerr << pad << "flagFirst = " << flagFirst << std::endl;
+    std::cerr << pad << "flagSecond = " << flagSecond << std::endl;
 }
 
 void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
@@ -87,7 +93,31 @@ void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("distance",name+"_12N");
     output.Save("Number",name+"_12T");
 
-    output.Save(12,name+"_N");
+    // Structure for "R2first"
+    output.Save("R2first",name+"_13N");
+    output.Save("Number",name+"_13T");
+
+    // Structure for "RMSEfirst"
+    output.Save("RMSEfirst",name+"_14N");
+    output.Save("Number",name+"_14T");
+
+    // Structure for "R2second"
+    output.Save("R2second",name+"_15N");
+    output.Save("Number",name+"_15T");
+
+    // Structure for "RMSEsecond"
+    output.Save("RMSEsecond",name+"_16N");
+    output.Save("Number",name+"_16T");
+
+    // Structure for "flagFirst"
+    output.Save("flagFirst",name+"_17N");
+    output.Save("Number",name+"_17T");
+
+    // Structure for "flagSecond"
+    output.Save("flagSecond",name+"_18N");
+    output.Save("Number",name+"_18T");
+
+    output.Save(18,name+"_N");
     output.Save("MyGroup",name+"_Name");
     output.Save("Group",name);
 }
@@ -106,6 +136,12 @@ void Write(DTDataStorage &output,std::string name,const MyGroup &var)
     output.Save(var.second_base,name+"_second base");
     output.Save(var.second_height,name+"_second height");
     output.Save(var.distance,name+"_distance");
+    output.Save(var.R2first,name+"_R2first");
+    output.Save(var.RMSEfirst,name+"_RMSEfirst");
+    output.Save(var.R2second,name+"_R2second");
+    output.Save(var.RMSEsecond,name+"_RMSEsecond");
+    output.Save(var.flagFirst,name+"_flagFirst");
+    output.Save(var.flagSecond,name+"_flagSecond");
     Write(output,name,DTDoubleArray());
 }
 
@@ -130,4 +166,10 @@ void Read(DTDataStorage &input,std::string name,MyGroup &var)
     var.second_base = input.ReadNumber(name+"_second base");
     var.second_height = input.ReadNumber(name+"_second height");
     var.distance = input.ReadNumber(name+"_distance");
+    var.R2first = input.ReadNumber(name+"_R2first");
+    var.RMSEfirst = input.ReadNumber(name+"_RMSEfirst");
+    var.R2second = input.ReadNumber(name+"_R2second");
+    var.RMSEsecond = input.ReadNumber(name+"_RMSEsecond");
+    var.flagFirst = input.ReadNumber(name+"_flagFirst");
+    var.flagSecond = input.ReadNumber(name+"_flagSecond");
 }

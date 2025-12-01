@@ -61,6 +61,7 @@ struct LocalPeak
     double width;
     int failureMode;
     double R2; // The R2 value for the fit, globally speaking
+    double RMSE;
     // 0 means everything is ok,
     // 1 means optimization failed
     // 2 means went out of bounds

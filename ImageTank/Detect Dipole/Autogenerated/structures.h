@@ -27,6 +27,12 @@ struct MyGroup {
     double second_base;
     double second_height;
     double distance;
+    double R2first;
+    double RMSEfirst;
+    double R2second;
+    double RMSEsecond;
+    double flagFirst;
+    double flagSecond;
 
     void pinfo(void) const;
     void pinfoIndent(std::string) const;

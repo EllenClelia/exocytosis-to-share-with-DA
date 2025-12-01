@@ -87,22 +87,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "28A6C3A3-7C12-4831-B0E0-C7182927C1BD"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Regions from sequence/computation.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "179"
-            endingLineNumber = "179"
-            landmarkName = "Computation(everything, spots, time, timeback, timeforward, parameters, output)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "F8F5A5CC-5CC7-4245-BEBA-BA12BC62D509"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -110,8 +94,8 @@
             filePath = "../../Sources/Utilities.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "735"
-            endingLineNumber = "735"
+            startingLineNumber = "737"
+            endingLineNumber = "737"
             landmarkName = "Quantify(images, parameters)"
             landmarkType = "9">
          </BreakpointContent>
@@ -126,8 +110,8 @@
             filePath = "../../Sources/Utilities.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "731"
-            endingLineNumber = "731"
+            startingLineNumber = "733"
+            endingLineNumber = "733"
             landmarkName = "Quantify(images, parameters)"
             landmarkType = "9">
          </BreakpointContent>
@@ -142,8 +126,8 @@
             filePath = "../../Sources/Utilities.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
+            startingLineNumber = "729"
+            endingLineNumber = "729"
             landmarkName = "Quantify(images, parameters)"
             landmarkType = "9">
          </BreakpointContent>
