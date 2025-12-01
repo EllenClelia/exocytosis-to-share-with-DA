@@ -31,6 +31,7 @@ void MyGroup::pinfoIndent(std::string pad) const
     std::cerr << pad << "RMSEsecond = " << RMSEsecond << std::endl;
     std::cerr << pad << "flagFirst = " << flagFirst << std::endl;
     std::cerr << pad << "flagSecond = " << flagSecond << std::endl;
+    std::cerr << pad << "ratio = " << ratio << std::endl;
 }
 
 void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
@@ -117,7 +118,11 @@ void MyGroup::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("flagSecond",name+"_18N");
     output.Save("Number",name+"_18T");
 
-    output.Save(18,name+"_N");
+    // Structure for "ratio"
+    output.Save("ratio",name+"_19N");
+    output.Save("Number",name+"_19T");
+
+    output.Save(19,name+"_N");
     output.Save("MyGroup",name+"_Name");
     output.Save("Group",name);
 }
@@ -142,6 +147,7 @@ void Write(DTDataStorage &output,std::string name,const MyGroup &var)
     output.Save(var.RMSEsecond,name+"_RMSEsecond");
     output.Save(var.flagFirst,name+"_flagFirst");
     output.Save(var.flagSecond,name+"_flagSecond");
+    output.Save(var.ratio,name+"_ratio");
     Write(output,name,DTDoubleArray());
 }
 
@@ -172,4 +178,5 @@ void Read(DTDataStorage &input,std::string name,MyGroup &var)
     var.RMSEsecond = input.ReadNumber(name+"_RMSEsecond");
     var.flagFirst = input.ReadNumber(name+"_flagFirst");
     var.flagSecond = input.ReadNumber(name+"_flagSecond");
+    var.ratio = input.ReadNumber(name+"_ratio");
 }

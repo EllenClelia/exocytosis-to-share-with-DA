@@ -33,6 +33,7 @@ struct MyGroup {
     double RMSEsecond;
     double flagFirst;
     double flagSecond;
+    double ratio;
 
     void pinfo(void) const;
     void pinfoIndent(std::string) const;

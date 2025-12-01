@@ -101,6 +101,8 @@ MyGroup Computation(const DTImage &image)
     toReturn.R2second = fitInDifference.R2;
     toReturn.RMSEsecond = fitInDifference.RMSE;
     
+    toReturn.ratio = toReturn.second_height/toReturn.first_height;
+    
     toReturn.distance = Distance(toReturn.first_center,toReturn.second_center);
 
     return toReturn;
