@@ -25,7 +25,7 @@ int main(int argc,const char *argv[])
 
     //DTTimer timer;
     //timer.Start();
-    MyGroup output = Computation(image);
+    DipoleInfo output = Computation(image);
     //timer.Stop(); // Use timer.Time() to get the elapsed time
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging

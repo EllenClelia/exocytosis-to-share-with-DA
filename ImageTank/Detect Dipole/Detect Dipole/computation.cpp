@@ -59,9 +59,9 @@ DTMutableDoubleArray EvaluateFit(const DTMesh2DGrid &grid,const LocalPeak &fit)
     return returnArray;
 }
 
-MyGroup Computation(const DTImage &image)
+DipoleInfo Computation(const DTImage &image)
 {
-    MyGroup toReturn;
+    DipoleInfo toReturn;
     toReturn.input = image;
     
     DTMutableDictionary parameters;

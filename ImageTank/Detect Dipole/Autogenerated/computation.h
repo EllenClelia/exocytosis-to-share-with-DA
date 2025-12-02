@@ -3,10 +3,11 @@
 #ifndef IT_computation_h
 #define IT_computation_h
 
-#include "structures.h"
+// #include "structures.h"
+#include "Dipole.h"
 
 #include "DTProgress.h"
 
-MyGroup Computation(const DTImage &image);
+DipoleInfo Computation(const DTImage &image);
 
 #endif /* IT_computation_h */ 
