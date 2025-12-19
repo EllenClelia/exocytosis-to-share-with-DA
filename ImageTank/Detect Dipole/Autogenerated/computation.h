@@ -3,8 +3,7 @@
 #ifndef IT_computation_h
 #define IT_computation_h
 
-// #include "structures.h"
-#include "Dipole.h"
+#include "structures.h"
 
 #include "DTProgress.h"
 

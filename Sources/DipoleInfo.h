@@ -6,7 +6,7 @@
 #include "DTImage.h"
 #include "DTIntArray.h"
 #include "DTPoint2D.h"
-
+#include "DTDictionary.h"
 
 //////////////////////////////////////////////////////////////////////////////
 //    DipoleInfo
@@ -41,5 +41,8 @@ struct DipoleInfo {
 extern void Write(DTDataStorage &,std::string name,const DipoleInfo &);
 extern void Read(DTDataStorage &,std::string name,DipoleInfo &);
 extern void WriteOne(DTDataStorage &,std::string name,const DipoleInfo &);
+
+
+extern DipoleInfo ComputeDipole(const DTImage &image);
 
 #endif /* Dipole_hpp */

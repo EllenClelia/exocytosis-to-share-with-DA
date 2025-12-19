@@ -520,7 +520,7 @@ QuantifyEvent Quantify(const DTSet<DTImage> &images,const DTDictionary &paramete
     
     DTTable images_par = images.Parameters(); // In the debugger, use images_par.pinfo() and images_par.pall() to see the content.
 
-    bool useAverage = parameters.GetNumber("useAverage",true);
+    bool useAverage = parameters.GetBool("useAverage",true);
     int channel = parameters("channel");
     
     DTTableColumnNumber time = images_par("time");

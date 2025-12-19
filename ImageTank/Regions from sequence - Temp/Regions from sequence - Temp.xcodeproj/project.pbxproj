@@ -89,6 +89,7 @@
 		6351FB7A24E213AE00ADB7E5 /* DTEndianSwap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FAE124E213AD00ADB7E5 /* DTEndianSwap.cpp */; };
 		6351FB8324E213CC00ADB7E5 /* structures.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FB7F24E213CC00ADB7E5 /* structures.cpp */; };
 		6351FB8424E213CC00ADB7E5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6351FB8124E213CC00ADB7E5 /* main.cpp */; };
+		636D21DC2EF43FF400CFB279 /* DipoleInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 636D21DB2EF43FF400CFB279 /* DipoleInfo.cpp */; };
 		637C3B902E2F0CAA0005DE44 /* DTTensor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 637C3B8F2E2F0CAA0005DE44 /* DTTensor.cpp */; };
 		63911740279CCBA000FFBAE7 /* DTRectangularImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6391173F279CCBA000FFBAE7 /* DTRectangularImage.cpp */; };
 		63C52A4429D52BE1002F38A7 /* DTTriangularImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63C52A4229D52BE1002F38A7 /* DTTriangularImage.cpp */; };
@@ -284,6 +285,8 @@
 		6351FB8024E213CC00ADB7E5 /* computation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = computation.h; sourceTree = "<group>"; };
 		6351FB8124E213CC00ADB7E5 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6351FB8224E213CC00ADB7E5 /* structures.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = structures.h; sourceTree = "<group>"; };
+		636D21DA2EF43FF400CFB279 /* DipoleInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DipoleInfo.h; sourceTree = "<group>"; };
+		636D21DB2EF43FF400CFB279 /* DipoleInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DipoleInfo.cpp; sourceTree = "<group>"; };
 		637C3B8E2E2F0CAA0005DE44 /* DTTensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DTTensor.h; sourceTree = "<group>"; };
 		637C3B8F2E2F0CAA0005DE44 /* DTTensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DTTensor.cpp; sourceTree = "<group>"; };
 		6391173E279CCB9F00FFBAE7 /* DTRectangularImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DTRectangularImage.h; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 				2C9EA66A2EDF4FB900E61629 /* Adhesion.cpp */,
 				2C9EA66B2EDF4FB900E61629 /* Utilities.h */,
 				2C9EA66C2EDF4FB900E61629 /* Utilities.cpp */,
+				636D21DA2EF43FF400CFB279 /* DipoleInfo.h */,
+				636D21DB2EF43FF400CFB279 /* DipoleInfo.cpp */,
 			);
 			name = Sources;
 			path = ../../Sources;
@@ -740,6 +745,7 @@
 				6351FB6824E213AE00ADB7E5 /* DTShortIntArrayRegion.cpp in Sources */,
 				6351FB6624E213AE00ADB7E5 /* DTUCharArrayRegion.cpp in Sources */,
 				63C52A4429D52BE1002F38A7 /* DTTriangularImage.cpp in Sources */,
+				636D21DC2EF43FF400CFB279 /* DipoleInfo.cpp in Sources */,
 				6351FB4224E213AE00ADB7E5 /* DTCoordinateLine2D.cpp in Sources */,
 				6351FB5F24E213AE00ADB7E5 /* DTFunction1D.cpp in Sources */,
 				6351FB4F24E213AE00ADB7E5 /* DTRegion2D.cpp in Sources */,

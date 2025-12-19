@@ -6,6 +6,8 @@
 
 #include "Utilities.h"
 
+#include "DipoleInfo.h"
+
 void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                  double time,int timeback,int timeforward,
                  const DTDictionary &parameters,DTMutableSet<DTImage> &output)
@@ -254,10 +256,17 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 // Deal with the double peak calculation
                 // *****************************
                 
+                DipoleInfo dipole;
+                if (analyzeSmooth) {
+                    dipole = ComputeDipole(combinedSmooth.OnlyChannel(channel));
+                }
+                else {
+                    dipole = ComputeDipole(combinedRaw.OnlyChannel(channel));
+                }
 
                 // Negative peak information
-                NegR2List(posInOutput) = NAN;
-                NegRatioList(posInOutput) = NAN;
+                NegR2List(posInOutput) = dipole.R2second;
+                NegRatioList(posInOutput) = dipole.ratio;
 
                 // *****************************
 

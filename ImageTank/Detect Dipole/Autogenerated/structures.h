@@ -10,6 +10,16 @@
 #include "DTPoint2D.h"
 
 
+#include "DipoleInfo.h"
+/* Commented out because the 'Autogenerate class' button in the Group definition is not selected.
+
+   Intended for cases where this is defined elsewhere (e.g. code shared by multiple projects)
+
+   In this case the class has to be defined in the above header file
+ and is not created automatically by ImageTank.
+
+   Can use the below code block to update that shared definition.
+
 //////////////////////////////////////////////////////////////////////////////
 //    DipoleInfo
 //////////////////////////////////////////////////////////////////////////////
@@ -43,5 +53,7 @@ struct DipoleInfo {
 extern void Write(DTDataStorage &,std::string name,const DipoleInfo &);
 extern void Read(DTDataStorage &,std::string name,DipoleInfo &);
 extern void WriteOne(DTDataStorage &,std::string name,const DipoleInfo &);
+
+*/ 
 
 #endif /* IT_structure_h */ 

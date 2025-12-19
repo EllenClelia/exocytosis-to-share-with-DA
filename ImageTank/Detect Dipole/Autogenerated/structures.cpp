@@ -2,6 +2,8 @@
 
 #include "structures.h"
 
+/* Commented out because the 'Autogenerate class' button in the Group definition is not selected.
+
 //////////////////////////////////////////////////////////////////////////////
 //    DipoleInfo
 //////////////////////////////////////////////////////////////////////////////
@@ -180,3 +182,4 @@ void Read(DTDataStorage &input,std::string name,DipoleInfo &var)
     var.flagSecond = input.ReadNumber(name+"_flagSecond");
     var.ratio = input.ReadNumber(name+"_ratio");
 }
+*/ 

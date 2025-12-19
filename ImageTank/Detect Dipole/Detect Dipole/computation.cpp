@@ -59,6 +59,7 @@ DTMutableDoubleArray EvaluateFit(const DTMesh2DGrid &grid,const LocalPeak &fit)
     return returnArray;
 }
 
+
 DipoleInfo Computation(const DTImage &image)
 {
     DipoleInfo toReturn;
