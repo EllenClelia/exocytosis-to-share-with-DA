@@ -296,7 +296,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     }
 
     // Create the parameter table, typically fill along side the Add calls
-    output.Finish(DTTable({
+    DTTable parameterTable({
         CreateTableColumn("time",timeList),
         CreateTableColumn("failure",failureMode),
         CreateTableColumn("failureAtStart",failureAtStart),
@@ -309,5 +309,6 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         CreateTableColumn("ptNumber",pointNumber),
         CreateTableColumn("centerSpot",DTPointCollection2D(centerSpot)),
         CreateTableColumn("average",averageValues)
-    }));
+    });
+    output.Finish(parameterTable);
 }

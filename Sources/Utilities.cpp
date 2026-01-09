@@ -961,6 +961,12 @@ LocalPeak FindGaussianPeak(const DTImage &image,const DTDictionary &parameters)
     }
     else {
         toReturn.failureMode = 1; // Convergence failed
+        toReturn.center = DTPoint2D(NAN,NAN);
+        toReturn.base = NAN;
+        toReturn.height = NAN;
+        toReturn.width = NAN;
+        toReturn.R2 = NAN;
+        toReturn.RMSE = NAN;
     }
     
     return toReturn;
