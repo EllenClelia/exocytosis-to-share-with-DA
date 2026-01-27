@@ -71,6 +71,12 @@ DTTable Computation(const DTSet<DTImage> &images,
     int howManyFailuresToAllowInDrift = parameters.GetNumber("Allow peak failures",0); // Old method.
     if (parameters.Contains("Allow drift failures")) howManyFailuresToAllowInDrift = parameters("Allow drift failures"); // backwards compatability
 
+    bool checkDrift = parameters.Contains("drift check");
+    DTDictionary driftParameters;
+    if (checkDrift) {
+        driftParameters = parameters("drift check");
+    }
+    
     // Loop through each event
     ssize_t startsAt = 0;
     while (startsAt<images_count) {
@@ -117,6 +123,8 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTTableColumnNumber time = eventParameters("time");
         DTTableColumnNumber average = eventParameters("average");
         DTTableColumnNumber failure = eventParameters("failure");
+        DTTableColumnNumber NegR2 = eventParameters("NegR2");
+        DTTableColumnNumber NegRatio = eventParameters("NegRatio");
         DTTableColumnNumber intensityToUse;
         if (useAverage) {
             intensityToUse = eventParameters("average");
@@ -227,6 +235,22 @@ DTTable Computation(const DTSet<DTImage> &images,
         if (info.spike<0) {
             // The fit is background + spike*exp(-decay*(time-kink)), a negative spike means that the signal is not physically meaningful.
             outputFlag(posInOutput) += 16;
+        }
+        
+        // Check the drift calculation if that is specified
+        if (checkDrift) {
+            int lookAhead = driftParameters("look ahead");
+            double ratio = driftParameters("Ratio threshold of negPeak/posPeak");
+            double minR2Neg = driftParameters("Minimum R2neg");
+            
+            ssize_t checkIndex = startingIndex+lookAhead;
+            if (checkIndex<NegR2.NumberOfRows()) {
+                double negR2val = NegR2(checkIndex);
+                double negRatioVal = NegRatio(checkIndex);
+                if (negRatioVal>ratio && negR2val>minR2Neg) {
+                    outputFlag(posInOutput) += 32;
+                }
+            }
         }
                                 
         // Ready for the next point
