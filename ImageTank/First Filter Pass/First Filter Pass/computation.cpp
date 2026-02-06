@@ -242,15 +242,22 @@ DTTable Computation(const DTSet<DTImage> &images,
             int lookAhead = driftParameters("look ahead");
             double ratio = driftParameters("Ratio threshold of negPeak/posPeak");
             double minR2Neg = driftParameters("Minimum R2neg");
-            
-            ssize_t checkIndex = startingIndex+lookAhead;
-            if (checkIndex<NegR2.NumberOfRows()) {
-                double negR2val = NegR2(checkIndex);
-                double negRatioVal = NegRatio(checkIndex);
-                if (negRatioVal>ratio && negR2val>minR2Neg) {
-                    outputFlag(posInOutput) += 32;
+
+            DTDoubleArray interval = driftParameters("check interval");
+            int startIndex = round(interval(0));
+            int endIndex = round(interval(1));
+            bool flagIt = false;
+            for (int checkIndex = startIndex+startIndex;checkIndex<=startIndex+endIndex;checkIndex++) {
+                if (checkIndex<NegR2.NumberOfRows()) {
+                    double negR2val = NegR2(checkIndex);
+                    double negRatioVal = NegRatio(checkIndex);
+                    if (negRatioVal>ratio && negR2val>minR2Neg) {
+                        flagIt = true;
+                        break;
+                    }
                 }
             }
+            if (flagIt) outputFlag(posInOutput) += 32;
         }
                                 
         // Ready for the next point

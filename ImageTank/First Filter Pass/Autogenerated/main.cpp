@@ -42,8 +42,8 @@ int main(int argc,const char *argv[])
                                  tailThreshold, // When to stop tracking
                                  maxDrift, // Maximum Drift
                                  stepsForDrift,parameters);
-
     //timer.Stop(); // Use timer.Time() to get the elapsed time
+
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
     WriteOne(outputFile,"Var",output);

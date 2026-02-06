@@ -39,15 +39,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "DD05071C-4574-41BE-BA32-481FD265E08A"
+            uuid = "8A76147A-7FB4-4C74-AA1E-05EDDF5E2170"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "First Filter Pass/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "Computation(images, fromBkgrnd, tailThreshold, maxDrift, stepsForDrift, parameters)"
             landmarkType = "9">
          </BreakpointContent>
