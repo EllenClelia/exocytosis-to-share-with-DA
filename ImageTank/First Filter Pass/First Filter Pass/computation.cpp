@@ -123,6 +123,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         DTTableColumnNumber time = eventParameters("time");
         DTTableColumnNumber average = eventParameters("average");
         DTTableColumnNumber failure = eventParameters("failure");
+        DTTableColumnNumber R2 = eventParameters("R2");
         DTTableColumnNumber NegR2 = eventParameters("NegR2");
         DTTableColumnNumber NegRatio = eventParameters("NegRatio");
         DTTableColumnNumber intensityToUse;
@@ -239,9 +240,9 @@ DTTable Computation(const DTSet<DTImage> &images,
         
         // Check the drift calculation if that is specified
         if (checkDrift) {
-            int lookAhead = driftParameters("look ahead");
             double ratio = driftParameters("Ratio threshold of negPeak/posPeak");
             double minR2Neg = driftParameters("Minimum R2neg");
+            double minR2Pos = driftParameters("Minimum R2pos");
 
             DTDoubleArray interval = driftParameters("check interval");
             int startIndex = round(interval(0));
@@ -251,7 +252,8 @@ DTTable Computation(const DTSet<DTImage> &images,
                 if (checkIndex<NegR2.NumberOfRows()) {
                     double negR2val = NegR2(checkIndex);
                     double negRatioVal = NegRatio(checkIndex);
-                    if (negRatioVal>ratio && negR2val>minR2Neg) {
+                    double R2val = R2(checkIndex);
+                    if (R2val>minR2Pos && negRatioVal>ratio && negR2val>minR2Neg) {
                         flagIt = true;
                         break;
                     }
