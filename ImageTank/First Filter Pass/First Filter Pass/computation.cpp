@@ -248,7 +248,7 @@ DTTable Computation(const DTSet<DTImage> &images,
             int startIndex = round(interval(0));
             int endIndex = round(interval(1));
             bool flagIt = false;
-            for (int checkIndex = startIndex+startIndex;checkIndex<=startIndex+endIndex;checkIndex++) {
+            for (ssize_t checkIndex = startingIndex+startIndex;checkIndex<=startingIndex+endIndex;checkIndex++) {
                 if (checkIndex<NegR2.NumberOfRows()) {
                     double negR2val = NegR2(checkIndex);
                     double negRatioVal = NegRatio(checkIndex);
