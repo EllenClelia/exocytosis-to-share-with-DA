@@ -76,6 +76,12 @@ DTTable Computation(const DTSet<DTImage> &images,
     if (checkDrift) {
         driftParameters = parameters("drift check");
     }
+        
+    bool checkLong = parameters.Contains("long check");
+    DTDictionary longParameters;
+    if (checkLong) {
+        longParameters = parameters("long check");
+    }
     
     // Loop through each event
     ssize_t startsAt = 0;
@@ -260,6 +266,26 @@ DTTable Computation(const DTSet<DTImage> &images,
                 }
             }
             if (flagIt) outputFlag(posInOutput) += 32;
+        }
+        
+        // Check for a long event if that is specified
+        if (checkLong) {
+            double minR2Pos = longParameters("Minimum R2pos");
+            
+            DTDoubleArray interval = longParameters("long interval");
+            int startIndex = round(interval(0));
+            int endIndex = round(interval(1));
+            bool flagIt = false;
+            for (ssize_t checkIndex = startingIndex+startIndex;checkIndex<=startingIndex+endIndex;checkIndex++) {
+                if (checkIndex<NegR2.NumberOfRows()) {
+                    double R2val = R2(checkIndex);
+                    if (R2val>minR2Pos) {
+                        flagIt = true;
+                        break;
+                    }
+                }
+            }
+            if (flagIt) outputFlag(posInOutput) += 64;
         }
                                 
         // Ready for the next point
