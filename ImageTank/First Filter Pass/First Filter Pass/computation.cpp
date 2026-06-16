@@ -77,6 +77,7 @@ DTTable Computation(const DTSet<DTImage> &images,
         driftParameters = parameters("drift check");
     }
         
+    // Added by Sam
     bool checkLong = parameters.Contains("long check");
     DTDictionary longParameters;
     if (checkLong) {
