@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>Calling Arguments</key>
-	<string>37d15fa4bdfba92e02304ff404c6e352a7215529d9d8acab093b61f4c1e572aa</string>
+	<string>ca61c0e988f149feb6cfb03c72609ba7c35498f215dabd5471624ea2d9a7509e</string>
 	<key>Input</key>
 	<array>
 		<dict>
@@ -54,7 +54,7 @@
 			<key>Display</key>
 			<string></string>
 			<key>Type</key>
-			<string>1D Region</string>
+			<string>Range</string>
 		</dict>
 	</array>
 	<key>Name of Function</key>

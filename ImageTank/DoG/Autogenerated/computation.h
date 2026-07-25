@@ -5,6 +5,9 @@
 
 #include "structures.h"
 
+#include "DTProgress.h"
+class DTImage;
+
 DTImage Computation(const DTImage &image,double sigma,int inOctave,
                     int numOctaves);
 

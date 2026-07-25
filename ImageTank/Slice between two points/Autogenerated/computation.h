@@ -6,6 +6,8 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+class DTPoint2D;
 
 MyGroup Computation(const DTImage &image,DTPoint2D from,DTPoint2D to,int N,
                     int Width);

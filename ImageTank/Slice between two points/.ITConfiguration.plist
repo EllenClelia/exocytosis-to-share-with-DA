@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>image</string>
+			<key>Channel Name</key>
+			<string>magnitude</string>
+			<key>Type</key>
+			<string>Single Image Channel</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>from</string>
+			<key>Default</key>
+			<string>0,0</string>
+			<key>Display</key>
+			<string>From</string>
+			<key>Type</key>
+			<string>2D Point</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>to</string>
+			<key>Default</key>
+			<string>0,0</string>
+			<key>Display</key>
+			<string>To</string>
+			<key>Type</key>
+			<string>2D Point</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>N</string>
+			<key>Default</key>
+			<string>100</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>Width</string>
+			<key>Entries</key>
+			<array>
+				<dict>
+					<key>Name</key>
+					<string>straight</string>
+					<key>Value</key>
+					<string>0</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>wide</string>
+					<key>Value</key>
+					<string>1</string>
+				</dict>
+			</array>
+			<key>Type</key>
+			<string>Number Menu</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string>Slice between two points</string>
+	<key>Name of Project</key>
+	<string>Slice between two points</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Group Name</key>
+			<string>MyGroup</string>
+			<key>Type</key>
+			<string>Group</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Values</string>
+			<key>Type</key>
+			<string>Path2D Values</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>magnitude</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>closeBy</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>arc</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Variation1</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ratio</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>arcForRatio</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ratioAtMax</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>arcForRatioAtMax</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Group</string>
+</dict>
+</plist>

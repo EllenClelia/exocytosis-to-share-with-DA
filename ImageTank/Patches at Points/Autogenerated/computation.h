@@ -6,6 +6,8 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+class DTTable;
 
 DTTable Computation(const DTImage &grid,const DTTable &points,int radius);
 

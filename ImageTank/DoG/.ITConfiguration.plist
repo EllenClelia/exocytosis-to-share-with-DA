@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>image</string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>Image</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>med_filtered</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>med_filter_NaN</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>Close</string>
+				</dict>
+			</array>
+			<key>Structure Requirement</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>sigma</string>
+			<key>Default</key>
+			<string>5</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>inOctave</string>
+			<key>Default</key>
+			<string>4</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>numOctaves</string>
+			<key>Default</key>
+			<string>4</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string>DoG only the final result</string>
+	<key>Name of Project</key>
+	<string>DoG</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>median</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Image</string>
+</dict>
+</plist>

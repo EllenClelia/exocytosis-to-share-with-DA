@@ -6,9 +6,13 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTDictionary;
+class DTImage;
+class DTTable;
+template <class T> class DTSet;
 
-void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
-                 double time,int timeback,int timeforward,
-                 const DTDictionary &parameters,DTMutableSet<DTImage> &output);
+DTSet<DTImage> Computation(const DTSet<DTImage> &everything,
+                           const DTTable &spots,double time,int timeback,
+                           int timeforward,const DTDictionary &parameters);
 
 #endif /* IT_computation_h */ 

@@ -7,7 +7,8 @@
 
 #include "DTProgress.h"
 
-#include "DTDataFile.h"
+class DTDataFile;
+class DTTable;
 
 void Computation(const DTTable &initial,double D,double dt,double until,
                  int stride,double maxVal,double v_max,double k,

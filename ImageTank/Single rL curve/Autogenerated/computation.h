@@ -6,6 +6,10 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTMask2D;
+class DTPath2D;
+class DTRegion1D;
+class DTTable;
 
 DTPath2D Computation(const DTMask2D &mask,const DTTable &points,int rCount,
                      DTRegion1D rRange);

@@ -6,6 +6,8 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+class DTMask2D;
 
 Correlation Computation(const DTImage &image,const DTMask2D &mask);
 

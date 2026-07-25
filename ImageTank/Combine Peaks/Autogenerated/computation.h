@@ -6,6 +6,9 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+class DTPoint2D;
+class DTTable;
 
 DTImage Computation(DTPoint2D origin,double h,int m,int n,double radius,
                     const DTTable &points);

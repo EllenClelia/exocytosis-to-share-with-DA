@@ -3,6 +3,7 @@
 #include <math.h>
 #include "DTDoubleArrayOperators.h"
 #include "DTUtilities.h"
+#include "DTTable.h"
 
 DTDoubleArray UniqueTimeValues(const DTTableColumnNumber &col)
 {

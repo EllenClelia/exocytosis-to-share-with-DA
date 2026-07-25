@@ -1,8 +1,13 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTSet.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
+
 
 DTTable Computation(const DTSet<DTImage> &images)
 {

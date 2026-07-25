@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>grid</string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>Image</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>scaled</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>Close</string>
+				</dict>
+			</array>
+			<key>Structure Requirement</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>points</string>
+			<key>Column Name</key>
+			<string>point</string>
+			<key>Column Type</key>
+			<integer>5</integer>
+			<key>Type</key>
+			<string>Single Column</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>radius</string>
+			<key>Default</key>
+			<string>4</string>
+			<key>Interval</key>
+			<string>1,40</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string>Create patches</string>
+	<key>Name of Project</key>
+	<string>Patches at Points</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>point</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>mask</string>
+			<key>Type</key>
+			<string>Mask2D</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Table</string>
+</dict>
+</plist>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>mask</string>
+			<key>Type</key>
+			<string>Mask2D</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>points</string>
+			<key>Column Name</key>
+			<string>point</string>
+			<key>Column Type</key>
+			<integer>5</integer>
+			<key>Type</key>
+			<string>Single Column</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>rCount</string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>rRange</string>
+			<key>Type</key>
+			<string>Range</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string></string>
+	<key>Name of Project</key>
+	<string>Single rL curve</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>Path2D</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Path2D</string>
+</dict>
+</plist>

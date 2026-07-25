@@ -6,6 +6,8 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTMask2D;
+class DTRegion1D;
 
 Group Computation(const DTMask2D &mask,int count,int seed,DTRegion1D rRange,
                   DTRegion1D yRange,int rCount,int yCount,int runs);

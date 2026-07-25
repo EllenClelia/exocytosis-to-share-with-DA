@@ -1,7 +1,12 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
+#include "DTDictionary.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTMask2D.h"
+#include "DTSet.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
 #include "DTRandom.h"
 
@@ -21,8 +26,7 @@ DTTable Realization(const DTMask2D &region,
     DTMesh2DGrid grid = region.Grid();
     DTCharArray mask = region.Mask().MaskArray();
     ssize_t m = grid.m();
-    ssize_t n = grid.n();
-    ssize_t mn = m*n;
+    // ssize_t n = grid.n();
     double width = grid.m();
     double height = grid.n();
     double h = grid.dx();
@@ -31,10 +35,8 @@ DTTable Realization(const DTMask2D &region,
     // If that is not the case I can create a list of all of the interior points
     // and then draw a offset into that list at random
     
-    double t;
     ssize_t i,j,ij;
     double x,y;
-    double val;
     for (ssize_t pos=0;pos<length;pos++) {
         // Random in space
         while (1) {
@@ -65,14 +67,16 @@ DTTable Realization(const DTMask2D &region,
     });
 }
 
-void Computation(const DTMask2D &region,int seed,int count,
-                 const DTDictionary &parameters,DTMutableSet<DTTable> &output)
+DTSet<DTTable> Computation(const DTMask2D &region,int seed,int count,
+                           const DTDictionary &parameters)
 {
     // DTCharArray onoff = region.MaskArray(); // array of 0 and 1 (included)
     // double a = parameters("a");
     // DTDoubleArray b = parameters("b")
     
     DTRandom randNumber(seed);
+    
+    DTMutableSet<DTTable> output;
     
     DTMutableDoubleArray runN(count);
     // Every element should be a table. An example constructor is:
@@ -81,7 +85,9 @@ void Computation(const DTMask2D &region,int seed,int count,
         runN(i) = i+1;
     }
     
-    output.Finish(DTTable({
+    output.SetParameterTable(DTTable({
         CreateTableColumn("run",runN)
      }));
+    
+    return output;
 }

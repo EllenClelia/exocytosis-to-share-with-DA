@@ -8,7 +8,8 @@
 
 #include "Utilities.h"
 
-void DoG(const DTImage &image,double sigma,int inOctave,int numOctaves,DTMutableSet<DTImage> &output)
+DTSet<DTImage> DoG(const DTImage &image,double sigma,int inOctave,
+                   int numOctaves)
 {
     double mult = pow(2,1.0/inOctave);
     
@@ -32,6 +33,8 @@ void DoG(const DTImage &image,double sigma,int inOctave,int numOctaves,DTMutable
     DTMutableFloatArray stack(m,n,inOctave*numOctaves);
     
     DTMutableList<DTImageChannel> outputImageChannels(3);
+    
+    DTMutableSet<DTImage> output;
 
     for (octaveNumber=0;octaveNumber<numOctaves;octaveNumber++) {
         for (stepNumber=0;stepNumber<inOctave;stepNumber++) {
@@ -71,5 +74,7 @@ void DoG(const DTImage &image,double sigma,int inOctave,int numOctaves,DTMutable
     columns(0) = CreateTableColumn("sigma",sigmaColumn);
     columns(1) = CreateTableColumn("octave",octaveColumn);
     DTTable parameterTable(columns);
-    output.Finish(parameterTable);
+    output.SetParameterTable(parameterTable);
+    
+    return output;
 }

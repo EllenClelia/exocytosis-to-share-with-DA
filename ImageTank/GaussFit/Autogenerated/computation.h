@@ -5,7 +5,11 @@
 
 #include "structures.h"
 
-void DoG(const DTImage &image,double sigma,int inOctave,int numOctaves,
-         DTMutableSet<DTImage> &output);
+#include "DTProgress.h"
+class DTImage;
+template <class T> class DTSet;
+
+DTSet<DTImage> DoG(const DTImage &image,double sigma,int inOctave,
+                   int numOctaves);
 
 #endif /* IT_computation_h */ 

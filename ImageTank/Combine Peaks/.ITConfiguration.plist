@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>origin</string>
+			<key>Default</key>
+			<string>0,0</string>
+			<key>Type</key>
+			<string>2D Point</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>h</string>
+			<key>Default</key>
+			<string>1</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>m</string>
+			<key>Default</key>
+			<string>100</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>n</string>
+			<key>Default</key>
+			<string>100</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>radius</string>
+			<key>Default</key>
+			<string>1</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>points</string>
+			<key>Column Name</key>
+			<string>point</string>
+			<key>Column Type</key>
+			<integer>5</integer>
+			<key>Type</key>
+			<string>Single Column</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string>Combine Peaks</string>
+	<key>Name of Project</key>
+	<string>Combine Peaks</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>intensity</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Image</string>
+</dict>
+</plist>

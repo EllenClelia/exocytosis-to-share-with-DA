@@ -5,6 +5,9 @@
 #include "DTArguments.h"
 #include "DTTimer.h"
 #include "DTDataFile.h"
+#include "DTDoubleArrayOperators.h"
+#include "DTTable.h"
+#include "DTUtilities.h"
 
 int main(int argc,const char *argv[])
 {

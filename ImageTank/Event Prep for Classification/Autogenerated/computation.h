@@ -6,6 +6,8 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+template <class T> class DTSet;
 
 PeakGroup Computation(const DTSet<DTImage> &combined,int start);
 

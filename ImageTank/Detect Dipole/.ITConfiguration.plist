@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>image</string>
+			<key>Channel Name</key>
+			<string>height</string>
+			<key>Type</key>
+			<string>Single Image Channel</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string></string>
+	<key>Name of Project</key>
+	<string>Detect Dipole</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Autogenerate</key>
+			<false/>
+			<key>Group Name</key>
+			<string>DipoleInfo</string>
+			<key>Type</key>
+			<string>Group</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>input</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first peak</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first residual</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second peak</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second residual</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first center</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first base</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>first height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second center</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second base</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>second height</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>distance</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>R2first</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>RMSEfirst</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>R2second</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>RMSEsecond</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>flagFirst</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>flagSecond</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>ratio</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Group</string>
+</dict>
+</plist>

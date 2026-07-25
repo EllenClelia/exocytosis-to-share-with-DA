@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Allow Empty</key>
+			<true/>
+			<key>Argument</key>
+			<string>region</string>
+			<key>Gear Menu</key>
+			<string>Ripley realizations inside mask</string>
+			<key>Type</key>
+			<string>Mask2D</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>seed</string>
+			<key>Default</key>
+			<string>2314232365</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>count</string>
+			<key>Default</key>
+			<string>1000</string>
+			<key>Round</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>parameters</string>
+			<key>Type</key>
+			<string>Dictionary</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string>Realizations</string>
+	<key>Name of Project</key>
+	<string>Random Process</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>Table Set</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Parameters</string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>run</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Element</string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>time</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>point</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Table Set</string>
+</dict>
+</plist>

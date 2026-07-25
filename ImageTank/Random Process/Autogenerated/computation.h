@@ -6,8 +6,12 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTDictionary;
+class DTMask2D;
+class DTTable;
+template <class T> class DTSet;
 
-void Computation(const DTMask2D &region,int seed,int count,
-                 const DTDictionary &parameters,DTMutableSet<DTTable> &output);
+DTSet<DTTable> Computation(const DTMask2D &region,int seed,int count,
+                           const DTDictionary &parameters);
 
 #endif /* IT_computation_h */ 

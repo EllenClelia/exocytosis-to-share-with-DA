@@ -1,7 +1,11 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTMask2D.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
 
 DTDoubleArray ComputeL(const DTTable &points,

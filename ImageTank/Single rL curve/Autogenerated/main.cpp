@@ -5,6 +5,12 @@
 #include "DTArguments.h"
 #include "DTTimer.h"
 #include "DTDataFile.h"
+#include "DTDoubleArrayOperators.h"
+#include "DTMask2D.h"
+#include "DTPath2D.h"
+#include "DTRegion1D.h"
+#include "DTTable.h"
+#include "DTUtilities.h"
 #include "DTError.h"
 
 int main(int argc,const char *argv[])
@@ -36,14 +42,11 @@ int main(int argc,const char *argv[])
     //DTTimer timer;
     //timer.Start();
     DTPath2D output = Computation(mask,points,rCount,rRange);
-
     //timer.Stop(); // Use timer.Time() to get the elapsed time
+
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
     WriteOne(outputFile,"Var",output);
-    // The structure, to make it easy to open the output file
-    outputFile.Save("Path2D","Seq_Var");
-
     // To speed up reading.
     outputFile.SaveIndex();
 

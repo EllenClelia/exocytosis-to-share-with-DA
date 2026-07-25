@@ -6,6 +6,7 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTTable;
 
 DTTable Computation(const DTTable &everything,int stepsBack);
 

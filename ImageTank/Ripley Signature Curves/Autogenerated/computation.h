@@ -6,6 +6,9 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+class DTMask2D;
+class DTTable;
 
 DTTable Computation(const DTImage &pdf,double p,const DTMask2D &mask,
                     const DTTable &points);

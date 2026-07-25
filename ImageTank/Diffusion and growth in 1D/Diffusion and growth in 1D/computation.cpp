@@ -7,6 +7,7 @@
 
 #include "DTSeriesTable.h"
 #include "DTSeriesOf.h"
+#include "DTDataFile.h"
 
 #include "DTTable.h"
 #include "localstructures.h"

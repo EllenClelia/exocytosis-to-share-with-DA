@@ -5,6 +5,12 @@
 #include "DTArguments.h"
 #include "DTTimer.h"
 #include "DTDataFile.h"
+#include "DTDictionary.h"
+#include "DTDoubleArrayOperators.h"
+#include "DTMask2D.h"
+#include "DTSet.h"
+#include "DTTable.h"
+#include "DTUtilities.h"
 #include "DTError.h"
 
 int main(int argc,const char *argv[])
@@ -30,32 +36,14 @@ int main(int argc,const char *argv[])
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
-    DTMutableSet<DTTable> output(outputFile,"Var");
-    Computation(region,seed,count,parameters,output);
+    //DTTimer timer;
+    //timer.Start();
+    DTSet<DTTable> output = Computation(region,seed,count,parameters);
+    //timer.Stop(); // Use timer.Time() to get the elapsed time
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
-    {
-        // Structure information for the set
-        std::string baseName = "SeqInfo_Var";
-        std::string eName = baseName+"_E";
-        std::string pName = baseName+"_P";
-
-        // Structure for parameters
-        outputFile.Save("run",pName+"_1N");
-        outputFile.Save("Number",pName+"_1T");
-        outputFile.Save(1,pName+"_N");
-
-        // Structure for element
-        outputFile.Save("time",eName+"_1N");
-        outputFile.Save("Number",eName+"_1T");
-        outputFile.Save("point",eName+"_2N");
-        outputFile.Save("Point2D",eName+"_2T");
-        outputFile.Save(2,eName+"_N");
-        outputFile.Save("Table",eName);
-
-        outputFile.Save("Table Set","Seq_Var");
-    }
+    WriteOne(outputFile,"Var",output);
     // To speed up reading.
     outputFile.SaveIndex();
 

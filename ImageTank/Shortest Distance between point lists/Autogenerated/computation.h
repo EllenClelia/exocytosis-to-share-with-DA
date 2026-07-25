@@ -6,6 +6,8 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTMask2D;
+class DTTable;
 
 DTTable Computation(const DTTable &from,const DTTable &to,
                     const DTMask2D &inside);

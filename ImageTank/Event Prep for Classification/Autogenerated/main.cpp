@@ -5,6 +5,10 @@
 #include "DTArguments.h"
 #include "DTTimer.h"
 #include "DTDataFile.h"
+#include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTSet.h"
+#include "DTUtilities.h"
 #include "DTError.h"
 
 int main(int argc,const char *argv[])
@@ -32,8 +36,8 @@ int main(int argc,const char *argv[])
     //DTTimer timer;
     //timer.Start();
     PeakGroup output = Computation(combined,start);
-
     //timer.Stop(); // Use timer.Time() to get the elapsed time
+
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
     WriteOne(outputFile,"Var",output);

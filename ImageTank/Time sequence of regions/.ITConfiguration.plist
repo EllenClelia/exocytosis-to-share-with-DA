@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>input</string>
+			<key>Display</key>
+			<string>input images</string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>Image Set</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>Parameters</string>
+					<key>Type</key>
+					<string>Table</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>t</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>Close</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>Element</string>
+					<key>Type</key>
+					<string>Image</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>green</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>red</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>Close</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>Close</string>
+				</dict>
+			</array>
+			<key>Structure Requirement</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Image Set</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>points</string>
+			<key>Display</key>
+			<string>points (+ time)</string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>Table</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>time</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>point</string>
+					<key>Type</key>
+					<string>Point2D</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>Close</string>
+				</dict>
+			</array>
+			<key>Structure Requirement</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>time</string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string>Current time</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>before</string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>after</string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Argument</key>
+			<string>width</string>
+			<key>Default</key>
+			<string>0</string>
+			<key>Display</key>
+			<string>Crop Width</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string>Extract a time series of regions around point(s)</string>
+	<key>Name of Project</key>
+	<string>Time sequence of regions</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>Image Set</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Parameters</string>
+			<key>Type</key>
+			<string>Table</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>time</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>center</string>
+			<key>Type</key>
+			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>pointNumber</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+		<dict>
+			<key>Input</key>
+			<string>input</string>
+			<key>Name</key>
+			<string>Element</string>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Image Set</string>
+</dict>
+</plist>

@@ -6,6 +6,8 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+class DTTable;
 
 MyGroup Computation(const DTTable &extrema,const DTImage &magnitude,
                     double distance,double threshold);

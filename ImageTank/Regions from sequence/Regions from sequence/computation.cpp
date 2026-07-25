@@ -6,10 +6,12 @@
 
 #include "Utilities.h"
 
-void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
-                 double time,int timeback,int timeforward,
-                 const DTDictionary &parameters,DTMutableSet<DTImage> &output)
+DTSet<DTImage> Computation(const DTSet<DTImage> &everything,
+                           const DTTable &spots,double time,int timeback,
+                           int timeforward,const DTDictionary &parameters)
 {
+    DTMutableSet<DTImage> toReturn;
+
     DTSet<DTImage> withCache = everything.WithCache(timeback+1+timeforward);
     DTTable imageParameters = withCache.Parameters();
     DTTableColumnNumber timeValues = imageParameters("t");
@@ -178,10 +180,10 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
                 combinedRaw = Crop(combinedRaw,finalBox);
                 
                 if (saveSmooth) {
-                    output.Add(combinedSmooth);
+                    toReturn.Add(combinedSmooth);
                 }
                 else {
-                    output.Add(combinedRaw);
+                    toReturn.Add(combinedRaw);
                 }
 
                 if (peakFit) {
@@ -272,7 +274,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     }
 
     // Create the parameter table, typically fill along side the Add calls
-    output.Finish(DTTable({
+    toReturn.SetParameterTable(DTTable({
         CreateTableColumn("time",timeList),
         CreateTableColumn("failure",failureMode),
         CreateTableColumn("failureAtStart",failureAtStart),
@@ -284,4 +286,6 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         CreateTableColumn("centerSpot",DTPointCollection2D(centerSpot)),
         CreateTableColumn("average",averageValues)
     }));
+    
+    return toReturn;
 }

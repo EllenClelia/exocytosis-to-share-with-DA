@@ -5,6 +5,12 @@
 #include "DTArguments.h"
 #include "DTTimer.h"
 #include "DTDataFile.h"
+#include "DTDictionary.h"
+#include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTSet.h"
+#include "DTTable.h"
+#include "DTUtilities.h"
 #include "DTError.h"
 
 int main(int argc,const char *argv[])
@@ -37,48 +43,15 @@ int main(int argc,const char *argv[])
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
-    DTMutableSet<DTImage> output(outputFile,"Var");
-    Computation(everything,spots,time,timeback,timeforward,parameters,output);
+    //DTTimer timer;
+    //timer.Start();
+    DTSet<DTImage> output = Computation(everything,spots,time,timeback,
+                                        timeforward,parameters);
+    //timer.Stop(); // Use timer.Time() to get the elapsed time
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
-    {
-        // Structure information for the set
-        std::string baseName = "SeqInfo_Var";
-        std::string eName = baseName+"_E";
-        std::string pName = baseName+"_P";
-
-        // Structure for parameters
-        outputFile.Save("time",pName+"_1N");
-        outputFile.Save("Number",pName+"_1T");
-        outputFile.Save("failure",pName+"_2N");
-        outputFile.Save("Number",pName+"_2T");
-        outputFile.Save("failureAtStart",pName+"_3N");
-        outputFile.Save("Number",pName+"_3T");
-        outputFile.Save("R2",pName+"_4N");
-        outputFile.Save("Number",pName+"_4T");
-        outputFile.Save("intensity",pName+"_5N");
-        outputFile.Save("Number",pName+"_5T");
-        outputFile.Save("width",pName+"_6N");
-        outputFile.Save("Number",pName+"_6T");
-        outputFile.Save("center",pName+"_7N");
-        outputFile.Save("Point2D",pName+"_7T");
-        outputFile.Save("ptNumber",pName+"_8N");
-        outputFile.Save("Number",pName+"_8T");
-        outputFile.Save("centerSpot",pName+"_9N");
-        outputFile.Save("Point2D",pName+"_9T");
-        outputFile.Save("average",pName+"_10N");
-        outputFile.Save("Number",pName+"_10T");
-        outputFile.Save(10,pName+"_N");
-
-        // Structure for element
-        outputFile.Save("intensity",eName+"_1N");
-        outputFile.Save("difference",eName+"_2N");
-        outputFile.Save(2,eName+"_N");
-        outputFile.Save("Image",eName);
-
-        outputFile.Save("Image Set","Seq_Var");
-    }
+    WriteOne(outputFile,"Var",output);
     // To speed up reading.
     outputFile.SaveIndex();
 

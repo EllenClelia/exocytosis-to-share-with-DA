@@ -6,6 +6,10 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTDictionary;
+class DTImage;
+class DTTable;
+template <class T> class DTSet;
 
 DTTable Computation(const DTSet<DTImage> &images,
                     double fromBkgrnd, // How much it has to rise from background

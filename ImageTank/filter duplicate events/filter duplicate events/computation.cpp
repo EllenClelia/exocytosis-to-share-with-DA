@@ -3,6 +3,7 @@
 #include <math.h>
 #include "DTDoubleArrayOperators.h"
 #include "DTUtilities.h"
+#include "DTTable.h"
 
 DTTable Computation(const DTTable &events,double timeDelta,double spaceDelta)
 {

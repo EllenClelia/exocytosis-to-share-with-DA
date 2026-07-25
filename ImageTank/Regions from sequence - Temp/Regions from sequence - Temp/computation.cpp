@@ -8,9 +8,9 @@
 
 #include "DipoleInfo.h"
 
-void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
-                 double time,int timeback,int timeforward,
-                 const DTDictionary &parameters,DTMutableSet<DTImage> &output)
+DTSet<DTImage> Computation(const DTSet<DTImage> &everything,
+                           const DTTable &spots,double time,int timeback,
+                           int timeforward,const DTDictionary &parameters)
 {
     DTSet<DTImage> withCache = everything.WithCache(timeback+1+timeforward);
     DTTable imageParameters = withCache.Parameters();
@@ -22,6 +22,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
     if (timeColumnExists) {
         timeColumn = spots("time");
     }
+    
+    DTMutableSet<DTImage> output;
     
     DTTableColumnPoint2D center = spots("center");
     DTTableColumnNumber width = spots("width");
@@ -310,5 +312,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &spots,
         CreateTableColumn("centerSpot",DTPointCollection2D(centerSpot)),
         CreateTableColumn("average",averageValues)
     });
-    output.Finish(parameterTable);
+    output.SetParameterTable(parameterTable);
+    
+    return output;
 }

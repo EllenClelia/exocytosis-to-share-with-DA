@@ -3,6 +3,7 @@
 #include <math.h>
 #include "DTDoubleArrayOperators.h"
 #include "DTUtilities.h"
+#include "DTImage.h"
 
 // google "how to compute manders correlation coefficient"
 

@@ -1,7 +1,11 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTPoint2D.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
 
 DTImage Computation(DTPoint2D origin,double h,int m,int n,double radius,

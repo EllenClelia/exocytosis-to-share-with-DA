@@ -21,8 +21,7 @@
                   continueAfterRunningActions = "No"
                   symbolName = "malloc_error_break"
                   moduleName = "libsystem_malloc.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "0">
+                  usesParentBreakpointCondition = "Yes">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -53,9 +52,9 @@
             filePath = "GaussFit/computation.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "DoG(image, sigma, inOctave, numOctaves, output)"
+            startingLineNumber = "16"
+            endingLineNumber = "16"
+            landmarkName = "DoG(image, sigma, inOctave, numOctaves)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

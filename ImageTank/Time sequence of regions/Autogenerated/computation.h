@@ -6,9 +6,11 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
+class DTTable;
+template <class T> class DTSet;
 
-void Computation(const DTSet<DTImage> &input,const DTTable &points,double time,
-                 double before,double after,double width,
-                 DTMutableSet<DTImage> &output);
+DTSet<DTImage> Computation(const DTSet<DTImage> &input,const DTTable &points,
+                           double time,double before,double after,double width);
 
 #endif /* IT_computation_h */ 

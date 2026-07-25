@@ -1,7 +1,10 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTMask2D.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
 
 DTTable Computation(const DTTable &from,const DTTable &to,

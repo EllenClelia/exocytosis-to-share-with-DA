@@ -1,14 +1,17 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTSet.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
 
-void Computation(const DTSet<DTImage> &everything,const DTTable &points,double time,
-                 double timeback,double timeforward,double width,
-                 DTMutableSet<DTImage> &output)
+DTSet<DTImage> Computation(const DTSet<DTImage> &input,const DTTable &points,
+                           double time,double before,double after,double width)
 {
-    DTSet<DTImage> withCache = everything.WithCache(timeback+1+timeforward);
+    DTSet<DTImage> withCache = input.WithCache(before+1+after);
     DTTable imageParameters = withCache.Parameters();
     DTTableColumnNumber timeValues = imageParameters("t");
     // int channel = parameters("channel");
@@ -18,6 +21,8 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
     if (timeColumnExists) {
         timeColumn = points("time");
     }
+    
+    DTMutableSet<DTImage> output;
     
     // Flexible regarding the point to use.
     DTTableColumnPoint2D center;
@@ -35,7 +40,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
         }
         if (center.NumberOfRows()==0) {
             DTErrorMessage("Did not find the point column");
-            return;
+            return output;
         }
     }
     
@@ -49,9 +54,9 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
     
     double w = width;
     
-    DTMutableDoubleArray timeList(howMany*(timeback+1+timeforward));
-    DTMutableDoubleArray pointColumnNumberList(howMany*(timeback+1+timeforward));
-    DTMutableList<DTPoint2D> centerList(howMany*(timeback+1+timeforward));
+    DTMutableDoubleArray timeList(howMany*(before+1+after));
+    DTMutableDoubleArray pointColumnNumberList(howMany*(before+1+after));
+    DTMutableList<DTPoint2D> centerList(howMany*(before+1+after));
     
     DTProgress progress;
     for (row=0;row<howMany;row++) {
@@ -73,7 +78,7 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
         // double w = width(row);
         DTRegion2D cropBox = DTRegion2D(p.x-w/2,p.x+w/2,p.y-w/2,p.y+w/2); // The final image that is saved
         
-        for (ssize_t index=where-timeback;index<=where+timeforward;index++) {
+        for (ssize_t index=where-before;index<=where+after;index++) {
             if (index>=0 && index<withCache.NumberOfItems()) {
                 DTImage image = withCache(index);
                 image = Crop(image,cropBox);
@@ -95,9 +100,11 @@ void Computation(const DTSet<DTImage> &everything,const DTTable &points,double t
     }
     
     // Create the parameter table, typically fill alongside the Add calls
-    output.Finish(DTTable({
+    output.SetParameterTable(DTTable({
         CreateTableColumn("time",timeList),
         CreateTableColumn("center",DTPointCollection2D(centerList)),
         CreateTableColumn("pointNumber",pointColumnNumberList),
     }));
+    
+    return output;
 }

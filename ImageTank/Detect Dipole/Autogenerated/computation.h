@@ -6,6 +6,7 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTImage;
 
 DipoleInfo Computation(const DTImage &image);
 

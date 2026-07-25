@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Input</key>
+	<array>
+		<dict>
+			<key>Argument</key>
+			<string>image</string>
+			<key>Structure</key>
+			<array>
+				<dict>
+					<key>Type</key>
+					<string>Image</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>red</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>green</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Type</key>
+					<string>Close</string>
+				</dict>
+			</array>
+			<key>Structure Requirement</key>
+			<integer>1</integer>
+			<key>Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Allow Empty Variable</key>
+			<true/>
+			<key>Argument</key>
+			<string>mask</string>
+			<key>Type</key>
+			<string>Mask2D</string>
+		</dict>
+	</array>
+	<key>Language</key>
+	<string>C++</string>
+	<key>Name of Function</key>
+	<string>Computation</string>
+	<key>Name of Module</key>
+	<string></string>
+	<key>Name of Project</key>
+	<string>Manders</string>
+	<key>Output Structure</key>
+	<array>
+		<dict>
+			<key>Group Name</key>
+			<string>Correlation</string>
+			<key>Type</key>
+			<string>Group</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>coeff</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>Close</string>
+		</dict>
+	</array>
+	<key>Return Type</key>
+	<string>Group</string>
+</dict>
+</plist>

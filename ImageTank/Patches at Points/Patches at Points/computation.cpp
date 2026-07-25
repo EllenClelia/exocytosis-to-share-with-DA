@@ -1,7 +1,10 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
 
 DTTable Computation(const DTImage &grid,const DTTable &points,int radius)

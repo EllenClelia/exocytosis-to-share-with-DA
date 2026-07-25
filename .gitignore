@@ -51,3 +51,8 @@ ImageTank/.DS_Store
 /ImageTank/Manders/Manders.xcodeproj/project.xcworkspace
 /ImageTank/Manders/Manders.xcodeproj/xcuserdata
 .DS_Store
+*.xcbkptlist
+*.xcbkptlist
+*.xcuserstate
+*.xcuserstate
+*.xcbkptlist

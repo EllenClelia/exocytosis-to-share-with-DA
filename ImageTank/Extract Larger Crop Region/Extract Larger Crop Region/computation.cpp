@@ -5,9 +5,11 @@
 #include "DTUtilities.h"
 #include "Utilities.h"
 
-void Computation(const DTSet<DTImage> &images,int width,double t,
-                 const DTTable &parameters,DTMutableSet<DTImage> &output)
+DTSet<DTImage> Computation(const DTSet<DTImage> &images,int width,double t,
+                           const DTTable &parameters)
 {
+    DTMutableSet<DTImage> toReturn;
+    
     // images is a set
     ssize_t images_count = images.NumberOfItems();
     DTTableColumnNumber timeValuesOverall = images.Parameters()("t");
@@ -96,10 +98,10 @@ void Computation(const DTSet<DTImage> &images,int width,double t,
             DTImage combinedRaw(diffRaw.Grid(),{ChangeName(singleImageRaw(0),"intensity"),ChangeName(diffRaw(0),"difference")});
             
             if (saveSmooth) {
-                output.Add(combinedSmooth);
+                toReturn.Add(combinedSmooth);
             }
             else {
-                output.Add(combinedRaw);
+                toReturn.Add(combinedRaw);
             }
         }
                 
@@ -107,5 +109,7 @@ void Computation(const DTSet<DTImage> &images,int width,double t,
     }
     
     // This call finishes the creation of the set variable.
-    output.Finish(parameters);
+    toReturn.SetParameterTable(parameters);
+    
+    return toReturn;
 }

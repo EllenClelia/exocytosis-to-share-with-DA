@@ -5,6 +5,10 @@
 #include "DTArguments.h"
 #include "DTTimer.h"
 #include "DTDataFile.h"
+#include "DTDoubleArrayOperators.h"
+#include "DTImage.h"
+#include "DTSet.h"
+#include "DTUtilities.h"
 #include "DTError.h"
 
 int main(int argc,const char *argv[])
@@ -16,7 +20,7 @@ int main(int argc,const char *argv[])
     int inOctave, numOctaves;
 
     {
-        // Inside a scope so that the input data file will be closed before the computation is called.
+        // Inside a scope so that the data files will be closed before the computation starts.
         DTDataFile inputDataFile("Input.dtbin",DTFile::ReadOnly);
         if (inputDataFile.IsOpen()==false) {
             std::cerr << "No input file found. Might have to save input for debugging." << std::endl;
@@ -32,33 +36,14 @@ int main(int argc,const char *argv[])
 
     DTDataFile outputFile("Output.dtbin",DTFile::NewReadWrite);
 
-    DTMutableSet<DTImage> output(outputFile,"Var");
-    DoG(image,sigma,inOctave,numOctaves,output);
+    //DTTimer timer;
+    //timer.Start();
+    DTSet<DTImage> output = DoG(image,sigma,inOctave,numOctaves);
+    //timer.Stop(); // Use timer.Time() to get the elapsed time
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging
 
-    {
-        // Structure information for the set
-        std::string baseName = "SeqInfo_Var";
-        std::string eName = baseName+"_E";
-        std::string pName = baseName+"_P";
-
-        // Structure for parameters
-        outputFile.Save("sigma",pName+"_1N");
-        outputFile.Save("Number",pName+"_1T");
-        outputFile.Save("octave",pName+"_2N");
-        outputFile.Save("Number",pName+"_2T");
-        outputFile.Save(2,pName+"_N");
-
-        // Structure for element
-        outputFile.Save("field",eName+"_1N");
-        outputFile.Save("difference",eName+"_2N");
-        outputFile.Save("median",eName+"_3N");
-        outputFile.Save(3,eName+"_N");
-        outputFile.Save("Image",eName);
-
-        outputFile.Save("Image Set","Seq_Var");
-    }
+    WriteOne(outputFile,"Var",output);
     // To speed up reading.
     outputFile.SaveIndex();
 

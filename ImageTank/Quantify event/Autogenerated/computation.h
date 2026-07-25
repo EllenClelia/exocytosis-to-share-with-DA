@@ -6,6 +6,9 @@
 #include "structures.h"
 
 #include "DTProgress.h"
+class DTDictionary;
+class DTImage;
+template <class T> class DTSet;
 
 Group Computation(const DTSet<DTImage> &images,int ptNumber,
                   const DTDictionary &parameters);

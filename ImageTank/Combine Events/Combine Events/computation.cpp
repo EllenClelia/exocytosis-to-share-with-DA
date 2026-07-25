@@ -1,7 +1,9 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
 
 DTTable Computation(const DTTable &events,double timeDelta,double spaceDelta)

@@ -1,9 +1,12 @@
 #include "computation.h"
 
 #include <math.h>
+#include "DTDataFile.h"
 #include "DTDoubleArrayOperators.h"
+#include "DTMask2D.h"
+#include "DTRegion1D.h"
+#include "DTTable.h"
 #include "DTUtilities.h"
-#include "DTRandom.h"
 
 DTPath2D ComputeL(const DTTable &points,
                  const DTMesh2DGrid &grid,
