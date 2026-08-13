@@ -11,6 +11,8 @@ DTTable Computation(const DTTable &events,double timeDelta,double spaceDelta)
     int pos = 0;
     ssize_t howMany = events.NumberOfRows();
     
+    if (events.IsEmpty()) return events;
+    
     DTTableColumnPoint2D centerColumn = events("center");
     DTTableColumnNumber timeColumn = events("time");
 
