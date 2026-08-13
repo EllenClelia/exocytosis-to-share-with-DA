@@ -85,7 +85,7 @@
 				</dict>
 			</array>
 			<key>Structure Requirement</key>
-			<integer>2</integer>
+			<integer>1</integer>
 			<key>Type</key>
 			<string>Table</string>
 		</dict>
@@ -129,6 +129,12 @@
 		<dict>
 			<key>Name</key>
 			<string>ID</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>Count</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

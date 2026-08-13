@@ -36,6 +36,12 @@
 					<string>Image</string>
 				</dict>
 				<dict>
+					<key>Name</key>
+					<string>pH</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
 					<key>Type</key>
 					<string>Close</string>
 				</dict>

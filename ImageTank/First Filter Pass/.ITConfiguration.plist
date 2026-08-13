@@ -41,13 +41,37 @@
 				</dict>
 				<dict>
 					<key>Name</key>
+					<string>failureAtStart</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
 					<string>R2</string>
 					<key>Type</key>
 					<string>Number</string>
 				</dict>
 				<dict>
 					<key>Name</key>
+					<string>NegR2</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>NegRatio</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
 					<string>intensity</string>
+					<key>Type</key>
+					<string>Number</string>
+				</dict>
+				<dict>
+					<key>Name</key>
+					<string>width</string>
 					<key>Type</key>
 					<string>Number</string>
 				</dict>
@@ -186,6 +210,12 @@
 		</dict>
 		<dict>
 			<key>Name</key>
+			<string>ptNumber</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
 			<string>shift</string>
 			<key>Type</key>
 			<string>Number</string>
@@ -201,6 +231,12 @@
 			<string>center</string>
 			<key>Type</key>
 			<string>Point2D</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>intensity</string>
+			<key>Type</key>
+			<string>Number</string>
 		</dict>
 		<dict>
 			<key>Name</key>
@@ -234,7 +270,19 @@
 		</dict>
 		<dict>
 			<key>Name</key>
-			<string>width</string>
+			<string>tau</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>backgroundVariation</string>
+			<key>Type</key>
+			<string>Number</string>
+		</dict>
+		<dict>
+			<key>Name</key>
+			<string>peakWidth</string>
 			<key>Type</key>
 			<string>Number</string>
 		</dict>

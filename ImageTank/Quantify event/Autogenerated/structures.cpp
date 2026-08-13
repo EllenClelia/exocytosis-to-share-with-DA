@@ -81,7 +81,9 @@ void Group::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("Number",name+"_10T_4T");
     output.Save("R2",name+"_10T_5N");
     output.Save("Number",name+"_10T_5T");
-    output.Save(5,name+"_10T_N");
+    output.Save("RMSE",name+"_10T_6N");
+    output.Save("Number",name+"_10T_6T");
+    output.Save(6,name+"_10T_N");
     output.Save("Table",name+"_10T");
     // Structure for "pointsUsedForFit"
     output.Save("pointsUsedForFit",name+"_11N");
@@ -99,7 +101,7 @@ void Group::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("Group",name);
 }
 
-extern void Write(DTDataStorage &output,std::string name,const Group &var)
+void Write(DTDataStorage &output,std::string name,const Group &var)
 {
     output.Save(var.average,name+"_average");
     output.Save(var.width,name+"_width");
@@ -115,7 +117,7 @@ extern void Write(DTDataStorage &output,std::string name,const Group &var)
     Write(output,name,DTDoubleArray());
 }
 
-extern void Read(DTDataStorage &input,std::string name,Group &var)
+void Read(DTDataStorage &input,std::string name,Group &var)
 {
     var.average = input.ReadNumber(name+"_average");
     var.width = input.ReadNumber(name+"_width");
@@ -130,7 +132,7 @@ extern void Read(DTDataStorage &input,std::string name,Group &var)
     Read(input,name+"_pointsUsedForFit",var.pointsUsedForFit);
 }
 
-extern void WriteOne(DTDataStorage &output,std::string name,const Group &var)
+void WriteOne(DTDataStorage &output,std::string name,const Group &var)
 {
     Write(output,name,var);
     output.Save("Group","Seq_"+name);
