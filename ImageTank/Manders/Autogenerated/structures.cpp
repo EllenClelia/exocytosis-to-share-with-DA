@@ -31,18 +31,18 @@ void Correlation::WriteStructure(DTDataStorage &output,std::string name)
     output.Save("Group",name);
 }
 
-extern void Write(DTDataStorage &output,std::string name,const Correlation &var)
+void Write(DTDataStorage &output,std::string name,const Correlation &var)
 {
     output.Save(var.coeff,name+"_coeff");
     Write(output,name,DTDoubleArray());
 }
 
-extern void Read(DTDataStorage &input,std::string name,Correlation &var)
+void Read(DTDataStorage &input,std::string name,Correlation &var)
 {
     var.coeff = input.ReadNumber(name+"_coeff");
 }
 
-extern void WriteOne(DTDataStorage &output,std::string name,const Correlation &var)
+void WriteOne(DTDataStorage &output,std::string name,const Correlation &var)
 {
     Write(output,name,var);
     output.Save("Group","Seq_"+name);

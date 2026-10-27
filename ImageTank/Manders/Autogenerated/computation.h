@@ -9,6 +9,7 @@
 class DTImage;
 class DTMask2D;
 
-Correlation Computation(const DTImage &image,const DTMask2D &mask);
+Correlation Computation(const DTImage &first,const DTImage &second,
+                        const DTMask2D &mask);
 
 #endif /* IT_computation_h */ 

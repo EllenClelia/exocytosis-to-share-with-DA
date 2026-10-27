@@ -15,7 +15,7 @@ int main(int argc,const char *argv[])
 {
     DTSetArguments(argc,argv);
 
-    DTImage image;
+    DTImage first, second;
     DTMask2D mask;
 
     {
@@ -26,8 +26,10 @@ int main(int argc,const char *argv[])
         }
         DTDataFile variableDataFile;
 
-        variableDataFile = DTDataFile("image.dtbin",DTFile::ReadOnly);
-        Read(variableDataFile,"image",image);
+        variableDataFile = DTDataFile("first.dtbin",DTFile::ReadOnly);
+        Read(variableDataFile,"first",first);
+        variableDataFile = DTDataFile("second.dtbin",DTFile::ReadOnly);
+        Read(variableDataFile,"second",second);
         Read(inputDataFile,"mask",mask);
     }
 
@@ -35,7 +37,7 @@ int main(int argc,const char *argv[])
 
     //DTTimer timer;
     //timer.Start();
-    Correlation output = Computation(image,mask);
+    Correlation output = Computation(first,second,mask);
     //timer.Stop(); // Use timer.Time() to get the elapsed time
 
     if (DTHowManyErrors()>0) outputFile.Save(DTHowManyErrors(),"ErrorCount"); // For error logging

@@ -7,7 +7,8 @@
 
 // google "how to compute manders correlation coefficient"
 
-Correlation Computation(const DTImage &image,const DTMask2D &mask)
+Correlation Computation(const DTImage &first,const DTImage &second,
+                        const DTMask2D &mask)
 {
     // DTMesh2DGrid grid = image.Grid(); // The underlying grid
     // Extract channels from image
@@ -19,10 +20,8 @@ Correlation Computation(const DTImage &image,const DTMask2D &mask)
 
     // DTCharArray onoff = mask.MaskArray(); // array of 0 and 1 (included)
     
-    DTImage asDouble = ConvertToDouble(image);
-    
-    DTDoubleArray red = asDouble(0).DoubleArray();
-    DTDoubleArray green = asDouble(1).DoubleArray();
+    DTDoubleArray red = ConvertToDouble(first)("first").DoubleArray();
+    DTDoubleArray green = ConvertToDouble(second)("second").DoubleArray();
     
     // sum(R*G)/sqrt(sum(R^2)*sum(G^2))
     // if G = c*R, i.e. correlated

@@ -615,7 +615,7 @@
 				63C8AB922EDCCF2E00AA7E9B /* Utilities.cpp */,
 			);
 			name = Sources;
-			path = "/Users/david/Documents/GitHub/exocytosis-to-share-with-DA/Sources";
+			path = "/Users/ellencleliaoshaughnessy/Documents/GitHub/exocytosis-to-share-with-DA/Sources";
 			sourceTree = "<absolute>";
 		};
 /* End PBXGroup section */

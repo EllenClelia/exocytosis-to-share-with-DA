@@ -6,36 +6,27 @@
 	<array>
 		<dict>
 			<key>Argument</key>
-			<string>image</string>
-			<key>Structure</key>
-			<array>
-				<dict>
-					<key>Type</key>
-					<string>Image</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>red</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Name</key>
-					<string>green</string>
-					<key>Type</key>
-					<string>Number</string>
-				</dict>
-				<dict>
-					<key>Type</key>
-					<string>Close</string>
-				</dict>
-			</array>
-			<key>Structure Requirement</key>
-			<integer>1</integer>
+			<string>first</string>
+			<key>Channel Name</key>
+			<string>first</string>
 			<key>Type</key>
+			<string>Single Image Channel</string>
+			<key>Var Type</key>
 			<string>Image</string>
 		</dict>
 		<dict>
+			<key>Argument</key>
+			<string>second</string>
+			<key>Channel Name</key>
+			<string>second</string>
+			<key>Type</key>
+			<string>Single Image Channel</string>
+			<key>Var Type</key>
+			<string>Image</string>
+		</dict>
+		<dict>
+			<key>Allow Empty</key>
+			<true/>
 			<key>Allow Empty Variable</key>
 			<true/>
 			<key>Argument</key>
